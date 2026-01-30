@@ -35,7 +35,7 @@
       --radius-lg: 20px;
       --transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       --transition-smooth: 0.3s ease;
-      
+
       --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
       --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.25);
       --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.4);
@@ -43,10 +43,10 @@
     }
 
     /* RESET & BASE */
-    *, *::before, *::after { 
-      margin: 0; 
-      padding: 0; 
-      box-sizing: border-box; 
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     html {
@@ -66,11 +66,7 @@
       line-height: 1.6;
     }
 
-    /* SÉLECTION PERSONNALISÉE */
-    ::selection {
-      background: var(--primary);
-      color: white;
-    }
+    ::selection { background: var(--primary); color: white; }
 
     /* FOND OPTIMISÉ */
     body::before {
@@ -95,7 +91,7 @@
       content: "";
       position: fixed;
       inset: 0;
-      background: 
+      background:
         radial-gradient(ellipse 800px 600px at 25% 15%, rgba(226, 0, 26, 0.08), transparent 60%),
         radial-gradient(ellipse 600px 800px at 75% 85%, rgba(0, 0, 0, 0.75), transparent 60%),
         linear-gradient(180deg, rgba(0,0,0,0.72), rgba(0,0,0,0.94));
@@ -103,16 +99,16 @@
       pointer-events: none;
     }
 
-    /* GRID AMÉLIORÉE */
+    /* GRID */
     #bg-grid {
-      position: fixed; 
+      position: fixed;
       inset: 0;
       background-image:
         repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0px, transparent 1px, transparent 60px),
         repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0px, transparent 1px, transparent 60px);
       transform: perspective(700px) rotateX(60deg) translateY(-150px) translateZ(-250px);
       animation: gridFlow 30s linear infinite;
-      z-index: -3; 
+      z-index: -3;
       pointer-events: none;
       opacity: 0.5;
     }
@@ -122,7 +118,7 @@
       100% { transform: perspective(700px) rotateX(60deg) translateY(60px) translateZ(-250px); }
     }
 
-    /* LOADING SPINNER */
+    /* LOADING */
     .loading-overlay {
       position: fixed;
       inset: 0;
@@ -134,12 +130,7 @@
       opacity: 1;
       transition: opacity 0.5s ease;
     }
-
-    .loading-overlay.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
+    .loading-overlay.hidden { opacity: 0; pointer-events: none; }
     .spinner {
       width: 60px;
       height: 60px;
@@ -148,25 +139,19 @@
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* LAYOUT */
-    .app { 
-      display: flex; 
-      height: 100vh; 
+    .app {
+      display: flex;
+      height: 100vh;
       width: 100%;
       opacity: 0;
       transition: opacity 0.6s ease;
     }
+    .app.loaded { opacity: 1; }
 
-    .app.loaded {
-      opacity: 1;
-    }
-
-    /* SIDEBAR PREMIUM */
+    /* SIDEBAR */
     .sidebar {
       width: var(--sidebar-width);
       background: linear-gradient(180deg, rgba(10, 10, 15, 0.97), rgba(5, 5, 10, 0.99));
@@ -219,16 +204,12 @@
       transition: var(--transition);
       cursor: pointer;
     }
-
     .brand-logo:hover {
       transform: scale(1.12) rotate(-8deg);
       filter: drop-shadow(0 15px 35px rgba(226, 0, 26, 0.7));
     }
 
-    .brand-text {
-      flex: 1;
-    }
-
+    .brand-text { flex: 1; }
     .brand-text h2 {
       font-family: 'Rajdhani', sans-serif;
       font-weight: 900;
@@ -241,7 +222,6 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
     .brand-text span {
       font-size: 11px;
       color: var(--text-dim);
@@ -251,23 +231,18 @@
       font-weight: 500;
     }
 
-    .menu { 
-      flex: 1; 
-      overflow-y: auto; 
-      padding: 26px 20px; 
-    }
-
+    .menu { flex: 1; overflow-y: auto; padding: 26px 20px; }
     .menu::-webkit-scrollbar { width: 5px; }
     .menu::-webkit-scrollbar-track { background: transparent; }
-    .menu::-webkit-scrollbar-thumb { 
-      background: linear-gradient(180deg, var(--primary), var(--primary-dark)); 
-      border-radius: 3px; 
+    .menu::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+      border-radius: 3px;
     }
 
     .nav-link {
-      display: flex; 
-      align-items: center; 
-      gap: 16px; 
+      display: flex;
+      align-items: center;
+      gap: 16px;
       padding: 18px 20px;
       color: var(--text-dim);
       border-radius: 15px;
@@ -293,14 +268,11 @@
       background: linear-gradient(90deg, transparent, rgba(226, 0, 26, 0.18), transparent);
       transition: left 0.7s ease;
     }
+    .nav-link:hover::before { left: 100%; }
 
-    .nav-link:hover::before {
-      left: 100%;
-    }
-
-    .nav-link:hover { 
-      background: rgba(255,255,255,0.09); 
-      color: #fff; 
+    .nav-link:hover {
+      background: rgba(255,255,255,0.09);
+      color: #fff;
       border-color: rgba(255, 255, 255, 0.15);
       transform: translateX(8px);
     }
@@ -312,10 +284,6 @@
       text-shadow: 0 0 20px rgba(226, 0, 26, 0.8);
       box-shadow: 0 6px 25px rgba(226, 0, 26, 0.35);
       transform: translateX(8px);
-    }
-
-    .nav-link:active {
-      transform: translateX(8px) scale(0.98);
     }
 
     .nav-icon {
@@ -333,16 +301,10 @@
       filter: drop-shadow(0 6px 12px rgba(226, 0, 26, 0.6));
     }
 
-    /* MAIN CONTENT */
-    .main-content { 
-      flex: 1; 
-      display: flex; 
-      flex-direction: column; 
-      position: relative; 
-      overflow: hidden; 
-    }
+    /* MAIN */
+    .main-content { flex: 1; display: flex; flex-direction: column; position: relative; overflow: hidden; }
 
-    /* TOPBAR PREMIUM */
+    /* TOPBAR */
     .topbar {
       height: var(--header-height);
       display: flex;
@@ -369,11 +331,7 @@
       opacity: 0.4;
     }
 
-    .page-title {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
+    .page-title { display: flex; align-items: center; gap: 18px; }
 
     .topbar-logo {
       width: 42px;
@@ -403,21 +361,17 @@
       background-clip: text;
     }
 
-    .actions { 
-      display: flex; 
-      gap: 16px; 
-      align-items: center; 
-    }
+    .actions { display: flex; gap: 16px; align-items: center; }
 
     .btn-icon {
-      width: 52px; 
+      width: 52px;
       height: 52px;
       border-radius: 16px;
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.06);
       color: white;
-      display: flex; 
-      align-items: center; 
+      display: flex;
+      align-items: center;
       justify-content: center;
       transition: var(--transition);
       cursor: pointer;
@@ -433,20 +387,13 @@
       opacity: 0;
       transition: opacity 0.4s ease;
     }
+    .btn-icon:hover::before { opacity: 0.35; }
 
-    .btn-icon:hover::before {
-      opacity: 0.35;
-    }
-
-    .btn-icon:hover { 
-      background: var(--primary); 
+    .btn-icon:hover {
+      background: var(--primary);
       box-shadow: 0 8px 30px var(--primary-glow);
       transform: translateY(-4px);
       border-color: var(--primary);
-    }
-
-    .btn-icon:active {
-      transform: translateY(-2px) scale(0.96);
     }
 
     .btn-icon img {
@@ -456,60 +403,39 @@
       filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
       transition: var(--transition);
     }
+    .btn-icon:hover img { transform: scale(1.2); }
 
-    .btn-icon:hover img {
-      transform: scale(1.2);
-    }
-
-    /* SCROLL AREA */
-    .scroll-area { 
-      flex: 1; 
-      overflow-y: auto; 
+    /* SCROLL */
+    .scroll-area {
+      flex: 1;
+      overflow-y: auto;
       overflow-x: hidden;
-      padding: 55px; 
-      scroll-behavior: smooth; 
+      padding: 55px;
+      scroll-behavior: smooth;
     }
 
     .scroll-area::-webkit-scrollbar { width: 10px; }
-    .scroll-area::-webkit-scrollbar-track { 
+    .scroll-area::-webkit-scrollbar-track {
       background: rgba(255, 255, 255, 0.04);
       border-radius: 5px;
       margin: 10px;
     }
-    .scroll-area::-webkit-scrollbar-thumb { 
-      background: linear-gradient(180deg, var(--primary), var(--primary-dark)); 
+    .scroll-area::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--primary), var(--primary-dark));
       border-radius: 5px;
       border: 2px solid transparent;
       background-clip: padding-box;
     }
-    .scroll-area::-webkit-scrollbar-thumb:hover {
-      background: var(--primary);
-      border: 2px solid transparent;
-      background-clip: padding-box;
+
+    .page { display: none; }
+    .page.active { display: block; animation: pageEntrance 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+    @keyframes pageEntrance {
+      from { opacity: 0; transform: translateY(50px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* PAGES */
-    .page { 
-      display: none; 
-    }
-
-    .page.active { 
-      display: block; 
-      animation: pageEntrance 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    @keyframes pageEntrance { 
-      from { 
-        opacity: 0; 
-        transform: translateY(50px) scale(0.96); 
-      } 
-      to { 
-        opacity: 1; 
-        transform: translateY(0) scale(1); 
-      } 
-    }
-
-    /* PUZZLE ULTRA PREMIUM */
+    /* PUZZLE */
     .puzzle-wrapper {
       display: flex;
       flex-direction: column;
@@ -519,21 +445,11 @@
       padding: 30px;
     }
 
-    .puzzle-header { 
-      text-align: center; 
-      margin-bottom: 55px;
-      animation: fadeInDown 0.9s ease;
-    }
+    .puzzle-header { text-align: center; margin-bottom: 55px; animation: fadeInDown 0.9s ease; }
 
     @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .puzzle-header h1 {
@@ -575,7 +491,7 @@
       gap: 0;
       border-radius: 18px;
       overflow: hidden;
-      box-shadow: 
+      box-shadow:
         0 35px 90px rgba(0, 0, 0, 0.65),
         0 0 0 1px rgba(255, 255, 255, 0.06),
         inset 0 0 0 1px rgba(255, 255, 255, 0.03);
@@ -583,14 +499,8 @@
     }
 
     @keyframes puzzleEntrance {
-      from {
-        opacity: 0;
-        transform: scale(0.88) rotateX(12deg) rotateY(-5deg);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1) rotateX(0deg) rotateY(0deg);
-      }
+      from { opacity: 0; transform: scale(0.88) rotateX(12deg) rotateY(-5deg); }
+      to { opacity: 1; transform: scale(1) rotateX(0deg) rotateY(0deg); }
     }
 
     .puzzle-piece {
@@ -616,50 +526,6 @@
       user-select: none;
     }
 
-    .puzzle-piece::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 65%);
-      opacity: 0;
-      transition: opacity 0.45s ease;
-    }
-
-    .puzzle-piece::after {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      background: inherit;
-      opacity: 0;
-      z-index: -1;
-      filter: blur(20px);
-      transition: opacity 0.45s ease;
-    }
-
-    .puzzle-piece:hover {
-      transform: translateY(-15px) scale(1.1);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
-      z-index: 10;
-      filter: brightness(1.18) saturate(1.15);
-    }
-
-    .puzzle-piece:hover::before {
-      opacity: 1;
-    }
-
-    .puzzle-piece:hover::after {
-      opacity: 0.55;
-    }
-
-    .puzzle-piece:hover .p-icon {
-      transform: scale(1.25) rotate(6deg);
-      filter: drop-shadow(0 6px 15px rgba(0,0,0,0.7));
-    }
-
-    .puzzle-piece:active {
-      transform: translateY(-12px) scale(1.08);
-    }
-
     .p-icon {
       width: 34px;
       height: 34px;
@@ -669,7 +535,7 @@
       transition: var(--transition);
     }
 
-    /* COULEURS RICHES AVEC GRADIENTS */
+    /* COULEURS */
     .p-red { background: linear-gradient(135deg, #e10600 0%, #b00015 100%); }
     .p-cyan { background: linear-gradient(135deg, #20c997 0%, #17a07a 100%); }
     .p-orange { background: linear-gradient(135deg, #ffb02e 0%, #e09500 100%); }
@@ -690,7 +556,7 @@
     .p-darkred { background: linear-gradient(135deg, #e10600 0%, #980400 100%); }
     .p-green { background: linear-gradient(135deg, #00b894 0%, #008f6f 100%); }
 
-    /* MODAL ULTRA PREMIUM */
+    /* MODAL */
     .modal {
       position: fixed;
       inset: 0;
@@ -702,16 +568,7 @@
       z-index: 1000;
       padding: 30px;
     }
-
-    .modal.active { 
-      display: flex; 
-      animation: modalFadeIn 0.5s ease; 
-    }
-
-    @keyframes modalFadeIn { 
-      from { opacity: 0; } 
-      to { opacity: 1; } 
-    }
+    .modal.active { display: flex; }
 
     .modal-content {
       background: linear-gradient(180deg, rgba(20, 20, 25, 0.99), rgba(12, 12, 17, 0.99));
@@ -721,32 +578,7 @@
       width: 100%;
       max-height: 92vh;
       overflow-y: auto;
-      box-shadow: 
-        0 50px 120px rgba(0, 0, 0, 0.95),
-        0 0 0 1px rgba(255, 255, 255, 0.06),
-        inset 0 1px 0 rgba(255, 255, 255, 0.03);
-      animation: modalSlide 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .modal-content::-webkit-scrollbar { width: 10px; }
-    .modal-content::-webkit-scrollbar-track { 
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 5px;
-    }
-    .modal-content::-webkit-scrollbar-thumb { 
-      background: linear-gradient(180deg, var(--primary), var(--primary-dark)); 
-      border-radius: 5px; 
-    }
-
-    @keyframes modalSlide {
-      from { 
-        opacity: 0; 
-        transform: scale(0.92) translateY(50px); 
-      }
-      to { 
-        opacity: 1; 
-        transform: scale(1) translateY(0); 
-      }
+      box-shadow: 0 50px 120px rgba(0, 0, 0, 0.95);
     }
 
     .modal-header {
@@ -756,34 +588,15 @@
       align-items: center;
       gap: 20px;
       background: rgba(0, 0, 0, 0.4);
-      position: relative;
     }
 
-    .modal-header::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 38px;
-      right: 38px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary) 0%, transparent 80%);
-    }
-
-    .modal-header .emoji { 
-      font-size: 52px;
-      filter: drop-shadow(0 8px 20px rgba(226, 0, 26, 0.5));
-      animation: emojiFloat 3.8s ease-in-out infinite;
-    }
-
+    .modal-header .emoji { font-size: 52px; }
     .modal-header h2 {
       font-size: 38px;
       font-weight: 900;
       font-family: 'Rajdhani', sans-serif;
       text-transform: uppercase;
-      background: linear-gradient(135deg, #fff 0%, #c8c8c8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: white;
       letter-spacing: 1.5px;
     }
 
@@ -797,84 +610,19 @@
       cursor: pointer;
       font-weight: 800;
       font-family: 'Rajdhani', sans-serif;
-      transition: var(--transition);
       text-transform: uppercase;
       font-size: 15px;
       letter-spacing: 0.8px;
     }
-
-    .modal-close:hover { 
-      background: var(--primary); 
-      box-shadow: 0 8px 25px var(--primary-glow);
-      transform: translateY(-3px);
-      border-color: var(--primary);
-    }
-
-    .modal-close:active {
-      transform: translateY(-1px);
-    }
-
-    .modal-body { 
-      padding: 38px; 
-    }
-
-    .doc-grid { 
-      display: grid; 
-      gap: 20px; 
-    }
-
+    .modal-body { padding: 38px; }
+    .doc-grid { display: grid; gap: 20px; }
     .doc-item {
       background: rgba(255, 255, 255, 0.045);
       border: 1px solid var(--border-light);
       border-radius: 16px;
       padding: 26px;
       cursor: pointer;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
     }
-
-    .doc-item::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 5px;
-      background: linear-gradient(180deg, var(--primary), var(--primary-dark));
-      transform: scaleY(0);
-      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .doc-item::after {
-      content: '→';
-      position: absolute;
-      right: 26px;
-      top: 50%;
-      transform: translateY(-50%) translateX(-10px);
-      font-size: 24px;
-      font-weight: 900;
-      color: var(--primary);
-      opacity: 0;
-      transition: all 0.4s ease;
-    }
-
-    .doc-item:hover::before {
-      transform: scaleY(1);
-    }
-
-    .doc-item:hover::after {
-      opacity: 1;
-      transform: translateY(-50%) translateX(0);
-    }
-
-    .doc-item:hover {
-      background: rgba(226, 0, 26, 0.13);
-      border-color: var(--primary);
-      transform: translateX(14px);
-      box-shadow: 0 10px 35px rgba(226, 0, 26, 0.35);
-    }
-
     .doc-item h4 {
       font-size: 20px;
       font-weight: 900;
@@ -882,16 +630,10 @@
       margin-bottom: 8px;
       text-transform: uppercase;
       font-family: 'Rajdhani', sans-serif;
-      letter-spacing: 0.6px;
     }
+    .doc-item p { font-size: 14px; color: var(--text-dim); }
 
-    .doc-item p { 
-      font-size: 14px; 
-      color: var(--text-dim);
-      line-height: 1.6;
-    }
-
-    /* TOAST NOTIFICATIONS */
+    /* TOAST */
     .toast {
       position: fixed;
       bottom: 30px;
@@ -911,175 +653,53 @@
       font-size: 16px;
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
+    .toast.show { opacity: 1; transform: translateY(0); }
 
-    .toast.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* MOBILE RESPONSIVE */
+    /* MOBILE */
     @media (max-width: 1024px) {
-      :root {
-        --sidebar-width: 100%;
-        --header-height: 70px;
-      }
-
+      :root { --sidebar-width: 100%; --header-height: 70px; }
       .app { flex-direction: column; }
-      
       .sidebar {
-        position: fixed; 
-        bottom: 0; 
-        left: 0; 
-        width: 100%; 
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
         height: 80px;
-        flex-direction: row; 
-        align-items: center; 
+        flex-direction: row;
+        align-items: center;
         padding: 0;
-        border-top: 2px solid var(--primary); 
+        border-top: 2px solid var(--primary);
         border-right: none;
-        justify-content: space-around; 
+        justify-content: space-around;
         overflow: visible;
         background: rgba(5,5,5,0.99);
         box-shadow: 0 -10px 40px rgba(226,0,26,0.5);
         z-index: 1001;
       }
-
       .sidebar::before { display: none; }
       .brand-box { display: none; }
-
-      .menu { 
-        display: flex; 
-        flex-direction: row; 
-        padding: 0; 
-        width: 100%; 
-        justify-content: space-around; 
-        align-items: center; 
-        gap: 4px;
-      }
-
-      .nav-link {
-        flex-direction: column; 
-        gap: 7px; 
-        font-size: 11px; 
-        padding: 12px 6px;
-        border: none; 
-        margin: 0; 
-        background: transparent !important;
-        width: 78px; 
-        justify-content: center;
-        border-radius: 0;
-      }
-
+      .menu { display: flex; flex-direction: row; padding: 0; width: 100%; justify-content: space-around; align-items: center; gap: 4px; }
+      .nav-link { flex-direction: column; gap: 7px; font-size: 11px; padding: 12px 6px; border: none; margin: 0; background: transparent !important; width: 78px; justify-content: center; border-radius: 0; }
       .nav-link::before { display: none; }
-
-      .nav-link:hover {
-        transform: translateY(-8px);
-        background: rgba(255,255,255,0.05) !important;
-      }
-
-      .nav-link.active { 
-        color: var(--primary); 
-        text-shadow: 0 0 25px var(--primary);
-        transform: translateY(-10px) scale(1.05);
-        border-left: none;
-        background: rgba(226, 0, 26, 0.15) !important;
-      }
-
-      .nav-icon { 
-        width: 28px; 
-        height: 28px; 
-        margin-bottom: 0;
-      }
-
-      .main-content { 
-        margin-bottom: 80px; 
-        height: calc(100vh - 80px); 
-      }
-
-      .topbar { 
-        padding: 0 22px; 
-        height: var(--header-height); 
-      }
-
-      .page-title h2 { 
-        font-size: 21px; 
-      }
-
-      .topbar-logo {
-        width: 34px;
-        height: 34px;
-      }
-
-      .scroll-area { 
-        padding: 28px; 
-      }
-
-      .puzzle-container {
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: auto;
-        aspect-ratio: auto;
-      }
-
-      .puzzle-header h1 { 
-        font-size: 36px; 
-      }
-
-      .puzzle-header .emoji {
-        font-size: 55px;
-      }
-
-      .modal {
-        padding: 20px;
-      }
-
-      .modal-header {
-        padding: 28px;
-      }
-
-      .modal-header h2 {
-        font-size: 26px;
-      }
-
-      .modal-header .emoji {
-        font-size: 40px;
-      }
-
-      .modal-body {
-        padding: 28px;
-      }
-
-      .btn-icon {
-        width: 46px;
-        height: 46px;
-      }
-
-      .btn-icon img {
-        width: 22px;
-        height: 22px;
-      }
-
-      .toast {
-        bottom: 100px;
-        right: 20px;
-        left: 20px;
-        text-align: center;
-      }
-    }
-
-    /* ANIMATIONS AU CHARGEMENT */
-    @keyframes shimmer {
-      0% { background-position: -1000px 0; }
-      100% { background-position: 1000px 0; }
-    }
-
-    .skeleton {
-      background: linear-gradient(90deg, 
-        rgba(255,255,255,0.03) 0%, 
-        rgba(255,255,255,0.08) 50%, 
-        rgba(255,255,255,0.03) 100%
-      );
-      background-size: 1000px 100%;
-      animation: shimmer 2s infinite;
+      .nav-link:hover { transform: translateY(-8px); background: rgba(255,255,255,0.05) !important; }
+      .nav-link.active { color: var(--primary); text-shadow: 0 0 25px var(--primary); transform: translateY(-10px) scale(1.05); border-left: none; background: rgba(226, 0, 26, 0.15) !important; }
+      .nav-icon { width: 28px; height: 28px; margin-bottom: 0; }
+      .main-content { margin-bottom: 80px; height: calc(100vh - 80px); }
+      .topbar { padding: 0 22px; height: var(--header-height); }
+      .page-title h2 { font-size: 21px; }
+      .topbar-logo { width: 34px; height: 34px; }
+      .scroll-area { padding: 28px; }
+      .puzzle-container { grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; aspect-ratio: auto; }
+      .puzzle-header h1 { font-size: 36px; }
+      .puzzle-header .emoji { font-size: 55px; }
+      .modal { padding: 20px; }
+      .modal-header { padding: 28px; }
+      .modal-header h2 { font-size: 26px; }
+      .modal-header .emoji { font-size: 40px; }
+      .modal-body { padding: 28px; }
+      .btn-icon { width: 46px; height: 46px; }
+      .btn-icon img { width: 22px; height: 22px; }
+      .toast { bottom: 100px; right: 20px; left: 20px; text-align: center; }
     }
   </style>
 </head>
@@ -1096,7 +716,13 @@
     <!-- SIDEBAR -->
     <nav class="sidebar">
       <div class="brand-box">
-        <img class="brand-logo" src="GROUPEMENT_MOUSQUETAIRES_H_INV_HD.png" alt="Groupement Mousquetaires" onclick="nav('puzzle', document.querySelectorAll('.nav-link')[0])">
+        <!-- ✅ FIX LOGO (haut gauche) -->
+        <img class="brand-logo"
+             src="GROUPEMENT_MOUSQUETAIRES_H_INV_HD.png"
+             alt="Groupement Mousquetaires"
+             onclick="nav('puzzle', document.querySelectorAll('.nav-link')[0])"
+             data-fallback="241111_Symbole R&B_320x320_RVB.png">
+
         <div class="brand-text">
           <h2>BRIGNOLES</h2>
           <span>LOGISTIQUE &amp; QHSE</span>
@@ -1105,23 +731,28 @@
 
       <div class="menu">
         <div class="nav-link active" onclick="nav('puzzle', this)">
-          <img class="nav-icon" src="liste.png" alt="Puzzle" loading="lazy">
+          <img class="nav-icon" src="liste.png" alt="Puzzle" loading="lazy" data-fallback="liste.png">
           <span>Puzzle QHSE</span>
         </div>
         <div class="nav-link" onclick="nav('poi', this)">
-          <img class="nav-icon" src="usine.png" alt="Incendie" loading="lazy">
+          <img class="nav-icon" src="usine.png" alt="Incendie" loading="lazy" data-fallback="usine.png">
           <span>Incendie</span>
         </div>
+
+        <!-- ✅ FIX "Retrait" sidebar -->
         <div class="nav-link" onclick="nav('retrait', this)">
-          <img class="nav-icon" src="carton.png" alt="Retrait" loading="lazy">
+          <img class="nav-icon" src="chariot.png" alt="Retrait" loading="lazy" data-fallback="carton.png">
           <span>Retrait</span>
         </div>
+
         <div class="nav-link" onclick="nav('fds', this)">
-          <img class="nav-icon" src="cible.png" alt="FDS" loading="lazy">
+          <img class="nav-icon" src="cible.png" alt="FDS" loading="lazy" data-fallback="cible.png">
           <span>FDS</span>
         </div>
+
+        <!-- ✅ FIX "Règlement" sidebar -->
         <div class="nav-link" onclick="nav('reglementation', this)">
-          <img class="nav-icon" src="maison.png" alt="Règlement" loading="lazy">
+          <img class="nav-icon" src="liste.png" alt="Règlement" loading="lazy" data-fallback="liste.png">
           <span>Règlement</span>
         </div>
       </div>
@@ -1131,13 +762,13 @@
     <main class="main-content">
       <header class="topbar">
         <div class="page-title">
-          <img class="topbar-logo" src="241111_Symbole R&B_320x320_RVB.png" alt="Logo" loading="lazy">
+          <img class="topbar-logo" src="241111_Symbole R&B_320x320_RVB.png" alt="Logo" loading="lazy" data-fallback="241111_Symbole R&B_320x320_RVB.png">
           <h2 id="title-display">Puzzle QHSE</h2>
         </div>
 
         <div class="actions">
           <div class="btn-icon" title="Retour à l'accueil" onclick="nav('puzzle', document.querySelectorAll('.nav-link')[0])">
-            <img src="maison.png" alt="Accueil" loading="lazy">
+            <img src="maison.png" alt="Accueil" loading="lazy" data-fallback="maison.png">
           </div>
         </div>
       </header>
@@ -1154,102 +785,105 @@
 
             <div class="puzzle-container">
               <div class="puzzle-piece p-red" onclick="openModal('procedures', '📋', 'PROCEDURES')">
-                <img class="p-icon" src="liste.png" alt="" loading="lazy">
+                <img class="p-icon" src="liste.png" alt="" loading="lazy" data-fallback="liste.png">
                 PROCEDURES
               </div>
 
               <div class="puzzle-piece p-cyan" onclick="openModal('evaluation', '📊', 'EVALUATION')">
-                <img class="p-icon" src="cible.png" alt="" loading="lazy">
+                <img class="p-icon" src="cible.png" alt="" loading="lazy" data-fallback="cible.png">
                 EVALUATION
               </div>
 
+              <!-- ✅ FIX "Référentiels" (puzzle) -->
               <div class="puzzle-piece p-orange" onclick="openModal('referentiels', '📚', 'REFERENTIELS')">
-                <img class="p-icon" src="carton.png" alt="" loading="lazy">
+                <img class="p-icon" src="liste.png" alt="" loading="lazy" data-fallback="liste.png">
                 REFERENTIELS
               </div>
 
               <div class="puzzle-piece p-gray" onclick="openModal('personnel', '👥', 'LISTE PERSONNEL')">
-                <img class="p-icon" src="mains.png" alt="" loading="lazy">
+                <img class="p-icon" src="mains.png" alt="" loading="lazy" data-fallback="mains.png">
                 LISTE PERSONNEL<br>AFFICHAGE
               </div>
 
               <div class="puzzle-piece p-teal" onclick="openModal('dechets', '♻️', 'SUIVI DES DECHETS')">
-                <img class="p-icon" src="camion.png" alt="" loading="lazy">
+                <img class="p-icon" src="camion.png" alt="" loading="lazy" data-fallback="camion.png">
                 SUIVI DES DECHETS
               </div>
 
               <div class="puzzle-piece p-blue" onclick="openModal('indicateurs', '📈', 'INDICATEURS')">
-                <img class="p-icon" src="ville.png" alt="" loading="lazy">
+                <img class="p-icon" src="ville.png" alt="" loading="lazy" data-fallback="ville.png">
                 INDICATEURS
               </div>
 
               <div class="puzzle-piece p-yellow" onclick="openModal('affichage', '📺', 'AFFICHAGE')">
-                <img class="p-icon" src="magasin.png" alt="" loading="lazy">
+                <img class="p-icon" src="magasin.png" alt="" loading="lazy" data-fallback="magasin.png">
                 AFFICHAGE
               </div>
 
               <div class="puzzle-piece p-magenta" onclick="openModal('formation', '🎓', 'FORMATION')">
-                <img class="p-icon" src="conseiller.png" alt="" loading="lazy">
+                <img class="p-icon" src="conseiller.png" alt="" loading="lazy" data-fallback="conseiller.png">
                 FORMATION
               </div>
 
               <div class="puzzle-piece p-lime" onclick="openModal('suiviat', '🏥', 'SUIVI DES AT')">
-                <img class="p-icon" src="ouvrier.png" alt="" loading="lazy">
+                <img class="p-icon" src="ouvrier.png" alt="" loading="lazy" data-fallback="ouvrier.png">
                 SUIVI DES AT
               </div>
 
+              <!-- ✅ FIX "Réglementation" (puzzle) -->
               <div class="puzzle-piece p-purple" onclick="openModal('reglementation', '⚖️', 'REGLEMENTATION')">
-                <img class="p-icon" src="maison.png" alt="" loading="lazy">
+                <img class="p-icon" src="liste.png" alt="" loading="lazy" data-fallback="liste.png">
                 REGLEMENTATION
               </div>
 
               <div class="puzzle-piece p-pink" onclick="openModal('coordonnees', '🗺️', 'COORDONNEES & PLAN')">
-                <img class="p-icon" src="localisation.png" alt="" loading="lazy">
+                <img class="p-icon" src="localisation.png" alt="" loading="lazy" data-fallback="localisation.png">
                 COORDONNEES &<br>PLAN
               </div>
 
               <div class="puzzle-piece p-aqua" onclick="openModal('rdaudit', '🔍', 'REVUE DIRECTION & AUDIT')">
-                <img class="p-icon" src="cible.png" alt="" loading="lazy">
+                <img class="p-icon" src="cible.png" alt="" loading="lazy" data-fallback="cible.png">
                 REVUE DIRECTION<br>& AUDIT
               </div>
 
               <div class="puzzle-piece p-lightyellow" onclick="openModal('intervention', '🛠️', 'INTERVENTION')">
-                <img class="p-icon" src="transpalette.png" alt="" loading="lazy">
+                <img class="p-icon" src="transpalette.png" alt="" loading="lazy" data-fallback="transpalette.png">
                 INTERVENTION
               </div>
 
               <div class="puzzle-piece p-darkpurple" onclick="openModal('crreunion', '💬', 'CR REUNION')">
-                <img class="p-icon" src="mains.png" alt="" loading="lazy">
+                <img class="p-icon" src="mains.png" alt="" loading="lazy" data-fallback="mains.png">
                 CR REUNION
               </div>
 
               <div class="puzzle-piece p-lightpurple" onclick="openModal('reglementation2', '⚖️', 'REGLEMENTATION')">
-                <img class="p-icon" src="maison.png" alt="" loading="lazy">
+                <img class="p-icon" src="liste.png" alt="" loading="lazy" data-fallback="liste.png">
                 REGLEMENTATION
               </div>
 
+              <!-- ✅ FIX "Retrait Qualité" (puzzle) -->
               <div class="puzzle-piece p-wine" onclick="nav('retrait', document.querySelectorAll('.nav-link')[2])">
-                <img class="p-icon" src="carton.png" alt="" loading="lazy">
+                <img class="p-icon" src="chariot.png" alt="" loading="lazy" data-fallback="carton.png">
                 RETRAIT<br>QUALITE
               </div>
 
               <div class="puzzle-piece p-red" onclick="nav('poi', document.querySelectorAll('.nav-link')[1])">
-                <img class="p-icon" src="usine.png" alt="" loading="lazy">
+                <img class="p-icon" src="usine.png" alt="" loading="lazy" data-fallback="usine.png">
                 INCENDIE - POI
               </div>
 
               <div class="puzzle-piece p-lightgray" onclick="openModal('incident', '⚠️', 'INCIDENT')">
-                <img class="p-icon" src="cible.png" alt="" loading="lazy">
+                <img class="p-icon" src="cible.png" alt="" loading="lazy" data-fallback="cible.png">
                 INCIDENT
               </div>
 
               <div class="puzzle-piece p-darkred" onclick="nav('fds', document.querySelectorAll('.nav-link')[3])">
-                <img class="p-icon" src="liste.png" alt="" loading="lazy">
+                <img class="p-icon" src="liste.png" alt="" loading="lazy" data-fallback="liste.png">
                 FICHE DE SECURITE
               </div>
 
               <div class="puzzle-piece p-green" onclick="openModal('incidentdoc', '📄', 'INCIDENT DOCUMENTAIRE')">
-                <img class="p-icon" src="liste.png" alt="" loading="lazy">
+                <img class="p-icon" src="liste.png" alt="" loading="lazy" data-fallback="liste.png">
                 INCIDENT<br>DOCUMENTAIRE
               </div>
             </div>
@@ -1394,27 +1028,34 @@
     </div>
   </div>
 
-  <!-- TOAST NOTIFICATION -->
+  <!-- TOAST -->
   <div class="toast" id="toast"></div>
 
   <script>
-    // CHARGEMENT OPTIMISÉ
-    window.addEventListener('load', function() {
+    // ✅ Fallback robuste : si image cassée -> remplace par data-fallback (ou logo par défaut)
+    function applyImageFallback(img) {
+      const fallback = img.getAttribute('data-fallback') || "241111_Symbole R&B_320x320_RVB.png";
+      if (!img.dataset.fallbackApplied) {
+        img.dataset.fallbackApplied = "1";
+        img.src = fallback;
+      }
+    }
+
+    // CHARGEMENT
+    window.addEventListener('load', function () {
       setTimeout(() => {
         document.getElementById('loading').classList.add('hidden');
         document.getElementById('app').classList.add('loaded');
       }, 800);
     });
 
-    // NAVIGATION AMÉLIORÉE
+    // NAV
     function nav(id, el) {
-      // Masquer toutes les pages avec fade out
       document.querySelectorAll('.page').forEach(p => {
         p.style.opacity = '0';
         setTimeout(() => p.classList.remove('active'), 200);
       });
 
-      // Afficher la nouvelle page
       setTimeout(() => {
         const target = document.getElementById(id);
         if (target) {
@@ -1423,7 +1064,6 @@
         }
       }, 250);
 
-      // Titres des pages
       const titles = {
         'puzzle': 'Puzzle QHSE',
         'poi': 'Incendie / POI',
@@ -1433,17 +1073,13 @@
       };
       document.getElementById('title-display').textContent = titles[id] || id.toUpperCase();
 
-      // Mise à jour du menu actif
       document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-      if (el && el.classList.contains('nav-link')) {
-        el.classList.add('active');
-      }
+      if (el && el.classList.contains('nav-link')) el.classList.add('active');
 
-      // Scroll to top fluide
       document.querySelector('.scroll-area').scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // MODAL AMÉLIORÉE
+    // MODAL
     function openModal(key, emoji, title) {
       document.getElementById('modalEmoji').textContent = emoji;
       document.getElementById('modalTitle').textContent = title;
@@ -1454,8 +1090,6 @@
         </div>
       `;
       document.getElementById('modal').classList.add('active');
-      
-      // Empêcher le scroll du body
       document.body.style.overflow = 'hidden';
     }
 
@@ -1464,45 +1098,26 @@
       document.body.style.overflow = '';
     }
 
-    // TOAST NOTIFICATIONS
+    // TOAST
     function showToast(message) {
       const toast = document.getElementById('toast');
       toast.textContent = message;
       toast.classList.add('show');
-      
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
+      setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
-    // FERMETURE MODAL PAR ECHAP
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeModal();
-      }
+      if (e.key === 'Escape') closeModal();
     });
 
-    // GESTION DES ERREURS D'IMAGES
+    // ✅ Gestion erreurs images => fallback au lieu d'opacité 0.3
     document.querySelectorAll('img').forEach(img => {
-      img.addEventListener('error', function() {
-        console.warn('Image non trouvée:', this.src);
-        this.style.opacity = '0.3';
+      img.addEventListener('error', function () {
+        console.warn('Image non trouvée:', this.getAttribute('src'));
+        applyImageFallback(this);
       });
     });
 
-    // OPTIMISATION PERFORMANCE
-    let ticking = false;
-    document.querySelector('.scroll-area')?.addEventListener('scroll', function(e) {
-      if (!ticking) {
-        window.requestAnimationFrame(function() {
-          // Logique de scroll si nécessaire
-          ticking = false;
-        });
-        ticking = true;
-      }
-    });
-
-    // LOG DE DEBUG
     console.log('%c🧩 Portail QHSE Les Mousquetaires', 'color: #E2001A; font-size: 20px; font-weight: bold;');
     console.log('%cBrignoles - Logistique & QHSE', 'color: #666; font-size: 12px;');
   </script>
