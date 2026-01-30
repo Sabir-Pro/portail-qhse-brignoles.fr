@@ -1,623 +1,1236 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Les Mousquetaires - Portail QHSE</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Les Mousquetaires - Portail QHSE</title>
 
-    <style>
-        :root {
-            --primary: #E2001A;
-            --primary-glow: rgba(226, 0, 26, 0.8);
-            --bg-deep: #020203;
-            --bg-panel: rgba(30, 30, 35, 0.95);
-            --border: rgba(255, 255, 255, 0.15);
-            --text-main: #ffffff;
-            --text-dim: #b0b0b0;
-            
-            --sidebar-width: 280px;
-            --header-height: 80px;
-            --radius: 16px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+  <link rel="icon" type="image/png" href="GROUPEMENT_MOUSQUETAIRES_H_INV_HD.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;900&family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet" />
 
-        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
-        
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
-        }
+  <style>
+    :root {
+      --primary: #E2001A;
+      --primary-glow: rgba(226, 0, 26, 0.8);
+      --bg-deep: #020203;
+      --border: rgba(255, 255, 255, 0.15);
+      --text-main: #ffffff;
+      --text-dim: #b0b0b0;
 
-        /* BACKGROUND */
-        #bg-grid {
-            position: fixed; top: 0; left: 0; width: 200%; height: 200%;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
-            animation: gridMove 20s linear infinite;
-            z-index: -2; pointer-events: none;
-        }
-        @keyframes gridMove { 
-            0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); } 
-            100% { transform: perspective(500px) rotateX(60deg) translateY(50px) translateZ(-200px); } 
-        }
+      --sidebar-width: 300px;
+      --header-height: 85px;
+      --radius: 16px;
+      --transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
 
-        /* APP LAYOUT */
-        .app { display: flex; height: 100vh; width: 100%; }
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+      outline: none; 
+      -webkit-tap-highlight-color: transparent; 
+    }
 
-        /* SIDEBAR */
-        .sidebar {
-            width: var(--sidebar-width); background: rgba(10, 10, 15, 0.95);
-            border-right: 1px solid var(--border); display: flex; flex-direction: column;
-            z-index: 100; backdrop-filter: blur(10px);
-        }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-deep);
+      color: var(--text-main);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      position: relative;
+    }
 
-        .brand-box {
-            padding: 30px; display: flex; align-items: center; gap: 15px;
-            border-bottom: 1px solid var(--border);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .brand-box img { width: 45px; background: white; padding: 5px; border-radius: 8px; }
-        
-        .menu { flex: 1; overflow-y: auto; padding: 20px; }
-        
-        .nav-link {
-            display: flex; align-items: center; gap: 15px; padding: 14px 18px;
-            color: var(--text-dim); border-radius: 12px; margin-bottom: 8px;
-            transition: var(--transition); border: 1px solid transparent;
-            font-family: 'Rajdhani', sans-serif; font-size: 18px; font-weight: 600;
-            cursor: pointer;
-        }
-        .nav-link:hover { background: rgba(255,255,255,0.1); color: white; border-color: var(--border); }
-        .nav-link.active {
-            background: linear-gradient(90deg, rgba(226,0,26,0.3), transparent);
-            border-left: 3px solid var(--primary); color: white;
-            text-shadow: 0 0 10px var(--primary);
-        }
-        .nav-link i { width: 25px; text-align: center; font-size: 20px; }
+    /* ===== FOND IMAGE AMÉLIORÉ ===== */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url("PPT Couverture_D3.jpg") center/cover no-repeat;
+      opacity: 0.25;
+      filter: saturate(0.9) contrast(1.1) brightness(0.95);
+      z-index: -4;
+      pointer-events: none;
+      animation: subtleZoom 30s ease-in-out infinite alternate;
+    }
 
-        /* MAIN */
-        .main-content { flex: 1; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+    @keyframes subtleZoom {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.05); }
+    }
 
-        .topbar {
-            height: var(--header-height); display: flex; justify-content: space-between; align-items: center;
-            padding: 0 40px; border-bottom: 1px solid var(--border); background: rgba(10, 10, 15, 0.9);
-        }
-        .page-title h2 { font-size: 28px; font-weight: 700; color: white; font-family: 'Rajdhani', sans-serif; text-transform: uppercase; }
-        
-        .actions { display: flex; gap: 20px; align-items: center; }
-        .btn-icon {
-            width: 45px; height: 45px; border-radius: 12px; border: 1px solid var(--border);
-            background: rgba(255,255,255,0.05); color: white; display: flex; align-items: center; justify-content: center;
-            transition: 0.3s; cursor: pointer;
-        }
-        .btn-icon:hover { background: var(--primary); box-shadow: 0 0 20px var(--primary); }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 30% 20%, rgba(226, 0, 26, 0.08), transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(0, 0, 0, 0.7), transparent 50%),
+        linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.92));
+      z-index: -3;
+      pointer-events: none;
+    }
 
-        .scroll-area { flex: 1; overflow-y: auto; padding: 40px; scroll-behavior: smooth; }
-        .scroll-area::-webkit-scrollbar { width: 6px; }
-        .scroll-area::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+    /* GRID AMÉLIORÉE */
+    #bg-grid {
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      width: 200%; 
+      height: 200%;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      transform: perspective(600px) rotateX(60deg) translateY(-120px) translateZ(-200px);
+      animation: gridMove 25s linear infinite;
+      z-index: -2; 
+      pointer-events: none;
+      opacity: 0.6;
+    }
 
-        /* PAGES */
-        .page { display: none; }
-        .page.active { display: block; animation: slideUp 0.5s ease; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes gridMove {
+      0% { transform: perspective(600px) rotateX(60deg) translateY(0) translateZ(-200px); }
+      100% { transform: perspective(600px) rotateX(60deg) translateY(60px) translateZ(-200px); }
+    }
 
-        /* PUZZLE CONTAINER */
-        .puzzle-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: calc(100vh - 200px);
-            padding: 20px;
-        }
+    /* LAYOUT */
+    .app { 
+      display: flex; 
+      height: 100vh; 
+      width: 100%; 
+    }
 
-        .puzzle-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+    /* SIDEBAR PREMIUM */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: linear-gradient(180deg, rgba(10, 10, 15, 0.96), rgba(5, 5, 10, 0.98));
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      box-shadow: 8px 0 40px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
 
-        .puzzle-header h1 {
-            font-size: 48px;
-            font-weight: 900;
-            color: white;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px var(--primary-glow);
-        }
+    .sidebar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(180deg, transparent, var(--primary), transparent);
+      opacity: 0.3;
+    }
 
-        .puzzle-header .emoji {
-            font-size: 60px;
-            display: block;
-            margin-bottom: 10px;
-        }
+    .brand-box {
+      padding: 28px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
 
-        .puzzle-container {
-            position: relative;
-            max-width: 1000px;
-            width: 100%;
-            aspect-ratio: 5/4;
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: repeat(4, 1fr);
-            gap: 0;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
+    .brand-box::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 24px;
+      right: 24px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+    }
 
-        .puzzle-piece {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 10px;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 900;
-            font-size: clamp(11px, 1.2vw, 16px);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            line-height: 1.1;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
+    .brand-logo {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      border-radius: 14px;
+      background: transparent;
+      filter: drop-shadow(0 8px 20px rgba(226, 0, 26, 0.4));
+      transition: var(--transition);
+    }
 
-        .puzzle-piece:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-            z-index: 10;
-            filter: brightness(1.2);
-        }
+    .brand-logo:hover {
+      transform: scale(1.1) rotate(-5deg);
+      filter: drop-shadow(0 12px 30px rgba(226, 0, 26, 0.6));
+    }
 
-        /* Couleurs des pièces */
-        .p-red { background: #e10600; }
-        .p-cyan { background: #20c997; }
-        .p-orange { background: #ffb02e; }
-        .p-gray { background: #4c4c4c; }
-        .p-teal { background: #0f6a5a; }
-        .p-blue { background: #1f4bff; }
-        .p-yellow { background: #f7f17a; color: #111; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .p-magenta { background: #b800ff; }
-        .p-lime { background: #8bd84c; }
-        .p-purple { background: #6a7cff; }
-        .p-pink { background: #ff3bb2; }
-        .p-aqua { background: #00d0ff; }
-        .p-lightyellow { background: #f3e401; color: #111; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .p-darkpurple { background: #582f93; }
-        .p-lightpurple { background: #6a7cff; }
-        .p-wine { background: #7a0026; }
-        .p-lightgray { background: #cfd3ff; color: #111; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .p-darkred { background: #e10600; }
-        .p-green { background: #00b894; }
+    .brand-text h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 900;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #fff, #ccc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-        /* MODAL */
-        .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 20px;
-        }
+    .brand-text span {
+      font-size: 11px;
+      color: var(--text-dim);
+      display: inline-block;
+      margin-top: 6px;
+      letter-spacing: 0.5px;
+    }
 
-        .modal.active {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
+    .menu { 
+      flex: 1; 
+      overflow-y: auto; 
+      padding: 24px 18px; 
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+    .menu::-webkit-scrollbar { width: 5px; }
+    .menu::-webkit-scrollbar-thumb { 
+      background: var(--primary); 
+      border-radius: 3px; 
+    }
 
-        .modal-content {
-            background: rgba(20, 20, 25, 0.98);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            max-width: 900px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.8);
-            animation: modalSlide 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
+    .nav-link {
+      display: flex; 
+      align-items: center; 
+      gap: 14px; 
+      padding: 16px 18px;
+      color: var(--text-dim);
+      border-radius: 14px;
+      margin-bottom: 10px;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
 
-        @keyframes modalSlide {
-            from {
-                opacity: 0;
-                transform: scale(0.9) translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      left: -100%;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(226, 0, 26, 0.15), transparent);
+      transition: left 0.6s ease;
+    }
 
-        .modal-header {
-            padding: 30px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+    .nav-link:hover::before {
+      left: 100%;
+    }
 
-        .modal-header .emoji {
-            font-size: 40px;
-        }
+    .nav-link:hover { 
+      background: rgba(255,255,255,0.08); 
+      color: #fff; 
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateX(6px);
+    }
 
-        .modal-header h2 {
-            font-size: 32px;
-            font-weight: 900;
-            font-family: 'Rajdhani', sans-serif;
-            text-transform: uppercase;
-            color: white;
-        }
+    .nav-link.active {
+      background: linear-gradient(135deg, rgba(226,0,26,0.25), rgba(226,0,26,0.1));
+      border-left: 4px solid var(--primary);
+      color: white;
+      text-shadow: 0 0 15px var(--primary);
+      box-shadow: 0 4px 20px rgba(226, 0, 26, 0.3);
+      transform: translateX(6px);
+    }
 
-        .modal-close {
-            margin-left: auto;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--border);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: 0.3s;
-        }
+    .nav-icon {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
+      flex: 0 0 auto;
+      transition: var(--transition);
+    }
 
-        .modal-close:hover {
-            background: var(--primary);
-        }
+    .nav-link:hover .nav-icon,
+    .nav-link.active .nav-icon {
+      transform: scale(1.1);
+      filter: drop-shadow(0 4px 10px rgba(226, 0, 26, 0.5));
+    }
 
-        .modal-body {
-            padding: 30px;
-        }
+    /* MAIN PREMIUM */
+    .main-content { 
+      flex: 1; 
+      display: flex; 
+      flex-direction: column; 
+      position: relative; 
+      overflow: hidden; 
+    }
 
-        .doc-grid {
-            display: grid;
-            gap: 15px;
-        }
+    .topbar {
+      height: var(--header-height);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 45px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(10, 10, 15, 0.95), rgba(10, 10, 15, 0.9));
+      backdrop-filter: blur(20px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
 
-        .doc-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+    .topbar::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      opacity: 0.5;
+    }
 
-        .doc-item:hover {
-            background: rgba(226, 0, 26, 0.1);
-            border-color: var(--primary);
-            transform: translateX(10px);
-        }
+    .page-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
 
-        .doc-item h4 {
-            font-size: 18px;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
+    .topbar-logo {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 15px rgba(226, 0, 26, 0.5));
+      animation: floatLogo 3s ease-in-out infinite;
+    }
 
-        .doc-item p {
-            font-size: 14px;
-            color: var(--text-dim);
-        }
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
 
-        /* MOBILE */
-        @media (max-width: 1024px) {
-            .app { flex-direction: column; }
-            .sidebar {
-                position: fixed; bottom: 0; left: 0; width: 100%; height: 70px;
-                flex-direction: row; align-items: center; padding: 0;
-                border-top: 1px solid var(--primary); border-right: none;
-                justify-content: space-around; overflow: visible;
-                background: #050505; box-shadow: 0 -5px 20px rgba(226,0,26,0.3);
-            }
-            .brand-box { display: none; }
-            .menu { display: flex; flex-direction: row; padding: 0; width: 100%; justify-content: space-around; align-items: center; }
-            
-            .nav-link { 
-                flex-direction: column; gap: 4px; font-size: 10px; padding: 8px; 
-                border: none; margin: 0; background: transparent !important; 
-                width: 60px; justify-content: center;
-            }
-            .nav-link i { font-size: 22px; margin-bottom: 2px; }
-            .nav-link.active { color: var(--primary); text-shadow: 0 0 15px var(--primary); transform: translateY(-5px); }
-            
-            .main-content { margin-bottom: 70px; height: calc(100vh - 70px); }
-            .topbar { padding: 0 20px; height: 60px; }
-            .page-title h2 { font-size: 20px; }
-            .scroll-area { padding: 20px; }
+    .page-title h2 {
+      font-size: 30px;
+      font-weight: 900;
+      color: white;
+      font-family: 'Rajdhani', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      background: linear-gradient(135deg, #fff, #ddd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-            .puzzle-container {
-                grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: auto;
-                aspect-ratio: auto;
-            }
+    .actions { 
+      display: flex; 
+      gap: 14px; 
+      align-items: center; 
+    }
 
-            .puzzle-header h1 {
-                font-size: 28px;
-            }
-        }
-    </style>
+    .btn-icon {
+      width: 48px; 
+      height: 48px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-icon::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, var(--primary), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .btn-icon:hover::before {
+      opacity: 0.3;
+    }
+
+    .btn-icon:hover { 
+      background: var(--primary); 
+      box-shadow: 0 6px 25px var(--primary-glow);
+      transform: translateY(-3px);
+      border-color: var(--primary);
+    }
+
+    .btn-icon img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 5px rgba(0,0,0,0.4));
+      transition: var(--transition);
+    }
+
+    .btn-icon:hover img {
+      transform: scale(1.15);
+    }
+
+    .scroll-area { 
+      flex: 1; 
+      overflow-y: auto; 
+      padding: 50px; 
+      scroll-behavior: smooth; 
+    }
+
+    .scroll-area::-webkit-scrollbar { width: 8px; }
+    .scroll-area::-webkit-scrollbar-track { 
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+    }
+    .scroll-area::-webkit-scrollbar-thumb { 
+      background: linear-gradient(180deg, var(--primary), #b00015); 
+      border-radius: 4px; 
+    }
+
+    /* PAGES */
+    .page { 
+      display: none; 
+    }
+
+    .page.active { 
+      display: block; 
+      animation: pageEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes pageEntrance { 
+      from { 
+        opacity: 0; 
+        transform: translateY(40px) scale(0.95); 
+      } 
+      to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+      } 
+    }
+
+    /* PUZZLE PREMIUM */
+    .puzzle-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 220px);
+      padding: 20px;
+    }
+
+    .puzzle-header { 
+      text-align: center; 
+      margin-bottom: 50px;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .puzzle-header h1 {
+      font-size: 52px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #fff, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+      text-shadow: 0 0 30px var(--primary-glow);
+      letter-spacing: 2px;
+      font-family: 'Rajdhani', sans-serif;
+    }
+
+    .puzzle-header .emoji {
+      font-size: 70px;
+      display: block;
+      margin-bottom: 15px;
+      animation: emojiFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes emojiFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(5deg); }
+    }
+
+    .puzzle-container {
+      position: relative;
+      max-width: 1100px;
+      width: 100%;
+      aspect-ratio: 5/4;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+      animation: puzzleEntrance 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes puzzleEntrance {
+      from {
+        opacity: 0;
+        transform: scale(0.85) rotateX(10deg);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) rotateX(0deg);
+      }
+    }
+
+    .puzzle-piece {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 12px;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 900;
+      font-size: clamp(11px, 1.3vw, 17px);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      line-height: 1.15;
+      color: white;
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .puzzle-piece::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .puzzle-piece::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      background: inherit;
+      opacity: 0;
+      z-index: -1;
+      filter: blur(15px);
+      transition: opacity 0.4s ease;
+    }
+
+    .puzzle-piece:hover {
+      transform: translateY(-12px) scale(1.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      z-index: 10;
+      filter: brightness(1.15) saturate(1.1);
+    }
+
+    .puzzle-piece:hover::before {
+      opacity: 1;
+    }
+
+    .puzzle-piece:hover::after {
+      opacity: 0.5;
+    }
+
+    .puzzle-piece:hover .p-icon {
+      transform: scale(1.2) rotate(5deg);
+    }
+
+    .p-icon {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 3px 8px rgba(0,0,0,0.5));
+      transition: var(--transition);
+    }
+
+    /* Couleurs riches */
+    .p-red { background: linear-gradient(135deg, #e10600, #b00015); }
+    .p-cyan { background: linear-gradient(135deg, #20c997, #189977); }
+    .p-orange { background: linear-gradient(135deg, #ffb02e, #e69500); }
+    .p-gray { background: linear-gradient(135deg, #5c5c5c, #3c3c3c); }
+    .p-teal { background: linear-gradient(135deg, #0f6a5a, #0a4a3e); }
+    .p-blue { background: linear-gradient(135deg, #1f4bff, #1538cc); }
+    .p-yellow { background: linear-gradient(135deg, #f7f17a, #e6d555); color: #111; }
+    .p-magenta { background: linear-gradient(135deg, #b800ff, #9000cc); }
+    .p-lime { background: linear-gradient(135deg, #8bd84c, #6eb835); }
+    .p-purple { background: linear-gradient(135deg, #6a7cff, #4a5ccc); }
+    .p-pink { background: linear-gradient(135deg, #ff3bb2, #cc2e8f); }
+    .p-aqua { background: linear-gradient(135deg, #00d0ff, #00a8cc); }
+    .p-lightyellow { background: linear-gradient(135deg, #f3e401, #c9b800); color: #111; }
+    .p-darkpurple { background: linear-gradient(135deg, #582f93, #3e2169); }
+    .p-lightpurple { background: linear-gradient(135deg, #8a9cff, #6a7ccc); }
+    .p-wine { background: linear-gradient(135deg, #7a0026, #5a001c); }
+    .p-lightgray { background: linear-gradient(135deg, #dfe3ff, #bfc3dd); color: #111; }
+    .p-darkred { background: linear-gradient(135deg, #e10600, #a00400); }
+    .p-green { background: linear-gradient(135deg, #00b894, #009874); }
+
+    /* MODAL PREMIUM */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal.active { 
+      display: flex; 
+      animation: modalFadeIn 0.4s ease; 
+    }
+
+    @keyframes modalFadeIn { 
+      from { opacity: 0; } 
+      to { opacity: 1; } 
+    }
+
+    .modal-content {
+      background: linear-gradient(180deg, rgba(20, 20, 25, 0.98), rgba(15, 15, 20, 0.98));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      max-width: 950px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 
+        0 40px 100px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+      animation: modalSlide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .modal-content::-webkit-scrollbar { width: 8px; }
+    .modal-content::-webkit-scrollbar-thumb { 
+      background: var(--primary); 
+      border-radius: 4px; 
+    }
+
+    @keyframes modalSlide {
+      from { 
+        opacity: 0; 
+        transform: scale(0.9) translateY(40px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: scale(1) translateY(0); 
+      }
+    }
+
+    .modal-header {
+      padding: 35px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .modal-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 35px;
+      right: 35px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+    }
+
+    .modal-header .emoji { 
+      font-size: 48px;
+      animation: emojiFloat 3s ease-in-out infinite;
+    }
+
+    .modal-header h2 {
+      font-size: 36px;
+      font-weight: 900;
+      font-family: 'Rajdhani', sans-serif;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #fff, #ccc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 1px;
+    }
+
+    .modal-close {
+      margin-left: auto;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 800;
+      font-family: 'Rajdhani', sans-serif;
+      transition: var(--transition);
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .modal-close:hover { 
+      background: var(--primary); 
+      box-shadow: 0 6px 20px var(--primary-glow);
+      transform: translateY(-2px);
+    }
+
+    .modal-body { 
+      padding: 35px; 
+    }
+
+    .doc-grid { 
+      display: grid; 
+      gap: 18px; 
+    }
+
+    .doc-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--primary);
+      transform: scaleY(0);
+      transition: transform 0.4s ease;
+    }
+
+    .doc-item:hover::before {
+      transform: scaleY(1);
+    }
+
+    .doc-item:hover {
+      background: rgba(226, 0, 26, 0.12);
+      border-color: var(--primary);
+      transform: translateX(12px);
+      box-shadow: 0 8px 30px rgba(226, 0, 26, 0.3);
+    }
+
+    .doc-item h4 {
+      font-size: 19px;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      font-family: 'Rajdhani', sans-serif;
+      letter-spacing: 0.5px;
+    }
+
+    .doc-item p { 
+      font-size: 14px; 
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    /* MOBILE */
+    @media (max-width: 1024px) {
+      :root {
+        --sidebar-width: 100%;
+        --header-height: 65px;
+      }
+
+      .app { flex-direction: column; }
+      
+      .sidebar {
+        position: fixed; 
+        bottom: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 75px;
+        flex-direction: row; 
+        align-items: center; 
+        padding: 0;
+        border-top: 1px solid var(--primary); 
+        border-right: none;
+        justify-content: space-around; 
+        overflow: visible;
+        background: rgba(5,5,5,0.98);
+        box-shadow: 0 -8px 30px rgba(226,0,26,0.4);
+        z-index: 1001;
+      }
+
+      .sidebar::before {
+        display: none;
+      }
+
+      .brand-box { display: none; }
+
+      .menu { 
+        display: flex; 
+        flex-direction: row; 
+        padding: 0; 
+        width: 100%; 
+        justify-content: space-around; 
+        align-items: center; 
+      }
+
+      .nav-link {
+        flex-direction: column; 
+        gap: 6px; 
+        font-size: 11px; 
+        padding: 10px 8px;
+        border: none; 
+        margin: 0; 
+        background: transparent !important;
+        width: 75px; 
+        justify-content: center;
+        border-radius: 0;
+      }
+
+      .nav-link::before {
+        display: none;
+      }
+
+      .nav-link:hover {
+        transform: translateY(-6px);
+      }
+
+      .nav-link.active { 
+        color: var(--primary); 
+        text-shadow: 0 0 20px var(--primary);
+        transform: translateY(-8px);
+        border-left: none;
+      }
+
+      .nav-icon { 
+        width: 26px; 
+        height: 26px; 
+        margin-bottom: 0;
+      }
+
+      .main-content { 
+        margin-bottom: 75px; 
+        height: calc(100vh - 75px); 
+      }
+
+      .topbar { 
+        padding: 0 20px; 
+        height: var(--header-height); 
+      }
+
+      .page-title h2 { 
+        font-size: 20px; 
+      }
+
+      .topbar-logo {
+        width: 30px;
+        height: 30px;
+      }
+
+      .scroll-area { 
+        padding: 25px; 
+      }
+
+      .puzzle-container {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        aspect-ratio: auto;
+      }
+
+      .puzzle-header h1 { 
+        font-size: 32px; 
+      }
+
+      .puzzle-header .emoji {
+        font-size: 50px;
+      }
+
+      .modal-header {
+        padding: 25px;
+      }
+
+      .modal-header h2 {
+        font-size: 24px;
+      }
+
+      .modal-body {
+        padding: 25px;
+      }
+
+      .btn-icon {
+        width: 42px;
+        height: 42px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div id="bg-grid"></div>
+  <div id="bg-grid"></div>
 
-    <div class="app">
-        <!-- SIDEBAR -->
-        <nav class="sidebar">
-            <div class="brand-box">
-                <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/8/84/Intermarch%C3%A9-logo.svg/1200px-Intermarch%C3%A9-logo.svg.png" alt="Logo">
-                <div>
-                    <h2 style="font-family:'Rajdhani'; font-weight:700; line-height:1;">BRIGNOLES</h2>
-                    <span style="font-size:10px; color:var(--text-dim);">LOGISTIQUE & QHSE</span>
-                </div>
-            </div>
-
-            <div class="menu">
-                <div class="nav-link active" onclick="nav('puzzle')">
-                    <i class="fas fa-puzzle-piece"></i> <span>Puzzle QHSE</span>
-                </div>
-                <div class="nav-link" onclick="nav('poi')">
-                    <i class="fas fa-fire-extinguisher"></i> <span>Incendie</span>
-                </div>
-                <div class="nav-link" onclick="nav('retrait')">
-                    <i class="fas fa-exclamation-triangle"></i> <span>Retrait</span>
-                </div>
-                <div class="nav-link" onclick="nav('fds')">
-                    <i class="fas fa-flask"></i> <span>FDS</span>
-                </div>
-                <div class="nav-link" onclick="nav('reglementation')">
-                    <i class="fas fa-balance-scale"></i> <span>Règlement</span>
-                </div>
-            </div>
-        </nav>
-
-        <!-- MAIN -->
-        <main class="main-content">
-            <header class="topbar">
-                <div class="page-title">
-                    <h2 id="title-display">Puzzle QHSE</h2>
-                </div>
-                <div class="actions">
-                    <div class="btn-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                </div>
-            </header>
-
-            <div class="scroll-area">
-                
-                <!-- PAGE PUZZLE -->
-                <div id="puzzle" class="page active">
-                    <div class="puzzle-wrapper">
-                        <div class="puzzle-header">
-                            <span class="emoji">🧩</span>
-                            <h1>ACCUEIL</h1>
-                        </div>
-                        
-                        <div class="puzzle-container">
-                            <div class="puzzle-piece p-red" onclick="openModal('procedures', '📋', 'PROCEDURES')">PROCEDURES</div>
-                            <div class="puzzle-piece p-cyan" onclick="openModal('evaluation', '📊', 'EVALUATION')">EVALUATION</div>
-                            <div class="puzzle-piece p-orange" onclick="openModal('referentiels', '📚', 'REFERENTIELS')">REFERENTIELS</div>
-                            <div class="puzzle-piece p-gray" onclick="openModal('personnel', '👥', 'LISTE PERSONNEL')">LISTE PERSONNEL<br>AFFICHAGE</div>
-                            <div class="puzzle-piece p-teal" onclick="openModal('dechets', '♻️', 'SUIVI DES DECHETS')">SUIVI DES DECHETS</div>
-                            
-                            <div class="puzzle-piece p-blue" onclick="openModal('indicateurs', '📈', 'INDICATEURS')">INDICATEURS</div>
-                            <div class="puzzle-piece p-yellow" onclick="openModal('affichage', '📺', 'AFFICHAGE')">AFFICHAGE</div>
-                            <div class="puzzle-piece p-magenta" onclick="openModal('formation', '🎓', 'FORMATION')">FORMATION</div>
-                            <div class="puzzle-piece p-lime" onclick="openModal('suiviat', '🏥', 'SUIVI DES AT')">SUIVI DES AT</div>
-                            <div class="puzzle-piece p-purple" onclick="openModal('reglementation', '⚖️', 'REGLEMENTATION')">REGLEMENTATION</div>
-                            
-                            <div class="puzzle-piece p-pink" onclick="openModal('coordonnees', '🗺️', 'COORDONNEES & PLAN')">COORDONNEES &<br>PLAN</div>
-                            <div class="puzzle-piece p-aqua" onclick="openModal('rdaudit', '🔍', 'REVUE DIRECTION & AUDIT')">REVUE DIRECTION<br>& AUDIT</div>
-                            <div class="puzzle-piece p-lightyellow" onclick="openModal('intervention', '🛠️', 'INTERVENTION')">INTERVENTION</div>
-                            <div class="puzzle-piece p-darkpurple" onclick="openModal('crreunion', '💬', 'CR REUNION')">CR REUNION</div>
-                            <div class="puzzle-piece p-lightpurple" onclick="openModal('reglementation', '⚖️', 'REGLEMENTATION')">REGLEMENTATION</div>
-                            
-                            <div class="puzzle-piece p-wine" onclick="nav('retrait')">RETRAIT<br>QUALITE</div>
-                            <div class="puzzle-piece p-red" onclick="nav('poi')">INCENDIE - POI</div>
-                            <div class="puzzle-piece p-lightgray" onclick="openModal('incident', '⚠️', 'INCIDENT')">INCIDENT</div>
-                            <div class="puzzle-piece p-darkred" onclick="nav('fds')">FICHE DE SECURITE</div>
-                            <div class="puzzle-piece p-green" onclick="openModal('incidentdoc', '📄', 'INCIDENT DOCUMENTAIRE')">INCIDENT<br>DOCUMENTAIRE</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PAGE POI -->
-                <div id="poi" class="page">
-                    <div class="puzzle-wrapper">
-                        <div class="puzzle-header">
-                            <span class="emoji">🔥</span>
-                            <h1>ORGANISATION INCENDIE</h1>
-                        </div>
-                        <div class="doc-grid" style="max-width: 800px; width: 100%;">
-                            <div class="doc-item" onclick="alert('📄 POI')">
-                                <h4>Plan Organisation Interne (POI)</h4>
-                            </div>
-                            <div class="doc-item" onclick="alert('📄 FR PDG')">
-                                <h4>FR PDG</h4>
-                                <p>Poste de garde - P TEC 03 bis</p>
-                            </div>
-                            <div class="doc-item" onclick="alert('📄 FR DOI')">
-                                <h4>FR DOI</h4>
-                                <p>Directeur opérations internes - P TEC 03 bis</p>
-                            </div>
-                            <div class="doc-item" onclick="alert('📄 FR AOI')">
-                                <h4>FR AOI</h4>
-                                <p>Assistant opération interne - P TEC 03 bis</p>
-                            </div>
-                            <div class="doc-item" onclick="alert('📄 FR RC')">
-                                <h4>FR RC</h4>
-                                <p>Responsable de comptage - P TEC 03 bis</p>
-                            </div>
-                            <div class="doc-item" onclick="alert('📄 FR RCOM')">
-                                <h4>FR RCOM</h4>
-                                <p>Resp communication - P TEC 03 bis</p>
-                            </div>
-                            <div class="doc-item" onclick="alert('📄 FR ROBS')">
-                                <h4>FR ROBS</h4>
-                                <p>Responsable observation - P TEC 03 bis</p>
-                            </div>
-                            <div class="doc-item" onclick="alert('📄 Fiche Réflexe')">
-                                <h4>Fiche Réflexe Total</h4>
-                                <p>P TEC 03 bis</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PAGE RETRAIT -->
-                <div id="retrait" class="page">
-                    <div class="puzzle-wrapper">
-                        <div class="puzzle-header">
-                            <span class="emoji">⚠️</span>
-                            <h1>RETRAIT QUALITE</h1>
-                        </div>
-                        <div class="doc-grid" style="max-width: 800px; width: 100%;">
-                            <div class="doc-item" onclick="alert('📄 Feuille suivi avec EAN13')">
-                                <h4>Feuille Suivi Retrait Rappel avec Désactivation EAN13</h4>
-                                <p>BGN E QUA 01</p>
-                            </div>
-                            <div class="doc-item" onclick="alert('📄 Procédure')">
-                                <h4>Procédure Retrait</h4>
-                                <p>BGN P QUA 01.02</p>
-                            </div>
-                            <div class="doc-item" onclick="alert('📄 Feuille sans EAN13')">
-                                <h4>Feuille Suivi Retrait Rappel sans Désactivation EAN13 Bloquage de Vente</h4>
-                                <p>BGN E QUA 01</p>
-                            </div>
-                            <div class="doc-item" onclick="alert('📄 Tableau')">
-                                <h4>Tableau Synthétique</h4>
-                                <p>N-P QUA 01</p>
-                            </div>
-                            <div class="doc-item" onclick="alert('📄 Base de données')">
-                                <h4>Base de Données Retrait</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PAGE FDS -->
-                <div id="fds" class="page">
-                    <div class="puzzle-wrapper">
-                        <div class="puzzle-header">
-                            <span class="emoji">🧪</span>
-                            <h1>FICHE DE SECURITE</h1>
-                        </div>
-                        <div class="doc-grid" style="max-width: 800px; width: 100%;">
-                            <div class="doc-item" onclick="alert('📄 Base FDS')">
-                                <h4>Base de Données FDS</h4>
-                            </div>
-                            <div class="doc-item" onclick="alert('📄 SST')">
-                                <h4>SST: Que faire en cas de...</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PAGE REGLEMENTATION -->
-                <div id="reglementation" class="page">
-                    <div class="puzzle-wrapper">
-                        <div class="puzzle-header">
-                            <span class="emoji">⚖️</span>
-                            <h1>REGLEMENTATION</h1>
-                        </div>
-                        <div class="doc-grid" style="max-width: 800px; width: 100%;">
-                            <div class="doc-item" onclick="alert('📄 Protocole')">
-                                <h4>Protocole de Sécurité Base</h4>
-                            </div>
-                            <div class="doc-item" onclick="alert('📄 ICPE')">
-                                <h4>Arrêtés Préfectoraux (ICPE)</h4>
-                            </div>
-                            <div class="doc-item" onclick="alert('📄 Règlement')">
-                                <h4>Règlement Intérieur</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </main>
-    </div>
-
-    <!-- MODAL -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="emoji" id="modalEmoji">📋</span>
-                <h2 id="modalTitle">TITRE</h2>
-                <button class="modal-close" onclick="closeModal()">accueil</button>
-            </div>
-            <div class="modal-body">
-                <div class="doc-grid" id="modalContent"></div>
-            </div>
+  <div class="app">
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+      <div class="brand-box">
+        <img class="brand-logo" src="GROUPEMENT_MOUSQUETAIRES_H_INV_HD.png" alt="Groupement Mousquetaires">
+        <div class="brand-text">
+          <h2>BRIGNOLES</h2>
+          <span>LOGISTIQUE &amp; QHSE</span>
         </div>
+      </div>
+
+      <div class="menu">
+        <div class="nav-link active" onclick="nav('puzzle', this)">
+          <img class="nav-icon" src="liste.png" alt="">
+          <span>Puzzle QHSE</span>
+        </div>
+        <div class="nav-link" onclick="nav('poi', this)">
+          <img class="nav-icon" src="usine.png" alt="">
+          <span>Incendie</span>
+        </div>
+        <div class="nav-link" onclick="nav('retrait', this)">
+          <img class="nav-icon" src="carton.png" alt="">
+          <span>Retrait</span>
+        </div>
+        <div class="nav-link" onclick="nav('fds', this)">
+          <img class="nav-icon" src="cible.png" alt="">
+          <span>FDS</span>
+        </div>
+        <div class="nav-link" onclick="nav('reglementation', this)">
+          <img class="nav-icon" src="maison.png" alt="">
+          <span>Règlement</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="main-content">
+      <header class="topbar">
+        <div class="page-title">
+          <img class="topbar-logo" src="GROUPEMENT_MOUSQUETAIRES_H_INV_HD.png" alt="Logo">
+          <h2 id="title-display">Puzzle QHSE</h2>
+        </div>
+
+        <div class="actions">
+          <div class="btn-icon" title="Accueil" onclick="nav('puzzle', document.querySelectorAll('.nav-link')[0])">
+            <img src="maison.png" alt="">
+          </div>
+        </div>
+      </header>
+
+      <div class="scroll-area">
+
+        <!-- PAGE PUZZLE -->
+        <div id="puzzle" class="page active">
+          <div class="puzzle-wrapper">
+            <div class="puzzle-header">
+              <span class="emoji">🧩</span>
+              <h1>ACCUEIL</h1>
+            </div>
+
+            <div class="puzzle-container">
+              <div class="puzzle-piece p-red" onclick="openModal('procedures', '📋', 'PROCEDURES')">
+                <img class="p-icon" src="liste.png" alt="">
+                PROCEDURES
+              </div>
+
+              <div class="puzzle-piece p-cyan" onclick="openModal('evaluation', '📊', 'EVALUATION')">
+                <img class="p-icon" src="cible.png" alt="">
+                EVALUATION
+              </div>
+
+              <div class="puzzle-piece p-orange" onclick="openModal('referentiels', '📚', 'REFERENTIELS')">
+                <img class="p-icon" src="carton.png" alt="">
+                REFERENTIELS
+              </div>
+
+              <div class="puzzle-piece p-gray" onclick="openModal('personnel', '👥', 'LISTE PERSONNEL')">
+                <img class="p-icon" src="mains.png" alt="">
+                LISTE PERSONNEL<br>AFFICHAGE
+              </div>
+
+              <div class="puzzle-piece p-teal" onclick="openModal('dechets', '♻️', 'SUIVI DES DECHETS')">
+                <img class="p-icon" src="camion.png" alt="">
+                SUIVI DES DECHETS
+              </div>
+
+              <div class="puzzle-piece p-blue" onclick="openModal('indicateurs', '📈', 'INDICATEURS')">
+                <img class="p-icon" src="ville.png" alt="">
+                INDICATEURS
+              </div>
+
+              <div class="puzzle-piece p-yellow" onclick="openModal('affichage', '📺', 'AFFICHAGE')">
+                <img class="p-icon" src="magasin.png" alt="">
+                AFFICHAGE
+              </div>
+
+              <div class="puzzle-piece p-magenta" onclick="openModal('formation', '🎓', 'FORMATION')">
+                <img class="p-icon" src="conseiller.png" alt="">
+                FORMATION
+              </div>
+
+              <div class="puzzle-piece p-lime" onclick="openModal('suiviat', '🏥', 'SUIVI DES AT')">
+                <img class="p-icon" src="ouvrier.png" alt="">
+                SUIVI DES AT
+              </div>
+
+              <div class="puzzle-piece p-purple" onclick="openModal('reglementation', '⚖️', 'REGLEMENTATION')">
+                <img class="p-icon" src="maison.png" alt="">
+                REGLEMENTATION
+              </div>
+
+              <div class="puzzle-piece p-pink" onclick="openModal('coordonnees', '🗺️', 'COORDONNEES & PLAN')">
+                <img class="p-icon" src="localisation.png" alt="">
+                COORDONNEES &<br>PLAN
+              </div>
+
+              <div class="puzzle-piece p-aqua" onclick="openModal('rdaudit', '🔍', 'REVUE DIRECTION & AUDIT')">
+                <img class="p-icon" src="cible.png" alt="">
+                REVUE DIRECTION<br>& AUDIT
+              </div>
+
+              <div class="puzzle-piece p-lightyellow" onclick="openModal('intervention', '🛠️', 'INTERVENTION')">
+                <img class="p-icon" src="transpalette.png" alt="">
+                INTERVENTION
+              </div>
+
+              <div class="puzzle-piece p-darkpurple" onclick="openModal('crreunion', '💬', 'CR REUNION')">
+                <img class="p-icon" src="mains.png" alt="">
+                CR REUNION
+              </div>
+
+              <div class="puzzle-piece p-lightpurple" onclick="openModal('reglementation', '⚖️', 'REGLEMENTATION')">
+                <img class="p-icon" src="maison.png" alt="">
+                REGLEMENTATION
+              </div>
+
+              <div class="puzzle-piece p-wine" onclick="nav('retrait', document.querySelectorAll('.nav-link')[2])">
+                <img class="p-icon" src="carton.png" alt="">
+                RETRAIT<br>QUALITE
+              </div>
+
+              <div class="puzzle-piece p-red" onclick="nav('poi', document.querySelectorAll('.nav-link')[1])">
+                <img class="p-icon" src="usine.png" alt="">
+                INCENDIE - POI
+              </div>
+
+              <div class="puzzle-piece p-lightgray" onclick="openModal('incident', '⚠️', 'INCIDENT')">
+                <img class="p-icon" src="cible.png" alt="">
+                INCIDENT
+              </div>
+
+              <div class="puzzle-piece p-darkred" onclick="nav('fds', document.querySelectorAll('.nav-link')[3])">
+                <img class="p-icon" src="liste.png" alt="">
+                FICHE DE SECURITE
+              </div>
+
+              <div class="puzzle-piece p-green" onclick="openModal('incidentdoc', '📄', 'INCIDENT DOCUMENTAIRE')">
+                <img class="p-icon" src="liste.png" alt="">
+                INCIDENT<br>DOCUMENTAIRE
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAGE POI -->
+        <div id="poi" class="page">
+          <div class="puzzle-wrapper">
+            <div class="puzzle-header">
+              <span class="emoji">🔥</span>
+              <h1>ORGANISATION INCENDIE</h1>
+            </div>
+            <div class="doc-grid" style="max-width: 850px; width: 100%;">
+              <div class="doc-item" onclick="alert('📄 POI')">
+                <h4>Plan Organisation Interne (POI)</h4>
+              </div>
+              <div class="doc-item" onclick="alert('📄 FR PDG')">
+                <h4>FR PDG</h4>
+                <p>Poste de garde - P TEC 03 bis</p>
+              </div>
+              <div class="doc-item" onclick="alert('📄 FR DOI')">
+                <h4>FR DOI</h4>
+                <p>Directeur opérations internes - P TEC 03 bis</p>
+              </div>
+              <div class="doc-item" onclick="alert('📄 FR AOI')">
+                <h4>FR AOI</h4>
+                <p>Assistant opération interne - P TEC 03 bis</p>
+              </div>
+              <div class="doc-item" onclick="alert('📄 FR RC')">
+                <h4>FR RC</h4>
+                <p>Responsable de comptage - P TEC 03 bis</p>
+              </div>
+              <div class="doc-item" onclick="alert('📄 FR RCOM')">
+                <h4>FR RCOM</h4>
+                <p>Resp communication - P TEC 03 bis</p>
+              </div>
+              <div class="doc-item" onclick="alert('📄 FR ROBS')">
+                <h4>FR ROBS</h4>
+                <p>Responsable observation - P TEC 03 bis</p>
+              </div>
+              <div class="doc-item" onclick="alert('📄 Fiche Réflexe')">
+                <h4>Fiche Réflexe Total</h4>
+                <p>P TEC 03 bis</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAGE RETRAIT -->
+        <div id="retrait" class="page">
+          <div class="puzzle-wrapper">
+            <div class="puzzle-header">
+              <span class="emoji">⚠️</span>
+              <h1>RETRAIT QUALITE</h1>
+            </div>
+            <div class="doc-grid" style="max-width: 850px; width: 100%;">
+              <div class="doc-item" onclick="alert('📄 Feuille suivi avec EAN13')">
+                <h4>Feuille Suivi Retrait Rappel avec Désactivation EAN13</h4>
+                <p>BGN E QUA 01</p>
+              </div>
+              <div class="doc-item" onclick="alert('📄 Procédure')">
+                <h4>Procédure Retrait</h4>
+                <p>BGN P QUA 01.02</p>
+              </div>
+              <div class="doc-item" onclick="alert('📄 Feuille sans EAN13')">
+                <h4>Feuille Suivi Retrait Rappel sans Désactivation EAN13 Bloquage de Vente</h4>
+                <p>BGN E QUA 01</p>
+              </div>
+              <div class="doc-item" onclick="alert('📄 Tableau')">
+                <h4>Tableau Synthétique</h4>
+                <p>N-P QUA 01</p>
+              </div>
+              <div class="doc-item" onclick="alert('📄 Base de données')">
+                <h4>Base de Données Retrait</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAGE FDS -->
+        <div id="fds" class="page">
+          <div class="puzzle-wrapper">
+            <div class="puzzle-header">
+              <span class="emoji">🧪</span>
+              <h1>FICHE DE SECURITE</h1>
+            </div>
+            <div class="doc-grid" style="max-width: 850px; width: 100%;">
+              <div class="doc-item" onclick="alert('📄 Base FDS')">
+                <h4>Base de Données FDS</h4>
+              </div>
+              <div class="doc-item" onclick="alert('📄 SST')">
+                <h4>SST: Que faire en cas de...</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAGE REGLEMENTATION -->
+        <div id="reglementation" class="page">
+          <div class="puzzle-wrapper">
+            <div class="puzzle-header">
+              <span class="emoji">⚖️</span>
+              <h1>REGLEMENTATION</h1>
+            </div>
+            <div class="doc-grid" style="max-width: 850px; width: 100%;">
+              <div class="doc-item" onclick="alert('📄 Protocole')">
+                <h4>Protocole de Sécurité Base</h4>
+              </div>
+              <div class="doc-item" onclick="alert('📄 ICPE')">
+                <h4>Arrêtés Préfectoraux (ICPE)</h4>
+              </div>
+              <div class="doc-item" onclick="alert('📄 Règlement')">
+                <h4>Règlement Intérieur</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="emoji" id="modalEmoji">📋</span>
+        <h2 id="modalTitle">TITRE</h2>
+        <button class="modal-close" onclick="closeModal()">Accueil</button>
+      </div>
+      <div class="modal-body">
+        <div class="doc-grid" id="modalContent"></div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        // Navigation
-        function nav(id) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const target = document.getElementById(id);
-            if(target) target.classList.add('active');
-            
-            const titles = {
-                'puzzle': 'Puzzle QHSE',
-                'poi': 'Incendie / POI',
-                'retrait': 'Retrait Qualité',
-                'fds': 'Fiches Sécurité',
-                'reglementation': 'Réglementation'
-            };
-            document.getElementById('title-display').innerText = titles[id] || id.toUpperCase();
+  <script>
+    function nav(id, el) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById(id);
+      if (target) target.classList.add('active');
 
-            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-            event.target.closest('.nav-link')?.classList.add('active');
-        }
+      const titles = {
+        'puzzle': 'Puzzle QHSE',
+        'poi': 'Incendie / POI',
+        'retrait': 'Retrait Qualité',
+        'fds': 'Fiches Sécurité',
+        'reglementation': 'Réglementation'
+      };
+      document.getElementById('title-display').innerText = titles[id] || id.toUpperCase();
 
-        // Modal
-        function openModal(key, emoji, title) {
-            document.getElementById('modalEmoji').textContent = emoji;
-            document.getElementById('modalTitle').textContent = title;
-            document.getElementById('modalContent').innerHTML = `
-                <div class="doc-item"><h4>${title}</h4><p>Section en développement</p></div>
-            `;
-            document.getElementById('modal').classList.add('active');
-        }
+      document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+      if (el && el.classList.contains('nav-link')) el.classList.add('active');
+    }
 
-        function closeModal() {
-            document.getElementById('modal').classList.remove('active');
-        }
+    function openModal(key, emoji, title) {
+      document.getElementById('modalEmoji').textContent = emoji;
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalContent').innerHTML = `
+        <div class="doc-item">
+          <h4>${title}</h4>
+          <p>Section en développement</p>
+        </div>
+      `;
+      document.getElementById('modal').classList.add('active');
+    }
 
-        // Fermer modal avec Echap
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+    }
 
-        // Fermer modal en cliquant à l'extérieur
-        document.getElementById('modal').addEventListener('click', (e) => {
-            if (e.target.id === 'modal') closeModal();
-        });
-    </script>
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    document.getElementById('modal').addEventListener('click', (e) => {
+      if (e.target.id === 'modal') closeModal();
+    });
+  </script>
 </body>
 </html>
