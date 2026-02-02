@@ -22,34 +22,17 @@
       --primary-dark: #b00015;
       --primary-glow: rgba(226, 0, 26, 0.6);
       --bg-deep: #020203;
-      --bg-darker: #000000;
       --border: rgba(255, 255, 255, 0.12);
       --border-light: rgba(255, 255, 255, 0.08);
       --text-main: #ffffff;
       --text-dim: #a8a8a8;
-      --text-muted: #707070;
 
       --sidebar-width: 300px;
       --header-height: 90px;
-      --radius: 16px;
-      --radius-lg: 20px;
-      --transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      --transition-smooth: 0.3s ease;
-
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
-      --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.25);
-      --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.4);
-      --shadow-xl: 0 40px 100px rgba(0, 0, 0, 0.6);
+      --transition: 0.35s ease;
     }
 
-    /* RESET & BASE */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html {
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
-    }
 
     body {
       font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -64,7 +47,6 @@
 
     ::selection { background: var(--primary); color: white; }
 
-    /* FOND OPTIMISÉ */
     body::before {
       content: "";
       position: fixed;
@@ -74,14 +56,9 @@
       filter: saturate(0.92) contrast(1.08) brightness(0.95);
       z-index: -5;
       pointer-events: none;
-      will-change: transform;
       animation: subtleZoom 35s ease-in-out infinite alternate;
     }
-
-    @keyframes subtleZoom {
-      0% { transform: scale(1) translateX(0); }
-      100% { transform: scale(1.08) translateX(-20px); }
-    }
+    @keyframes subtleZoom { 0% { transform: scale(1); } 100% { transform: scale(1.08) translateX(-20px); } }
 
     body::after {
       content: "";
@@ -89,13 +66,11 @@
       inset: 0;
       background:
         radial-gradient(ellipse 800px 600px at 25% 15%, rgba(226, 0, 26, 0.08), transparent 60%),
-        radial-gradient(ellipse 600px 800px at 75% 85%, rgba(0, 0, 0, 0.75), transparent 60%),
         linear-gradient(180deg, rgba(0,0,0,0.72), rgba(0,0,0,0.94));
       z-index: -4;
       pointer-events: none;
     }
 
-    /* GRID */
     #bg-grid {
       position: fixed;
       inset: 0;
@@ -108,7 +83,6 @@
       pointer-events: none;
       opacity: 0.5;
     }
-
     @keyframes gridFlow {
       0% { transform: perspective(700px) rotateX(60deg) translateY(0) translateZ(-250px); }
       100% { transform: perspective(700px) rotateX(60deg) translateY(60px) translateZ(-250px); }
@@ -138,13 +112,7 @@
     @keyframes spin { to { transform: rotate(360deg); } }
 
     /* LAYOUT */
-    .app {
-      display: flex;
-      height: 100vh;
-      width: 100%;
-      opacity: 0;
-      transition: opacity 0.6s ease;
-    }
+    .app { display: flex; height: 100vh; width: 100%; opacity: 0; transition: opacity 0.6s ease; }
     .app.loaded { opacity: 1; }
 
     /* SIDEBAR */
@@ -156,19 +124,6 @@
       flex-direction: column;
       z-index: 100;
       backdrop-filter: blur(25px) saturate(150%);
-      box-shadow: 8px 0 50px rgba(0, 0, 0, 0.5);
-      position: relative;
-    }
-
-    .sidebar::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 1px;
-      height: 100%;
-      background: linear-gradient(180deg, transparent, var(--primary) 40%, var(--primary) 60%, transparent);
-      opacity: 0.25;
     }
 
     .brand-box {
@@ -178,17 +133,6 @@
       gap: 18px;
       border-bottom: 1px solid var(--border);
       background: rgba(0, 0, 0, 0.35);
-      position: relative;
-    }
-
-    .brand-box::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 26px;
-      right: 26px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary), transparent 70%);
     }
 
     .brand-logo {
@@ -196,16 +140,12 @@
       height: 64px;
       object-fit: contain;
       border-radius: 16px;
+      cursor: pointer;
       filter: drop-shadow(0 10px 25px rgba(226, 0, 26, 0.5));
       transition: var(--transition);
-      cursor: pointer;
     }
-    .brand-logo:hover {
-      transform: scale(1.12) rotate(-8deg);
-      filter: drop-shadow(0 15px 35px rgba(226, 0, 26, 0.7));
-    }
+    .brand-logo:hover { transform: scale(1.08) rotate(-6deg); }
 
-    .brand-text { flex: 1; }
     .brand-text h2 {
       font-family: 'Rajdhani', sans-serif;
       font-weight: 900;
@@ -213,10 +153,7 @@
       line-height: 1;
       letter-spacing: 1.2px;
       text-transform: uppercase;
-      background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #fff;
     }
     .brand-text span {
       font-size: 11px;
@@ -229,11 +166,7 @@
 
     .menu { flex: 1; overflow-y: auto; padding: 26px 20px; }
     .menu::-webkit-scrollbar { width: 5px; }
-    .menu::-webkit-scrollbar-track { background: transparent; }
-    .menu::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, var(--primary), var(--primary-dark));
-      border-radius: 3px;
-    }
+    .menu::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
 
     .nav-link {
       display: flex;
@@ -249,58 +182,21 @@
       font-size: 17px;
       font-weight: 700;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
       user-select: none;
     }
-
-    .nav-link::before {
-      content: '';
-      position: absolute;
-      left: -100%;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(226, 0, 26, 0.18), transparent);
-      transition: left 0.7s ease;
-    }
-    .nav-link:hover::before { left: 100%; }
-
-    .nav-link:hover {
-      background: rgba(255,255,255,0.09);
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.15);
-      transform: translateX(8px);
-    }
-
+    .nav-link:hover { background: rgba(255,255,255,0.09); color: #fff; transform: translateX(6px); }
     .nav-link.active {
       background: linear-gradient(135deg, rgba(226,0,26,0.28), rgba(226,0,26,0.12));
       border-left: 4px solid var(--primary);
       color: white;
-      text-shadow: 0 0 20px rgba(226, 0, 26, 0.8);
-      box-shadow: 0 6px 25px rgba(226, 0, 26, 0.35);
-      transform: translateX(8px);
+      transform: translateX(6px);
     }
 
-    .nav-icon {
-      width: 30px;
-      height: 30px;
-      object-fit: contain;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
-      flex-shrink: 0;
-      transition: var(--transition);
-    }
-
-    .nav-link:hover .nav-icon,
-    .nav-link.active .nav-icon {
-      transform: scale(1.15) rotate(3deg);
-      filter: drop-shadow(0 6px 12px rgba(226, 0, 26, 0.6));
-    }
+    .nav-icon { width: 30px; height: 30px; object-fit: contain; flex-shrink: 0; }
 
     /* MAIN */
-    .main-content { flex: 1; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+    .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
-    /* TOPBAR */
     .topbar {
       height: var(--header-height);
       display: flex;
@@ -308,100 +204,37 @@
       align-items: center;
       padding: 0 50px;
       border-bottom: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(10, 10, 15, 0.96), rgba(10, 10, 15, 0.92));
+      background: rgba(10, 10, 15, 0.92);
       backdrop-filter: blur(25px) saturate(150%);
-      box-shadow: 0 6px 35px rgba(0, 0, 0, 0.35);
       position: sticky;
       top: 0;
       z-index: 90;
     }
 
-    .topbar::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--primary) 50%, transparent);
-      opacity: 0.4;
-    }
-
     .page-title { display: flex; align-items: center; gap: 18px; }
-
-    .topbar-logo {
-      width: 42px;
-      height: 42px;
-      object-fit: contain;
-      filter: drop-shadow(0 8px 20px rgba(226, 0, 26, 0.6));
-      will-change: transform;
-      animation: floatLogo 3.5s ease-in-out infinite;
-    }
-
-    @keyframes floatLogo {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-6px) rotate(-3deg); }
-    }
+    .topbar-logo { width: 42px; height: 42px; object-fit: contain; }
 
     .page-title h2 {
-      font-size: 32px;
+      font-size: 30px;
       font-weight: 900;
       color: white;
       font-family: 'Rajdhani', sans-serif;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      text-shadow: 0 3px 15px rgba(0, 0, 0, 0.6);
-      background: linear-gradient(135deg, #fff 0%, #d8d8d8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
     }
 
-    .actions { display: flex; gap: 16px; align-items: center; }
-
     .btn-icon {
-      width: 52px;
-      height: 52px;
+      width: 52px; height: 52px;
       border-radius: 16px;
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.06);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition);
+      display: flex; align-items: center; justify-content: center;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-icon::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle, var(--primary), transparent 70%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    .btn-icon:hover::before { opacity: 0.35; }
-
-    .btn-icon:hover {
-      background: var(--primary);
-      box-shadow: 0 8px 30px var(--primary-glow);
-      transform: translateY(-4px);
-      border-color: var(--primary);
-    }
-
-    .btn-icon img {
-      width: 26px;
-      height: 26px;
-      object-fit: contain;
-      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
       transition: var(--transition);
     }
-    .btn-icon:hover img { transform: scale(1.2); }
+    .btn-icon:hover { background: var(--primary); transform: translateY(-3px); }
+    .btn-icon img { width: 26px; height: 26px; object-fit: contain; }
 
-    /* SCROLL */
     .scroll-area {
       flex: 1;
       overflow-y: auto;
@@ -410,93 +243,33 @@
       scroll-behavior: smooth;
     }
 
-    .scroll-area::-webkit-scrollbar { width: 10px; }
-    .scroll-area::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 5px;
-      margin: 10px;
-    }
-    .scroll-area::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, var(--primary), var(--primary-dark));
-      border-radius: 5px;
-      border: 2px solid transparent;
-      background-clip: padding-box;
-    }
-
     .page { display: none; }
-    .page.active { display: block; animation: pageEntrance 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); }
-
-    @keyframes pageEntrance {
-      from { opacity: 0; transform: translateY(50px) scale(0.96); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
+    .page.active { display: block; animation: pageEntrance 0.5s ease; }
+    @keyframes pageEntrance { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
 
     /* PUZZLE */
-    .puzzle-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: calc(100vh - 250px);
-      padding: 30px;
-    }
-
-    .puzzle-header { text-align: center; margin-bottom: 55px; animation: fadeInDown 0.9s ease; }
-
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
+    .puzzle-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: calc(100vh - 250px); padding: 30px; }
+    .puzzle-header { text-align: center; margin-bottom: 40px; }
+    .puzzle-header .emoji { font-size: 70px; display: block; margin-bottom: 15px; }
     .puzzle-header h1 {
-      font-size: 58px;
+      font-size: 56px;
       font-weight: 900;
-      background: linear-gradient(135deg, #fff 0%, var(--primary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 15px;
-      text-shadow: 0 0 40px var(--primary-glow);
-      letter-spacing: 2.5px;
+      color: #fff;
+      letter-spacing: 2px;
       font-family: 'Rajdhani', sans-serif;
     }
 
-    .puzzle-header .emoji {
-      font-size: 75px;
-      display: block;
-      margin-bottom: 18px;
-      filter: drop-shadow(0 10px 30px rgba(226, 0, 26, 0.4));
-      will-change: transform;
-      animation: emojiFloat 3.8s ease-in-out infinite;
-    }
-
-    @keyframes emojiFloat {
-      0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-      25% { transform: translateY(-8px) rotate(4deg) scale(1.05); }
-      75% { transform: translateY(-12px) rotate(-4deg) scale(1.05); }
-    }
-
     .puzzle-container {
-      position: relative;
       max-width: 1150px;
       width: 100%;
       aspect-ratio: 5/4;
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       grid-template-rows: repeat(4, 1fr);
-      gap: 0;
-      border-radius: 18px;
       overflow: hidden;
-      box-shadow:
-        0 35px 90px rgba(0, 0, 0, 0.65),
-        0 0 0 1px rgba(255, 255, 255, 0.06),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.03);
-      animation: puzzleEntrance 1.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    @keyframes puzzleEntrance {
-      from { opacity: 0; transform: scale(0.88) rotateX(12deg) rotateY(-5deg); }
-      to { opacity: 1; transform: scale(1) rotateX(0deg) rotateY(0deg); }
+      border-radius: 18px;
+      box-shadow: 0 35px 90px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.06);
     }
 
     .puzzle-piece {
@@ -511,27 +284,16 @@
       font-size: clamp(11px, 1.35vw, 18px);
       text-transform: uppercase;
       letter-spacing: 0.7px;
-      line-height: 1.2;
       color: white;
-      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
       cursor: pointer;
-      transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-      border: 1px solid rgba(0, 0, 0, 0.12);
-      position: relative;
-      overflow: hidden;
+      transition: 0.25s ease;
       user-select: none;
+      border: 1px solid rgba(0,0,0,0.12);
     }
+    .puzzle-piece:hover { filter: brightness(1.08); transform: scale(1.02); z-index: 2; }
 
-    .p-icon {
-      width: 34px;
-      height: 34px;
-      object-fit: contain;
-      margin-bottom: 12px;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
-      transition: var(--transition);
-    }
+    .p-icon { width: 34px; height: 34px; object-fit: contain; margin-bottom: 10px; }
 
-    /* COULEURS */
     .p-red { background: linear-gradient(135deg, #e10600 0%, #b00015 100%); }
     .p-cyan { background: linear-gradient(135deg, #20c997 0%, #17a07a 100%); }
     .p-orange { background: linear-gradient(135deg, #ffb02e 0%, #e09500 100%); }
@@ -552,102 +314,145 @@
     .p-darkred { background: linear-gradient(135deg, #e10600 0%, #980400 100%); }
     .p-green { background: linear-gradient(135deg, #00b894 0%, #008f6f 100%); }
 
-    /* MODAL */
+    /* DOC GRID */
+    .doc-grid { display: grid; gap: 18px; width: 100%; max-width: 1000px; }
+    .doc-item {
+      background: rgba(255,255,255,0.045);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 22px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .doc-item:hover { background: rgba(255,255,255,0.075); transform: translateY(-2px); }
+    .doc-item h4 {
+      font-size: 18px;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      font-family: 'Rajdhani', sans-serif;
+      letter-spacing: 0.6px;
+    }
+    .doc-item p { font-size: 14px; color: var(--text-dim); }
+
+    /* MODAL DOC VIEWER */
     .modal {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.90);
-      backdrop-filter: blur(15px);
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(12px);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 1000;
-      padding: 30px;
+      padding: 24px;
     }
     .modal.active { display: flex; }
 
     .modal-content {
-      background: linear-gradient(180deg, rgba(20, 20, 25, 0.99), rgba(12, 12, 17, 0.99));
-      border: 1px solid var(--border);
-      border-radius: 26px;
-      max-width: 980px;
       width: 100%;
-      max-height: 92vh;
-      overflow-y: auto;
-      box-shadow: 0 50px 120px rgba(0, 0, 0, 0.95);
+      max-width: 1200px;
+      background: linear-gradient(180deg, rgba(20,20,25,0.98), rgba(10,10,15,0.98));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 45px 120px rgba(0,0,0,0.9);
     }
 
     .modal-header {
-      padding: 38px;
+      padding: 18px 22px;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 20px;
-      background: rgba(0, 0, 0, 0.4);
+      gap: 14px;
+      background: rgba(0,0,0,0.35);
     }
-
-    .modal-header .emoji { font-size: 52px; }
+    .modal-header .emoji { font-size: 32px; }
     .modal-header h2 {
-      font-size: 38px;
+      font-size: 22px;
       font-weight: 900;
       font-family: 'Rajdhani', sans-serif;
       text-transform: uppercase;
-      color: white;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
     }
+    .modal-actions { margin-left: auto; display: flex; gap: 10px; align-items: center; }
 
-    .modal-close {
-      margin-left: auto;
-      background: rgba(255, 255, 255, 0.08);
+    .modal-btn {
+      background: rgba(255,255,255,0.08);
       border: 1px solid var(--border);
       color: white;
-      padding: 14px 28px;
-      border-radius: 14px;
+      padding: 10px 14px;
+      border-radius: 12px;
       cursor: pointer;
       font-weight: 800;
       font-family: 'Rajdhani', sans-serif;
       text-transform: uppercase;
-      font-size: 15px;
-      letter-spacing: 0.8px;
+      font-size: 13px;
+      letter-spacing: 0.6px;
+      transition: 0.2s ease;
+      white-space: nowrap;
     }
-    .modal-body { padding: 38px; }
+    .modal-btn:hover { background: rgba(255,255,255,0.14); }
 
-    .doc-grid { display: grid; gap: 20px; }
-    .doc-item {
-      background: rgba(255, 255, 255, 0.045);
-      border: 1px solid var(--border-light);
-      border-radius: 16px;
-      padding: 26px;
-    }
-    .doc-item h4 {
-      font-size: 20px;
-      font-weight: 900;
+    .modal-body { display: grid; grid-template-columns: 420px 1fr; min-height: 70vh; }
+    .modal-left { border-right: 1px solid var(--border); padding: 16px; overflow: auto; }
+    .modal-right { padding: 16px; overflow: hidden; display: flex; flex-direction: column; gap: 10px; }
+
+    .search {
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
       color: white;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      font-family: 'Rajdhani', sans-serif;
+      outline: none;
+      margin-bottom: 10px;
     }
-    .doc-item p { font-size: 14px; color: var(--text-dim); }
+
+    .doc-list { display: grid; gap: 10px; }
+    .doc-row {
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.045);
+      border-radius: 14px;
+      padding: 12px 12px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .doc-row:hover { background: rgba(255,255,255,0.075); transform: translateY(-1px); }
+    .doc-row strong { display: block; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.5px; }
+    .doc-row small { color: var(--text-dim); }
+
+    .viewer-bar { display: flex; gap: 10px; flex-wrap: wrap; }
+    .viewer-title { font-family: 'Rajdhani', sans-serif; font-weight: 900; letter-spacing: 0.6px; }
+    .viewer-frame {
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 14px;
+      overflow: hidden;
+      flex: 1;
+      min-height: 56vh;
+      background: rgba(255,255,255,0.03);
+    }
+    iframe { width: 100%; height: 100%; border: none; }
 
     /* TOAST */
     .toast {
       position: fixed;
       bottom: 30px;
       right: 30px;
-      background: linear-gradient(135deg, rgba(226, 0, 26, 0.95), rgba(176, 0, 21, 0.95));
+      background: linear-gradient(135deg, rgba(226,0,26,0.95), rgba(176,0,21,0.95));
       color: white;
-      padding: 18px 26px;
+      padding: 16px 22px;
       border-radius: 14px;
-      box-shadow: 0 10px 40px rgba(226, 0, 26, 0.5);
       z-index: 10001;
       opacity: 0;
       transform: translateY(20px);
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: 0.25s ease;
       pointer-events: none;
       font-family: 'Rajdhani', sans-serif;
       font-weight: 700;
-      font-size: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255,255,255,0.18);
+      max-width: 520px;
     }
     .toast.show { opacity: 1; transform: translateY(0); }
 
@@ -655,10 +460,10 @@
     @media (max-width: 1024px) {
       :root { --sidebar-width: 100%; --header-height: 70px; }
       .app { flex-direction: column; }
+
       .sidebar {
         position: fixed;
-        bottom: 0;
-        left: 0;
+        bottom: 0; left: 0;
         width: 100%;
         height: 80px;
         flex-direction: row;
@@ -667,34 +472,20 @@
         border-top: 2px solid var(--primary);
         border-right: none;
         justify-content: space-around;
-        overflow: visible;
         background: rgba(5,5,5,0.99);
-        box-shadow: 0 -10px 40px rgba(226,0,26,0.5);
         z-index: 1001;
       }
-      .sidebar::before { display: none; }
       .brand-box { display: none; }
       .menu { display: flex; flex-direction: row; padding: 0; width: 100%; justify-content: space-around; align-items: center; gap: 4px; }
-      .nav-link { flex-direction: column; gap: 7px; font-size: 11px; padding: 12px 6px; border: none; margin: 0; background: transparent !important; width: 78px; justify-content: center; border-radius: 0; }
-      .nav-link::before { display: none; }
-      .nav-link:hover { transform: translateY(-8px); background: rgba(255,255,255,0.05) !important; }
-      .nav-link.active { color: var(--primary); text-shadow: 0 0 25px var(--primary); transform: translateY(-10px) scale(1.05); border-left: none; background: rgba(226, 0, 26, 0.15) !important; }
-      .nav-icon { width: 28px; height: 28px; margin-bottom: 0; }
+      .nav-link { flex-direction: column; gap: 6px; font-size: 11px; padding: 10px 6px; border: none; margin: 0; background: transparent !important; width: 78px; justify-content: center; }
       .main-content { margin-bottom: 80px; height: calc(100vh - 80px); }
-      .topbar { padding: 0 22px; height: var(--header-height); }
-      .page-title h2 { font-size: 21px; }
-      .topbar-logo { width: 34px; height: 34px; }
-      .scroll-area { padding: 28px; }
+      .topbar { padding: 0 18px; }
+
       .puzzle-container { grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; aspect-ratio: auto; }
-      .puzzle-header h1 { font-size: 36px; }
-      .puzzle-header .emoji { font-size: 55px; }
-      .modal { padding: 20px; }
-      .modal-header { padding: 28px; }
-      .modal-header h2 { font-size: 26px; }
-      .modal-header .emoji { font-size: 40px; }
-      .modal-body { padding: 28px; }
-      .btn-icon { width: 46px; height: 46px; }
-      .btn-icon img { width: 22px; height: 22px; }
+
+      .modal-body { grid-template-columns: 1fr; }
+      .modal-left { border-right: none; border-bottom: 1px solid var(--border); }
+      .viewer-frame { min-height: 50vh; }
       .toast { bottom: 100px; right: 20px; left: 20px; text-align: center; }
     }
   </style>
@@ -729,6 +520,7 @@
           <img class="nav-icon" src="liste.png" alt="Puzzle" loading="lazy" data-fallback="liste.png">
           <span>Puzzle QHSE</span>
         </div>
+
         <div class="nav-link" onclick="nav('poi', this)">
           <img class="nav-icon" src="usine.png" alt="Incendie" loading="lazy" data-fallback="usine.png">
           <span>Incendie</span>
@@ -767,7 +559,6 @@
       </header>
 
       <div class="scroll-area">
-
         <!-- PAGE PUZZLE -->
         <div id="puzzle" class="page active">
           <div class="puzzle-wrapper">
@@ -777,77 +568,79 @@
             </div>
 
             <div class="puzzle-container">
-              <div class="puzzle-piece p-red" onclick="openModal('procedures', '📋', 'PROCEDURES')">
+              <!-- IMPORTANT: maintenant TOUT ouvre la même liste Drive,
+                   tu peux ensuite trier/catégoriser si tu veux -->
+              <div class="puzzle-piece p-red" onclick="openDriveModal('📋', 'PROCEDURES')">
                 <img class="p-icon" src="liste.png" alt="" loading="lazy" data-fallback="liste.png">
                 PROCEDURES
               </div>
 
-              <div class="puzzle-piece p-cyan" onclick="openModal('evaluation', '📊', 'EVALUATION')">
+              <div class="puzzle-piece p-cyan" onclick="openDriveModal('📊', 'EVALUATION')">
                 <img class="p-icon" src="cible.png" alt="" loading="lazy" data-fallback="cible.png">
                 EVALUATION
               </div>
 
-              <div class="puzzle-piece p-orange" onclick="openModal('referentiels', '📚', 'REFERENTIELS')">
+              <div class="puzzle-piece p-orange" onclick="openDriveModal('📚', 'REFERENTIELS')">
                 <img class="p-icon" src="liste.png" alt="" loading="lazy" data-fallback="liste.png">
                 REFERENTIELS
               </div>
 
-              <div class="puzzle-piece p-gray" onclick="openModal('personnel', '👥', 'LISTE PERSONNEL')">
+              <div class="puzzle-piece p-gray" onclick="openDriveModal('👥', 'LISTE PERSONNEL')">
                 <img class="p-icon" src="mains.png" alt="" loading="lazy" data-fallback="mains.png">
                 LISTE PERSONNEL<br>AFFICHAGE
               </div>
 
-              <div class="puzzle-piece p-teal" onclick="openModal('dechets', '♻️', 'SUIVI DES DECHETS')">
+              <div class="puzzle-piece p-teal" onclick="openDriveModal('♻️', 'SUIVI DES DECHETS')">
                 <img class="p-icon" src="camion.png" alt="" loading="lazy" data-fallback="camion.png">
                 SUIVI DES DECHETS
               </div>
 
-              <div class="puzzle-piece p-blue" onclick="openModal('indicateurs', '📈', 'INDICATEURS')">
+              <div class="puzzle-piece p-blue" onclick="openDriveModal('📈', 'INDICATEURS')">
                 <img class="p-icon" src="ville.png" alt="" loading="lazy" data-fallback="ville.png">
                 INDICATEURS
               </div>
 
-              <div class="puzzle-piece p-yellow" onclick="openModal('affichage', '📺', 'AFFICHAGE')">
+              <div class="puzzle-piece p-yellow" onclick="openDriveModal('📺', 'AFFICHAGE')">
                 <img class="p-icon" src="magasin.png" alt="" loading="lazy" data-fallback="magasin.png">
                 AFFICHAGE
               </div>
 
-              <div class="puzzle-piece p-magenta" onclick="openModal('formation', '🎓', 'FORMATION')">
+              <div class="puzzle-piece p-magenta" onclick="openDriveModal('🎓', 'FORMATION')">
                 <img class="p-icon" src="conseiller.png" alt="" loading="lazy" data-fallback="conseiller.png">
                 FORMATION
               </div>
 
-              <div class="puzzle-piece p-lime" onclick="openModal('suiviat', '🏥', 'SUIVI DES AT')">
+              <div class="puzzle-piece p-lime" onclick="openDriveModal('🏥', 'SUIVI DES AT')">
                 <img class="p-icon" src="ouvrier.png" alt="" loading="lazy" data-fallback="ouvrier.png">
                 SUIVI DES AT
               </div>
 
-              <div class="puzzle-piece p-purple" onclick="openModal('reglementation', '⚖️', 'REGLEMENTATION')">
+              <div class="puzzle-piece p-purple" onclick="openDriveModal('⚖️', 'REGLEMENTATION')">
                 <img class="p-icon" src="liste.png" alt="" loading="lazy" data-fallback="liste.png">
                 REGLEMENTATION
               </div>
 
-              <div class="puzzle-piece p-pink" onclick="openModal('coordonnees', '🗺️', 'COORDONNEES & PLAN')">
+              <div class="puzzle-piece p-pink" onclick="openDriveModal('🗺️', 'COORDONNEES & PLAN')">
                 <img class="p-icon" src="localisation.png" alt="" loading="lazy" data-fallback="localisation.png">
                 COORDONNEES &<br>PLAN
               </div>
 
-              <div class="puzzle-piece p-aqua" onclick="openModal('rdaudit', '🔍', 'REVUE DIRECTION & AUDIT')">
+              <div class="puzzle-piece p-aqua" onclick="openDriveModal('🔍', 'REVUE DIRECTION & AUDIT')">
                 <img class="p-icon" src="cible.png" alt="" loading="lazy" data-fallback="cible.png">
                 REVUE DIRECTION<br>& AUDIT
               </div>
 
-              <div class="puzzle-piece p-lightyellow" onclick="openModal('intervention', '🛠️', 'INTERVENTION')">
+              <div class="puzzle-piece p-lightyellow" onclick="openDriveModal('🛠️', 'INTERVENTION')">
                 <img class="p-icon" src="transpalette.png" alt="" loading="lazy" data-fallback="transpalette.png">
                 INTERVENTION
               </div>
 
-              <div class="puzzle-piece p-darkpurple" onclick="openModal('crreunion', '💬', 'CR REUNION')">
+              <div class="puzzle-piece p-darkpurple" onclick="openDriveModal('💬', 'CR REUNION')">
                 <img class="p-icon" src="mains.png" alt="" loading="lazy" data-fallback="mains.png">
                 CR REUNION
               </div>
 
-              <div class="puzzle-piece p-lightpurple" onclick="openModal('reglementation2', '⚖️', 'REGLEMENTATION')">
+              <div class="puzzle-piece p-lightpurple" onclick="openDriveModal('⚖️', 'REGLEMENTATION (2)')">
                 <img class="p-icon" src="liste.png" alt="" loading="lazy" data-fallback="liste.png">
                 REGLEMENTATION
               </div>
@@ -862,7 +655,7 @@
                 INCENDIE - POI
               </div>
 
-              <div class="puzzle-piece p-lightgray" onclick="openModal('incident', '⚠️', 'INCIDENT')">
+              <div class="puzzle-piece p-lightgray" onclick="openDriveModal('⚠️', 'INCIDENT')">
                 <img class="p-icon" src="cible.png" alt="" loading="lazy" data-fallback="cible.png">
                 INCIDENT
               </div>
@@ -872,7 +665,7 @@
                 FICHE DE SECURITE
               </div>
 
-              <div class="puzzle-piece p-green" onclick="openModal('incidentdoc', '📄', 'INCIDENT DOCUMENTAIRE')">
+              <div class="puzzle-piece p-green" onclick="openDriveModal('📄', 'INCIDENT DOCUMENTAIRE')">
                 <img class="p-icon" src="liste.png" alt="" loading="lazy" data-fallback="liste.png">
                 INCIDENT<br>DOCUMENTAIRE
               </div>
@@ -887,10 +680,10 @@
               <span class="emoji">🔥</span>
               <h1>ORGANISATION INCENDIE</h1>
             </div>
-            <div class="doc-grid" style="max-width: 900px; width: 100%;">
-              <div class="doc-item" onclick="openModal('poi', '🔥', 'INCENDIE / POI')">
-                <h4>Documents Incendie / POI</h4>
-                <p>Ouvre la liste des documents POI (dans la modale)</p>
+            <div class="doc-grid">
+              <div class="doc-item" onclick="openDriveModal('🔥','POI - DOCUMENTS')">
+                <h4>Ouvrir les documents POI</h4>
+                <p>Accès à la base Drive (recherche + aperçu intégré)</p>
               </div>
             </div>
           </div>
@@ -903,10 +696,10 @@
               <span class="emoji">⚠️</span>
               <h1>RETRAIT QUALITE</h1>
             </div>
-            <div class="doc-grid" style="max-width: 900px; width: 100%;">
-              <div class="doc-item" onclick="openModal('retrait', '⚠️', 'RETRAIT QUALITE')">
-                <h4>Documents Retrait Qualité</h4>
-                <p>Ouvre la liste des documents Retrait (dans la modale)</p>
+            <div class="doc-grid">
+              <div class="doc-item" onclick="openDriveModal('⚠️','RETRAIT - DOCUMENTS')">
+                <h4>Ouvrir les documents Retrait</h4>
+                <p>Accès à la base Drive (recherche + aperçu intégré)</p>
               </div>
             </div>
           </div>
@@ -919,10 +712,10 @@
               <span class="emoji">🧪</span>
               <h1>FICHE DE SECURITE</h1>
             </div>
-            <div class="doc-grid" style="max-width: 900px; width: 100%;">
-              <div class="doc-item" onclick="openModal('fds', '🧪', 'FICHE DE SECURITE')">
-                <h4>Base FDS</h4>
-                <p>Ouvre la liste des fiches (dans la modale)</p>
+            <div class="doc-grid">
+              <div class="doc-item" onclick="openDriveModal('🧪','FDS - DOCUMENTS')">
+                <h4>Ouvrir les documents FDS</h4>
+                <p>Accès à la base Drive (recherche + aperçu intégré)</p>
               </div>
             </div>
           </div>
@@ -935,10 +728,10 @@
               <span class="emoji">⚖️</span>
               <h1>REGLEMENTATION</h1>
             </div>
-            <div class="doc-grid" style="max-width: 900px; width: 100%;">
-              <div class="doc-item" onclick="openModal('reglementation', '⚖️', 'REGLEMENTATION')">
-                <h4>Documents Règlementation</h4>
-                <p>Ouvre la liste des documents (dans la modale)</p>
+            <div class="doc-grid">
+              <div class="doc-item" onclick="openDriveModal('⚖️','REGLEMENTATION - DOCUMENTS')">
+                <h4>Ouvrir les documents Réglementation</h4>
+                <p>Accès à la base Drive (recherche + aperçu intégré)</p>
               </div>
             </div>
           </div>
@@ -948,16 +741,33 @@
     </main>
   </div>
 
-  <!-- MODAL -->
+  <!-- MODAL DRIVE VIEWER -->
   <div id="modal" class="modal" onclick="if(event.target === this) closeModal()">
     <div class="modal-content">
       <div class="modal-header">
         <span class="emoji" id="modalEmoji">📋</span>
-        <h2 id="modalTitle">TITRE</h2>
-        <button class="modal-close" onclick="closeModal()">Accueil</button>
+        <h2 id="modalTitle">DOCUMENTS</h2>
+
+        <div class="modal-actions">
+          <button class="modal-btn" id="btnOpenNew" onclick="openCurrentInNewTab()">Ouvrir</button>
+          <button class="modal-btn" onclick="closeModal()">Fermer</button>
+        </div>
       </div>
+
       <div class="modal-body">
-        <div class="doc-grid" id="modalContent"></div>
+        <div class="modal-left">
+          <input id="searchInput" class="search" type="text" placeholder="Rechercher un document..." oninput="renderDocList()">
+          <div class="doc-list" id="docList"></div>
+        </div>
+
+        <div class="modal-right">
+          <div class="viewer-bar">
+            <div class="viewer-title" id="viewerTitle">Sélectionne un document à gauche</div>
+          </div>
+          <div class="viewer-frame">
+            <iframe id="viewerFrame" src=""></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -966,7 +776,68 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    // ✅ Fallback robuste : si image cassée -> remplace par data-fallback (ou logo par défaut)
+    /* ==========================
+       1) COLLE ICI TOUS TES LIENS
+       ========================== */
+    const RAW_LINKS = `
+https://drive.google.com/open?id=1hEzOUg9OR24DBdY2eAvBJ1Pa8aNH68GD&usp=drive_copy
+https://drive.google.com/open?id=1rJaLWE7t4vdD1DY87kuGyhWtP5yf8E1d&usp=drive_copy
+https://drive.google.com/open?id=1eYQ79fzfVy1izWmBIKpIxtNRJSU0bCiq&usp=drive_copy
+https://drive.google.com/open?id=1BWzJZ8Cmk0GMKVWwA6WRuqAs7927xjxj&usp=drive_copy
+https://drive.google.com/open?id=1HIAzCX1hPTtTc9B9T0FQvfRi7pzuLSKY&usp=drive_copy
+    `.trim();
+    // ⬆️ Remplace ce bloc par TOUS tes liens (tu peux coller 300 lignes)
+
+    /* ==========================
+       UTILITAIRES DRIVE
+       ========================== */
+    function extractDriveId(url) {
+      if (!url) return null;
+      // open?id=XXXX
+      const m1 = url.match(/[?&]id=([^&]+)/);
+      if (m1 && m1[1]) return m1[1].trim();
+
+      // file/d/XXXX/
+      const m2 = url.match(/\/file\/d\/([^\/]+)/);
+      if (m2 && m2[1]) return m2[1].trim();
+
+      return null;
+    }
+
+    function buildDriveUrls(fileId) {
+      return {
+        preview: `https://drive.google.com/file/d/${fileId}/preview`,
+        view:   `https://drive.google.com/file/d/${fileId}/view?usp=drive_link`
+      };
+    }
+
+    function parseRawLinks(raw) {
+      const lines = raw.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+      const out = [];
+      const seen = new Set();
+
+      for (const url of lines) {
+        const id = extractDriveId(url);
+        if (!id) continue;
+        if (seen.has(id)) continue;
+        seen.add(id);
+
+        const u = buildDriveUrls(id);
+        out.push({
+          id,
+          title: `Document ${out.length + 1}`,
+          viewUrl: u.view,
+          previewUrl: u.preview
+        });
+      }
+      return out;
+    }
+
+    const DRIVE_DOCS = parseRawLinks(RAW_LINKS);
+
+    /* ==========================
+       UI / NAV / LOAD
+       ========================== */
     function applyImageFallback(img) {
       const fallback = img.getAttribute('data-fallback') || "241111_Symbole R&B_320x320_RVB.png";
       if (!img.dataset.fallbackApplied) {
@@ -975,28 +846,17 @@
       }
     }
 
-    // CHARGEMENT
     window.addEventListener('load', function () {
       setTimeout(() => {
         document.getElementById('loading').classList.add('hidden');
         document.getElementById('app').classList.add('loaded');
-      }, 800);
+      }, 650);
     });
 
-    // NAV
     function nav(id, el) {
-      document.querySelectorAll('.page').forEach(p => {
-        p.style.opacity = '0';
-        setTimeout(() => p.classList.remove('active'), 200);
-      });
-
-      setTimeout(() => {
-        const target = document.getElementById(id);
-        if (target) {
-          target.classList.add('active');
-          setTimeout(() => target.style.opacity = '1', 50);
-        }
-      }, 250);
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById(id);
+      if (target) target.classList.add('active');
 
       const titles = {
         'puzzle': 'Puzzle QHSE',
@@ -1013,169 +873,95 @@
       document.querySelector('.scroll-area').scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // ==== DRIVE HELPERS ====
-    function extractDriveId(url){
-      const m1 = url.match(/[?&]id=([^&]+)/);
-      if (m1) return m1[1];
-      const m2 = url.match(/\/file\/d\/([^/]+)/);
-      if (m2) return m2[1];
-      return null;
-    }
-    function normalizeViewUrl(url){
-      const id = extractDriveId(url);
-      if (!id) return url;
-      return `https://drive.google.com/file/d/${id}/view`;
-    }
-    function normalizeDownloadUrl(url){
-      const id = extractDriveId(url);
-      if (!id) return url;
-      return `https://drive.google.com/uc?export=download&id=${id}`;
-    }
+    /* ==========================
+       MODAL DRIVE VIEWER
+       ========================== */
+    let CURRENT_DOC = null;
 
-    // ==== DATA (COLLE TES LIENS ICI) ====
-    // IMPORTANT : tu peux mettre tout au début dans procedures, puis trier plus tard.
-    const DOCS = {
-      procedures: [
-        // ✅ Exemple (remplace/colle tes liens ici)
-        { title: "Document 1", url: "https://drive.google.com/open?id=1hEzOUg9OR24DBdY2eAvBJ1Pa8aNH68GD&usp=drive_copy" },
-        { title: "Document 2", url: "https://drive.google.com/open?id=1rJaLWE7t4vdD1DY87kuGyhWtP5yf8E1d&usp=drive_copy" }
-      ],
-      poi: [],
-      retrait: [],
-      fds: [],
-      reglementation: [],
-      evaluation: [],
-      referentiels: [],
-      personnel: [],
-      dechets: [],
-      indicateurs: [],
-      affichage: [],
-      formation: [],
-      suiviat: [],
-      coordonnees: [],
-      rdaudit: [],
-      intervention: [],
-      crreunion: [],
-      incident: [],
-      incidentdoc: [],
-      reglementation2: []
-    };
-
-    // MODAL (avec recherche + compteur + boutons ouvrir/télécharger)
-    function openModal(key, emoji, title) {
+    function openDriveModal(emoji, title) {
       document.getElementById('modalEmoji').textContent = emoji;
       document.getElementById('modalTitle').textContent = title;
 
-      const container = document.getElementById('modalContent');
-      const list = (DOCS[key] || []).map((d, idx) => {
-        const raw = d.url || "";
-        const viewUrl = normalizeViewUrl(raw);
-        const dlUrl = normalizeDownloadUrl(raw);
-        const id = extractDriveId(raw) || `link-${idx+1}`;
-        const safeTitle = (d.title && d.title.trim()) ? d.title.trim() : `${title} - Document ${idx+1}`;
+      // reset
+      document.getElementById('searchInput').value = '';
+      CURRENT_DOC = null;
+      document.getElementById('viewerTitle').textContent = 'Sélectionne un document à gauche';
+      document.getElementById('viewerFrame').src = '';
+      document.getElementById('btnOpenNew').disabled = true;
 
-        return { title: safeTitle, id, raw, viewUrl, dlUrl };
-      });
-
-      container.innerHTML = `
-        <div style="display:flex; gap:12px; align-items:center; margin-bottom:18px; flex-wrap:wrap;">
-          <input id="docSearch" type="search" placeholder="Rechercher (titre / id)..."
-            style="
-              flex:1; min-width:240px;
-              padding:12px 14px;
-              border-radius:14px;
-              border:1px solid rgba(255,255,255,0.12);
-              background: rgba(255,255,255,0.06);
-              color:#fff;
-              outline:none;
-            "
-          />
-          <div id="docCount" style="color: rgba(255,255,255,0.72); font-weight:700; font-family:'Rajdhani',sans-serif;">
-            ${list.length} document(s)
-          </div>
-        </div>
-        <div id="docGrid" class="doc-grid"></div>
-      `;
-
-      const grid = document.getElementById("docGrid");
-      const search = document.getElementById("docSearch");
-      const count = document.getElementById("docCount");
-
-      function render(items){
-        grid.innerHTML = items.map(item => `
-          <div class="doc-item">
-            <h4 style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
-              <span>${item.title}</span>
-              <span style="font-size:12px; color: rgba(255,255,255,0.55); font-weight:700;">${item.id}</span>
-            </h4>
-
-            <p style="word-break:break-all; margin-top:8px;">${item.raw}</p>
-
-            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
-              <a href="${item.viewUrl}" target="_blank" rel="noopener"
-                 style="
-                  display:inline-flex; align-items:center; justify-content:center;
-                  padding:10px 14px; border-radius:12px;
-                  border:1px solid rgba(255,255,255,0.14);
-                  background: rgba(255,255,255,0.06);
-                  color:#fff; text-decoration:none; font-weight:800;
-                  font-family:'Rajdhani',sans-serif; letter-spacing:0.6px;
-                 "
-              >Ouvrir</a>
-
-              <a href="${item.dlUrl}" target="_blank" rel="noopener"
-                 style="
-                  display:inline-flex; align-items:center; justify-content:center;
-                  padding:10px 14px; border-radius:12px;
-                  border:1px solid rgba(226,0,26,0.35);
-                  background: rgba(226,0,26,0.16);
-                  color:#fff; text-decoration:none; font-weight:800;
-                  font-family:'Rajdhani',sans-serif; letter-spacing:0.6px;
-                 "
-              >Télécharger</a>
-            </div>
-          </div>
-        `).join("");
-
-        count.textContent = `${items.length} / ${list.length}`;
-      }
-
-      function filter(){
-        const q = (search.value || "").trim().toLowerCase();
-        if (!q) return render(list);
-        render(list.filter(x =>
-          x.title.toLowerCase().includes(q) ||
-          x.id.toLowerCase().includes(q)
-        ));
-      }
-
-      search.addEventListener("input", filter);
-      render(list);
+      renderDocList();
 
       document.getElementById('modal').classList.add('active');
       document.body.style.overflow = 'hidden';
 
-      if (list.length === 0) showToast(`⚠️ Aucun document dans "${title}" (clé: ${key})`);
+      if (DRIVE_DOCS.length === 0) {
+        showToast("⚠️ Aucun lien Drive détecté. Vérifie RAW_LINKS.");
+      } else {
+        showToast(`✅ ${DRIVE_DOCS.length} documents chargés`);
+      }
     }
 
     function closeModal() {
       document.getElementById('modal').classList.remove('active');
       document.body.style.overflow = '';
+      // stop iframe (évite audio/chargement)
+      document.getElementById('viewerFrame').src = '';
     }
 
-    // TOAST
+    function renderDocList() {
+      const q = (document.getElementById('searchInput').value || '').toLowerCase();
+      const list = document.getElementById('docList');
+
+      const filtered = DRIVE_DOCS.filter(d => d.title.toLowerCase().includes(q) || d.id.toLowerCase().includes(q));
+
+      list.innerHTML = filtered.map(d => `
+        <div class="doc-row" onclick="selectDoc('${d.id}')">
+          <strong>${escapeHtml(d.title)}</strong>
+          <small>${d.id}</small>
+        </div>
+      `).join('');
+
+      if (filtered.length === 0) {
+        list.innerHTML = `<div style="color:#aaa;padding:10px;">Aucun résultat.</div>`;
+      }
+    }
+
+    function selectDoc(id) {
+      const doc = DRIVE_DOCS.find(d => d.id === id);
+      if (!doc) return;
+
+      CURRENT_DOC = doc;
+
+      document.getElementById('viewerTitle').textContent = doc.title;
+      document.getElementById('viewerFrame').src = doc.previewUrl;
+
+      document.getElementById('btnOpenNew').disabled = false;
+      showToast(`📄 ${doc.title} chargé`);
+    }
+
+    function openCurrentInNewTab() {
+      if (!CURRENT_DOC) return;
+      window.open(CURRENT_DOC.viewUrl, '_blank', 'noopener,noreferrer');
+    }
+
+    /* ==========================
+       TOAST
+       ========================== */
     function showToast(message) {
       const toast = document.getElementById('toast');
       toast.textContent = message;
       toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 3000);
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
     }
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeModal();
     });
 
-    // ✅ Gestion erreurs images => fallback
+    /* ==========================
+       IMAGES FALLBACK
+       ========================== */
     document.querySelectorAll('img').forEach(img => {
       img.addEventListener('error', function () {
         console.warn('Image non trouvée:', this.getAttribute('src'));
@@ -1183,8 +969,22 @@
       });
     });
 
-    console.log('%c🧩 Portail QHSE Les Mousquetaires', 'color: #E2001A; font-size: 20px; font-weight: bold;');
-    console.log('%cBrignoles - Logistique & QHSE', 'color: #666; font-size: 12px;');
+    /* ==========================
+       SAFE HTML
+       ========================== */
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    /* ==========================
+       AUTO: si tu veux renommer
+       ========================== */
+    // Option : si tu as un fichier "noms" plus tard, on pourra associer id -> nom réel.
   </script>
 </body>
 </html>
