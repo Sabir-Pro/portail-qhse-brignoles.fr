@@ -43,11 +43,7 @@
     }
 
     /* RESET & BASE */
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     html {
       -webkit-font-smoothing: antialiased;
@@ -615,13 +611,13 @@
       letter-spacing: 0.8px;
     }
     .modal-body { padding: 38px; }
+
     .doc-grid { display: grid; gap: 20px; }
     .doc-item {
       background: rgba(255, 255, 255, 0.045);
       border: 1px solid var(--border-light);
       border-radius: 16px;
       padding: 26px;
-      cursor: pointer;
     }
     .doc-item h4 {
       font-size: 20px;
@@ -716,7 +712,6 @@
     <!-- SIDEBAR -->
     <nav class="sidebar">
       <div class="brand-box">
-        <!-- ✅ FIX LOGO (haut gauche) -->
         <img class="brand-logo"
              src="GROUPEMENT_MOUSQUETAIRES_H_INV_HD.png"
              alt="Groupement Mousquetaires"
@@ -739,7 +734,6 @@
           <span>Incendie</span>
         </div>
 
-        <!-- ✅ FIX "Retrait" sidebar -->
         <div class="nav-link" onclick="nav('retrait', this)">
           <img class="nav-icon" src="chariot.png" alt="Retrait" loading="lazy" data-fallback="carton.png">
           <span>Retrait</span>
@@ -750,7 +744,6 @@
           <span>FDS</span>
         </div>
 
-        <!-- ✅ FIX "Règlement" sidebar -->
         <div class="nav-link" onclick="nav('reglementation', this)">
           <img class="nav-icon" src="liste.png" alt="Règlement" loading="lazy" data-fallback="liste.png">
           <span>Règlement</span>
@@ -794,7 +787,6 @@
                 EVALUATION
               </div>
 
-              <!-- ✅ FIX "Référentiels" (puzzle) -->
               <div class="puzzle-piece p-orange" onclick="openModal('referentiels', '📚', 'REFERENTIELS')">
                 <img class="p-icon" src="liste.png" alt="" loading="lazy" data-fallback="liste.png">
                 REFERENTIELS
@@ -830,7 +822,6 @@
                 SUIVI DES AT
               </div>
 
-              <!-- ✅ FIX "Réglementation" (puzzle) -->
               <div class="puzzle-piece p-purple" onclick="openModal('reglementation', '⚖️', 'REGLEMENTATION')">
                 <img class="p-icon" src="liste.png" alt="" loading="lazy" data-fallback="liste.png">
                 REGLEMENTATION
@@ -861,7 +852,6 @@
                 REGLEMENTATION
               </div>
 
-              <!-- ✅ FIX "Retrait Qualité" (puzzle) -->
               <div class="puzzle-piece p-wine" onclick="nav('retrait', document.querySelectorAll('.nav-link')[2])">
                 <img class="p-icon" src="chariot.png" alt="" loading="lazy" data-fallback="carton.png">
                 RETRAIT<br>QUALITE
@@ -898,37 +888,9 @@
               <h1>ORGANISATION INCENDIE</h1>
             </div>
             <div class="doc-grid" style="max-width: 900px; width: 100%;">
-              <div class="doc-item" onclick="showToast('📄 Plan Organisation Interne ouvert')">
-                <h4>Plan Organisation Interne (POI)</h4>
-                <p>Document principal de gestion des situations d'urgence</p>
-              </div>
-              <div class="doc-item" onclick="showToast('📄 FR PDG ouvert')">
-                <h4>FR PDG</h4>
-                <p>Poste de garde - P TEC 03 bis</p>
-              </div>
-              <div class="doc-item" onclick="showToast('📄 FR DOI ouvert')">
-                <h4>FR DOI</h4>
-                <p>Directeur opérations internes - P TEC 03 bis</p>
-              </div>
-              <div class="doc-item" onclick="showToast('📄 FR AOI ouvert')">
-                <h4>FR AOI</h4>
-                <p>Assistant opération interne - P TEC 03 bis</p>
-              </div>
-              <div class="doc-item" onclick="showToast('📄 FR RC ouvert')">
-                <h4>FR RC</h4>
-                <p>Responsable de comptage - P TEC 03 bis</p>
-              </div>
-              <div class="doc-item" onclick="showToast('📄 FR RCOM ouvert')">
-                <h4>FR RCOM</h4>
-                <p>Responsable communication - P TEC 03 bis</p>
-              </div>
-              <div class="doc-item" onclick="showToast('📄 FR ROBS ouvert')">
-                <h4>FR ROBS</h4>
-                <p>Responsable observation - P TEC 03 bis</p>
-              </div>
-              <div class="doc-item" onclick="showToast('📄 Fiche Réflexe Total ouverte')">
-                <h4>Fiche Réflexe Total</h4>
-                <p>P TEC 03 bis - Procédure d'urgence complète</p>
+              <div class="doc-item" onclick="openModal('poi', '🔥', 'INCENDIE / POI')">
+                <h4>Documents Incendie / POI</h4>
+                <p>Ouvre la liste des documents POI (dans la modale)</p>
               </div>
             </div>
           </div>
@@ -942,25 +904,9 @@
               <h1>RETRAIT QUALITE</h1>
             </div>
             <div class="doc-grid" style="max-width: 900px; width: 100%;">
-              <div class="doc-item" onclick="showToast('📄 Feuille de suivi avec EAN13 ouverte')">
-                <h4>Feuille Suivi Retrait Rappel avec Désactivation EAN13</h4>
-                <p>BGN E QUA 01 - Procédure de blocage avec code-barres</p>
-              </div>
-              <div class="doc-item" onclick="showToast('📄 Procédure de retrait ouverte')">
-                <h4>Procédure Retrait</h4>
-                <p>BGN P QUA 01.02 - Guide complet de retrait produit</p>
-              </div>
-              <div class="doc-item" onclick="showToast('📄 Feuille de suivi sans EAN13 ouverte')">
-                <h4>Feuille Suivi Retrait Rappel sans Désactivation EAN13</h4>
-                <p>BGN E QUA 01 - Bloquage de vente manuel</p>
-              </div>
-              <div class="doc-item" onclick="showToast('📄 Tableau synthétique ouvert')">
-                <h4>Tableau Synthétique</h4>
-                <p>N-P QUA 01 - Vue d'ensemble des retraits</p>
-              </div>
-              <div class="doc-item" onclick="showToast('📄 Base de données retrait ouverte')">
-                <h4>Base de Données Retrait</h4>
-                <p>Historique complet et traçabilité des retraits qualité</p>
+              <div class="doc-item" onclick="openModal('retrait', '⚠️', 'RETRAIT QUALITE')">
+                <h4>Documents Retrait Qualité</h4>
+                <p>Ouvre la liste des documents Retrait (dans la modale)</p>
               </div>
             </div>
           </div>
@@ -974,13 +920,9 @@
               <h1>FICHE DE SECURITE</h1>
             </div>
             <div class="doc-grid" style="max-width: 900px; width: 100%;">
-              <div class="doc-item" onclick="showToast('📄 Base FDS ouverte')">
-                <h4>Base de Données FDS</h4>
-                <p>Toutes les fiches de données de sécurité des produits chimiques</p>
-              </div>
-              <div class="doc-item" onclick="showToast('📄 Guide SST ouvert')">
-                <h4>SST: Que faire en cas de...</h4>
-                <p>Guide d'urgence - Premiers secours et réflexes de sécurité</p>
+              <div class="doc-item" onclick="openModal('fds', '🧪', 'FICHE DE SECURITE')">
+                <h4>Base FDS</h4>
+                <p>Ouvre la liste des fiches (dans la modale)</p>
               </div>
             </div>
           </div>
@@ -994,17 +936,9 @@
               <h1>REGLEMENTATION</h1>
             </div>
             <div class="doc-grid" style="max-width: 900px; width: 100%;">
-              <div class="doc-item" onclick="showToast('📄 Protocole de sécurité ouvert')">
-                <h4>Protocole de Sécurité Base</h4>
-                <p>Document réglementaire obligatoire - Sécurité des opérations</p>
-              </div>
-              <div class="doc-item" onclick="showToast('📄 Arrêtés préfectoraux ouverts')">
-                <h4>Arrêtés Préfectoraux (ICPE)</h4>
-                <p>Installation Classée pour la Protection de l'Environnement</p>
-              </div>
-              <div class="doc-item" onclick="showToast('📄 Règlement intérieur ouvert')">
-                <h4>Règlement Intérieur</h4>
-                <p>Version en vigueur - Dernière mise à jour</p>
+              <div class="doc-item" onclick="openModal('reglementation', '⚖️', 'REGLEMENTATION')">
+                <h4>Documents Règlementation</h4>
+                <p>Ouvre la liste des documents (dans la modale)</p>
               </div>
             </div>
           </div>
@@ -1079,18 +1013,149 @@
       document.querySelector('.scroll-area').scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // MODAL
+    // ==== DRIVE HELPERS ====
+    function extractDriveId(url){
+      const m1 = url.match(/[?&]id=([^&]+)/);
+      if (m1) return m1[1];
+      const m2 = url.match(/\/file\/d\/([^/]+)/);
+      if (m2) return m2[1];
+      return null;
+    }
+    function normalizeViewUrl(url){
+      const id = extractDriveId(url);
+      if (!id) return url;
+      return `https://drive.google.com/file/d/${id}/view`;
+    }
+    function normalizeDownloadUrl(url){
+      const id = extractDriveId(url);
+      if (!id) return url;
+      return `https://drive.google.com/uc?export=download&id=${id}`;
+    }
+
+    // ==== DATA (COLLE TES LIENS ICI) ====
+    // IMPORTANT : tu peux mettre tout au début dans procedures, puis trier plus tard.
+    const DOCS = {
+      procedures: [
+        // ✅ Exemple (remplace/colle tes liens ici)
+        { title: "Document 1", url: "https://drive.google.com/open?id=1hEzOUg9OR24DBdY2eAvBJ1Pa8aNH68GD&usp=drive_copy" },
+        { title: "Document 2", url: "https://drive.google.com/open?id=1rJaLWE7t4vdD1DY87kuGyhWtP5yf8E1d&usp=drive_copy" }
+      ],
+      poi: [],
+      retrait: [],
+      fds: [],
+      reglementation: [],
+      evaluation: [],
+      referentiels: [],
+      personnel: [],
+      dechets: [],
+      indicateurs: [],
+      affichage: [],
+      formation: [],
+      suiviat: [],
+      coordonnees: [],
+      rdaudit: [],
+      intervention: [],
+      crreunion: [],
+      incident: [],
+      incidentdoc: [],
+      reglementation2: []
+    };
+
+    // MODAL (avec recherche + compteur + boutons ouvrir/télécharger)
     function openModal(key, emoji, title) {
       document.getElementById('modalEmoji').textContent = emoji;
       document.getElementById('modalTitle').textContent = title;
-      document.getElementById('modalContent').innerHTML = `
-        <div class="doc-item" onclick="showToast('Section ${title} - Document ouvert')">
-          <h4>${title}</h4>
-          <p>Section en développement - Fonctionnalités à venir</p>
+
+      const container = document.getElementById('modalContent');
+      const list = (DOCS[key] || []).map((d, idx) => {
+        const raw = d.url || "";
+        const viewUrl = normalizeViewUrl(raw);
+        const dlUrl = normalizeDownloadUrl(raw);
+        const id = extractDriveId(raw) || `link-${idx+1}`;
+        const safeTitle = (d.title && d.title.trim()) ? d.title.trim() : `${title} - Document ${idx+1}`;
+
+        return { title: safeTitle, id, raw, viewUrl, dlUrl };
+      });
+
+      container.innerHTML = `
+        <div style="display:flex; gap:12px; align-items:center; margin-bottom:18px; flex-wrap:wrap;">
+          <input id="docSearch" type="search" placeholder="Rechercher (titre / id)..."
+            style="
+              flex:1; min-width:240px;
+              padding:12px 14px;
+              border-radius:14px;
+              border:1px solid rgba(255,255,255,0.12);
+              background: rgba(255,255,255,0.06);
+              color:#fff;
+              outline:none;
+            "
+          />
+          <div id="docCount" style="color: rgba(255,255,255,0.72); font-weight:700; font-family:'Rajdhani',sans-serif;">
+            ${list.length} document(s)
+          </div>
         </div>
+        <div id="docGrid" class="doc-grid"></div>
       `;
+
+      const grid = document.getElementById("docGrid");
+      const search = document.getElementById("docSearch");
+      const count = document.getElementById("docCount");
+
+      function render(items){
+        grid.innerHTML = items.map(item => `
+          <div class="doc-item">
+            <h4 style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+              <span>${item.title}</span>
+              <span style="font-size:12px; color: rgba(255,255,255,0.55); font-weight:700;">${item.id}</span>
+            </h4>
+
+            <p style="word-break:break-all; margin-top:8px;">${item.raw}</p>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+              <a href="${item.viewUrl}" target="_blank" rel="noopener"
+                 style="
+                  display:inline-flex; align-items:center; justify-content:center;
+                  padding:10px 14px; border-radius:12px;
+                  border:1px solid rgba(255,255,255,0.14);
+                  background: rgba(255,255,255,0.06);
+                  color:#fff; text-decoration:none; font-weight:800;
+                  font-family:'Rajdhani',sans-serif; letter-spacing:0.6px;
+                 "
+              >Ouvrir</a>
+
+              <a href="${item.dlUrl}" target="_blank" rel="noopener"
+                 style="
+                  display:inline-flex; align-items:center; justify-content:center;
+                  padding:10px 14px; border-radius:12px;
+                  border:1px solid rgba(226,0,26,0.35);
+                  background: rgba(226,0,26,0.16);
+                  color:#fff; text-decoration:none; font-weight:800;
+                  font-family:'Rajdhani',sans-serif; letter-spacing:0.6px;
+                 "
+              >Télécharger</a>
+            </div>
+          </div>
+        `).join("");
+
+        count.textContent = `${items.length} / ${list.length}`;
+      }
+
+      function filter(){
+        const q = (search.value || "").trim().toLowerCase();
+        if (!q) return render(list);
+        render(list.filter(x =>
+          x.title.toLowerCase().includes(q) ||
+          x.id.toLowerCase().includes(q)
+        ));
+      }
+
+      search.addEventListener("input", filter);
+      render(list);
+
       document.getElementById('modal').classList.add('active');
       document.body.style.overflow = 'hidden';
+
+      if (list.length === 0) showToast(`⚠️ Aucun document dans "${title}" (clé: ${key})`);
     }
 
     function closeModal() {
@@ -1110,7 +1175,7 @@
       if (e.key === 'Escape') closeModal();
     });
 
-    // ✅ Gestion erreurs images => fallback au lieu d'opacité 0.3
+    // ✅ Gestion erreurs images => fallback
     document.querySelectorAll('img').forEach(img => {
       img.addEventListener('error', function () {
         console.warn('Image non trouvée:', this.getAttribute('src'));
