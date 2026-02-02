@@ -1,1044 +1,319 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Les Mousquetaires - Portail QHSE Brignoles</title>
-
-  <!-- SEO & Meta -->
-  <meta name="description" content="Portail QHSE Les Mousquetaires - Base logistique de Brignoles" />
-  <meta name="theme-color" content="#E2001A" />
-  <link rel="icon" type="image/png" href="241111_Symbole R&B_320x320_RVB.png" />
-  <link rel="apple-touch-icon" href="241111_Symbole R&B_320x320_RVB.png" />
-
-  <!-- Fonts optimisés -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;900&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
-
-  <style>
-    :root {
-      --primary: #E2001A;
-      --primary-dark: #b00015;
-      --primary-glow: rgba(226, 0, 26, 0.6);
-      --bg-deep: #020203;
-      --border: rgba(255, 255, 255, 0.12);
-      --border-light: rgba(255, 255, 255, 0.08);
-      --text-main: #ffffff;
-      --text-dim: #a8a8a8;
-
-      --sidebar-width: 300px;
-      --header-height: 90px;
-      --transition: 0.35s ease;
-    }
-
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background-color: var(--bg-deep);
-      color: var(--text-main);
-      overflow: hidden;
-      height: 100vh;
-      width: 100vw;
-      position: relative;
-      line-height: 1.6;
-    }
-
-    ::selection { background: var(--primary); color: white; }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: url("PPT Couverture_D3.jpg") center/cover no-repeat;
-      opacity: 0.22;
-      filter: saturate(0.92) contrast(1.08) brightness(0.95);
-      z-index: -5;
-      pointer-events: none;
-      animation: subtleZoom 35s ease-in-out infinite alternate;
-    }
-    @keyframes subtleZoom { 0% { transform: scale(1); } 100% { transform: scale(1.08) translateX(-20px); } }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 800px 600px at 25% 15%, rgba(226, 0, 26, 0.08), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,0.72), rgba(0,0,0,0.94));
-      z-index: -4;
-      pointer-events: none;
-    }
-
-    #bg-grid {
-      position: fixed;
-      inset: 0;
-      background-image:
-        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0px, transparent 1px, transparent 60px),
-        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0px, transparent 1px, transparent 60px);
-      transform: perspective(700px) rotateX(60deg) translateY(-150px) translateZ(-250px);
-      animation: gridFlow 30s linear infinite;
-      z-index: -3;
-      pointer-events: none;
-      opacity: 0.5;
-    }
-    @keyframes gridFlow {
-      0% { transform: perspective(700px) rotateX(60deg) translateY(0) translateZ(-250px); }
-      100% { transform: perspective(700px) rotateX(60deg) translateY(60px) translateZ(-250px); }
-    }
-
-    /* LOADING */
-    .loading-overlay {
-      position: fixed;
-      inset: 0;
-      background: var(--bg-deep);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      z-index: 10000;
-      opacity: 1;
-      transition: opacity 0.5s ease;
-    }
-    .loading-overlay.hidden { opacity: 0; pointer-events: none; }
-    .spinner {
-      width: 60px;
-      height: 60px;
-      border: 4px solid rgba(255, 255, 255, 0.1);
-      border-top-color: var(--primary);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portail QHSE - Brignoles</title>
     
-    .loading-text {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text-dim);
-      letter-spacing: 1px;
-    }
-
-    /* LAYOUT */
-    .app { display: flex; height: 100vh; width: 100%; opacity: 0; transition: opacity 0.6s ease; }
-    .app.loaded { opacity: 1; }
-
-    /* SIDEBAR */
-    .sidebar {
-      width: var(--sidebar-width);
-      background: linear-gradient(180deg, rgba(10, 10, 15, 0.97), rgba(5, 5, 10, 0.99));
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      z-index: 100;
-      backdrop-filter: blur(25px) saturate(150%);
-    }
-
-    .brand-box {
-      padding: 30px 26px;
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(0, 0, 0, 0.35);
-    }
-
-    .brand-logo {
-      width: 64px;
-      height: 64px;
-      object-fit: contain;
-      border-radius: 16px;
-      cursor: pointer;
-      filter: drop-shadow(0 10px 25px rgba(226, 0, 26, 0.5));
-      transition: var(--transition);
-    }
-    .brand-logo:hover { transform: scale(1.08) rotate(-6deg); }
-
-    .brand-text h2 {
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 900;
-      font-size: 22px;
-      line-height: 1;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: #fff;
-    }
-    .brand-text span {
-      font-size: 11px;
-      color: var(--text-dim);
-      display: block;
-      margin-top: 7px;
-      letter-spacing: 0.8px;
-      font-weight: 500;
-    }
-
-    .menu { flex: 1; overflow-y: auto; padding: 26px 20px; }
-    .menu::-webkit-scrollbar { width: 5px; }
-    .menu::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
-
-    .nav-link {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 18px 20px;
-      color: var(--text-dim);
-      border-radius: 15px;
-      margin-bottom: 12px;
-      transition: var(--transition);
-      border: 1px solid transparent;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 17px;
-      font-weight: 700;
-      cursor: pointer;
-      user-select: none;
-    }
-    .nav-link:hover { background: rgba(255,255,255,0.09); color: #fff; transform: translateX(6px); }
-    .nav-link.active {
-      background: linear-gradient(135deg, rgba(226,0,26,0.28), rgba(226,0,26,0.12));
-      border-left: 4px solid var(--primary);
-      color: white;
-      transform: translateX(6px);
-    }
-
-    .nav-icon { width: 30px; height: 30px; object-fit: contain; flex-shrink: 0; }
-
-    /* MAIN */
-    .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-
-    .topbar {
-      height: var(--header-height);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 50px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(10, 10, 15, 0.92);
-      backdrop-filter: blur(25px) saturate(150%);
-      position: sticky;
-      top: 0;
-      z-index: 90;
-    }
-
-    .page-title { display: flex; align-items: center; gap: 18px; }
-    .topbar-logo { width: 42px; height: 42px; object-fit: contain; }
-
-    .page-title h2 {
-      font-size: 30px;
-      font-weight: 900;
-      color: white;
-      font-family: 'Rajdhani', sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-    }
-
-    .btn-icon {
-      width: 52px; height: 52px;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.06);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .btn-icon:hover { background: var(--primary); transform: translateY(-3px); }
-    .btn-icon img { width: 26px; height: 26px; object-fit: contain; }
-
-    .scroll-area {
-      flex: 1;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding: 55px;
-      scroll-behavior: smooth;
-    }
-
-    .page { display: none; }
-    .page.active { display: block; animation: pageEntrance 0.5s ease; }
-    @keyframes pageEntrance { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* PUZZLE */
-    .puzzle-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: calc(100vh - 250px); padding: 30px; }
-    .puzzle-header { text-align: center; margin-bottom: 40px; }
-    .puzzle-header .emoji { font-size: 70px; display: block; margin-bottom: 15px; }
-    .puzzle-header h1 {
-      font-size: 56px;
-      font-weight: 900;
-      color: #fff;
-      letter-spacing: 2px;
-      font-family: 'Rajdhani', sans-serif;
-    }
-
-    .puzzle-container {
-      max-width: 1150px;
-      width: 100%;
-      aspect-ratio: 5/4;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      grid-template-rows: repeat(4, 1fr);
-      overflow: hidden;
-      border-radius: 18px;
-      box-shadow: 0 35px 90px rgba(0,0,0,0.6);
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .puzzle-piece {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 14px;
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 900;
-      font-size: clamp(11px, 1.35vw, 18px);
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-      color: white;
-      cursor: pointer;
-      transition: 0.25s ease;
-      user-select: none;
-      border: 1px solid rgba(0,0,0,0.12);
-    }
-    .puzzle-piece:hover { filter: brightness(1.08); transform: scale(1.02); z-index: 2; }
-
-    .p-icon { width: 34px; height: 34px; object-fit: contain; margin-bottom: 10px; }
-
-    .p-red { background: linear-gradient(135deg, #e10600 0%, #b00015 100%); }
-    .p-cyan { background: linear-gradient(135deg, #20c997 0%, #17a07a 100%); }
-    .p-orange { background: linear-gradient(135deg, #ffb02e 0%, #e09500 100%); }
-    .p-gray { background: linear-gradient(135deg, #5c5c5c 0%, #3a3a3a 100%); }
-    .p-teal { background: linear-gradient(135deg, #0f6a5a 0%, #094538 100%); }
-    .p-blue { background: linear-gradient(135deg, #1f4bff 0%, #1235cc 100%); }
-    .p-yellow { background: linear-gradient(135deg, #f7f17a 0%, #e0d050 100%); color: #1a1a1a; }
-    .p-magenta { background: linear-gradient(135deg, #b800ff 0%, #8e00cc 100%); }
-    .p-lime { background: linear-gradient(135deg, #8bd84c 0%, #68b02e 100%); }
-    .p-purple { background: linear-gradient(135deg, #6a7cff 0%, #4a5acc 100%); }
-    .p-pink { background: linear-gradient(135deg, #ff3bb2 0%, #cc2888 100%); }
-    .p-aqua { background: linear-gradient(135deg, #00d0ff 0%, #00a3cc 100%); }
-    .p-lightyellow { background: linear-gradient(135deg, #f3e401 0%, #c4b500 100%); color: #1a1a1a; }
-    .p-darkpurple { background: linear-gradient(135deg, #582f93 0%, #3a1f63 100%); }
-    .p-lightpurple { background: linear-gradient(135deg, #8a9cff 0%, #6875cc 100%); }
-    .p-wine { background: linear-gradient(135deg, #7a0026 0%, #55001a 100%); }
-    .p-lightgray { background: linear-gradient(135deg, #dfe3ff 0%, #bac0dd 100%); color: #1a1a1a; }
-    .p-darkred { background: linear-gradient(135deg, #e10600 0%, #980400 100%); }
-    .p-green { background: linear-gradient(135deg, #00b894 0%, #008f6f 100%); }
-
-    /* DOC GRID */
-    .doc-grid { display: grid; gap: 18px; width: 100%; max-width: 1000px; }
-    .doc-item {
-      background: rgba(255,255,255,0.045);
-      border: 1px solid var(--border-light);
-      border-radius: 16px;
-      padding: 22px;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-    .doc-item:hover { background: rgba(255,255,255,0.075); transform: translateY(-2px); }
-    .doc-item h4 {
-      font-size: 18px;
-      font-weight: 900;
-      color: white;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      font-family: 'Rajdhani', sans-serif;
-      letter-spacing: 0.6px;
-    }
-    .doc-item p { font-size: 14px; color: var(--text-dim); }
-
-    /* MODAL DOC VIEWER */
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.88);
-      backdrop-filter: blur(12px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      padding: 24px;
-    }
-    .modal.active { display: flex; }
-
-    .modal-content {
-      width: 100%;
-      max-width: 1200px;
-      background: linear-gradient(180deg, rgba(20,20,25,0.98), rgba(10,10,15,0.98));
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      overflow: hidden;
-      box-shadow: 0 45px 120px rgba(0,0,0,0.9);
-    }
-
-    .modal-header {
-      padding: 18px 22px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: rgba(0,0,0,0.35);
-    }
-    .modal-header .emoji { font-size: 32px; }
-    .modal-header h2 {
-      font-size: 22px;
-      font-weight: 900;
-      font-family: 'Rajdhani', sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .modal-actions { margin-left: auto; display: flex; gap: 10px; align-items: center; }
-
-    .modal-btn {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid var(--border);
-      color: white;
-      padding: 10px 14px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 800;
-      font-family: 'Rajdhani', sans-serif;
-      text-transform: uppercase;
-      font-size: 13px;
-      letter-spacing: 0.6px;
-      transition: 0.2s ease;
-      white-space: nowrap;
-    }
-    .modal-btn:hover { background: rgba(255,255,255,0.14); }
-    .modal-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-    .modal-body { display: grid; grid-template-columns: 420px 1fr; min-height: 70vh; }
-    .modal-left { border-right: 1px solid var(--border); padding: 16px; overflow: auto; }
-    .modal-right { padding: 16px; overflow: hidden; display: flex; flex-direction: column; gap: 10px; }
-
-    .search {
-      width: 100%;
-      padding: 12px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.06);
-      color: white;
-      outline: none;
-      margin-bottom: 10px;
-    }
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&family=Rajdhani:wght@500;700;900&display=swap" rel="stylesheet">
     
-    .filter-pills {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
-    }
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    .filter-pill {
-      padding: 6px 12px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 20px;
-      font-size: 12px;
-      cursor: pointer;
-      transition: 0.2s ease;
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 700;
-    }
-    
-    .filter-pill:hover {
-      background: rgba(255,255,255,0.12);
-    }
-    
-    .filter-pill.active {
-      background: var(--primary);
-      border-color: var(--primary);
-    }
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-    .doc-list { display: grid; gap: 10px; }
-    .doc-row {
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.045);
-      border-radius: 14px;
-      padding: 12px 12px;
-      cursor: pointer;
-      transition: 0.2s ease;
-      position: relative;
-    }
-    .doc-row:hover { background: rgba(255,255,255,0.075); transform: translateY(-1px); }
-    .doc-row.selected {
-      background: rgba(226, 0, 26, 0.15);
-      border-color: var(--primary);
-    }
-    .doc-row strong { display: block; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.5px; font-size: 15px; }
-    .doc-row small { color: var(--text-dim); font-size: 12px; }
-    
-    .doc-row .category-tag {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      padding: 3px 8px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 10px;
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
+    <style>
+        :root {
+            --primary: #E2001A;
+            --bg-deep: #020203;
+        }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-deep);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+        .font-rajdhani { font-family: 'Rajdhani', sans-serif; }
+        
+        /* Grid background effect */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+            transform: perspective(1000px) rotateX(60deg) translateY(-150px) translateZ(-100px);
+            mask-image: linear-gradient(to bottom, transparent, black, transparent);
+            z-index: -1;
+            opacity: 0.3;
+        }
 
-    .viewer-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-    .viewer-title { font-family: 'Rajdhani', sans-serif; font-weight: 900; letter-spacing: 0.6px; font-size: 16px; }
-    .viewer-frame {
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 14px;
-      overflow: hidden;
-      flex: 1;
-      min-height: 56vh;
-      background: rgba(255,255,255,0.03);
-      position: relative;
-    }
-    
-    .viewer-loading {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.5);
-      color: white;
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 700;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-    
-    .viewer-loading.show {
-      opacity: 1;
-    }
-    
-    iframe { width: 100%; height: 100%; border: none; }
+        .puzzle-piece {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .puzzle-piece:hover {
+            transform: translateY(-5px) scale(1.02);
+            filter: brightness(1.1);
+            z-index: 10;
+        }
 
-    /* TOAST */
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: linear-gradient(135deg, rgba(226,0,26,0.95), rgba(176,0,21,0.95));
-      color: white;
-      padding: 16px 22px;
-      border-radius: 14px;
-      z-index: 10001;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: 0.25s ease;
-      pointer-events: none;
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 700;
-      border: 1px solid rgba(255,255,255,0.18);
-      max-width: 520px;
-    }
-    .toast.show { opacity: 1; transform: translateY(0); }
+        /* Glassmorphism */
+        .glass {
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-    /* DOC COUNT */
-    .doc-count {
-      font-size: 13px;
-      color: var(--text-dim);
-      padding: 8px 12px;
-      text-align: center;
-      font-family: 'Rajdhani', sans-serif;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      margin-top: 10px;
-    }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
-    /* MOBILE */
-    @media (max-width: 1024px) {
-      :root { --sidebar-width: 100%; --header-height: 70px; }
-      .app { flex-direction: column; }
-
-      .sidebar {
-        position: fixed;
-        bottom: 0; left: 0;
-        width: 100%;
-        height: 80px;
-        flex-direction: row;
-        align-items: center;
-        padding: 0;
-        border-top: 2px solid var(--primary);
-        border-right: none;
-        justify-content: space-around;
-        background: rgba(5,5,5,0.99);
-        z-index: 1001;
-      }
-      .brand-box { display: none; }
-      .menu { display: flex; flex-direction: row; padding: 0; width: 100%; justify-content: space-around; align-items: center; gap: 4px; }
-      .nav-link { flex-direction: column; gap: 6px; font-size: 11px; padding: 10px 6px; border: none; margin: 0; background: transparent !important; width: 78px; justify-content: center; }
-      .main-content { margin-bottom: 80px; height: calc(100vh - 80px); }
-      .topbar { padding: 0 18px; }
-
-      .puzzle-container { grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; aspect-ratio: auto; }
-
-      .modal-body { grid-template-columns: 1fr; }
-      .modal-left { border-right: none; border-bottom: 1px solid var(--border); max-height: 40vh; }
-      .viewer-frame { min-height: 50vh; }
-      .toast { bottom: 100px; right: 20px; left: 20px; text-align: center; }
-    }
-  </style>
+        .modal-enter { animation: modalFade 0.3s ease-out; }
+        @keyframes modalFade {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
 </head>
-
 <body>
-  <!-- LOADING OVERLAY -->
-  <div class="loading-overlay" id="loading">
-    <div class="spinner"></div>
-    <div class="loading-text" id="loadingText">Chargement des documents...</div>
-  </div>
+    <div class="bg-grid"></div>
 
-  <div id="bg-grid"></div>
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar Desktop -->
+        <aside class="hidden lg:flex w-72 flex-col glass border-r border-white/10 z-20">
+            <div class="p-8 border-b border-white/10">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-[#E2001A] rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(226,0,26,0.4)]">
+                        <i data-lucide="layout-grid" class="text-white w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-rajdhani font-black text-lg uppercase leading-none">Brignoles</h1>
+                        <span class="text-[10px] text-zinc-500 font-bold tracking-widest uppercase">Logistique & QHSE</span>
+                    </div>
+                </div>
+            </div>
 
-  <div class="app" id="app">
-    <!-- SIDEBAR -->
-    <nav class="sidebar">
-      <div class="brand-box">
-        <img class="brand-logo"
-             src="GROUPEMENT_MOUSQUETAIRES_H_INV_HD.png"
-             alt="Groupement Mousquetaires"
-             onclick="nav('puzzle', document.querySelectorAll('.nav-link')[0])"
-             onerror="this.src='241111_Symbole R&B_320x320_RVB.png'">
+            <nav class="flex-1 p-4 space-y-2 overflow-y-auto custom-scrollbar">
+                <button onclick="window.location.reload()" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-[#E2001A]/10 border-l-4 border-[#E2001A] text-white font-bold transition-all">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                    <span>Accueil</span>
+                </button>
+                
+                <div class="pt-4 pb-2 px-4">
+                    <span class="text-[10px] text-zinc-600 font-black tracking-widest uppercase">Accès Rapides</span>
+                </div>
 
-        <div class="brand-text">
-          <h2>BRIGNOLES</h2>
-          <span>LOGISTIQUE &amp; QHSE</span>
+                <a href="#" onclick="openModal('POI', 'Incendie / POI')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-400 font-bold hover:bg-white/5 hover:text-white transition-all group">
+                    <i data-lucide="flame" class="w-5 h-5 group-hover:text-[#E2001A]"></i>
+                    <span>Incendie</span>
+                </a>
+                <a href="#" onclick="openModal('RETRAIT', 'Retrait Qualité')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-400 font-bold hover:bg-white/5 hover:text-white transition-all group">
+                    <i data-lucide="truck" class="w-5 h-5 group-hover:text-[#E2001A]"></i>
+                    <span>Retrait</span>
+                </a>
+                <a href="#" onclick="openModal('FDS', 'Fiches de Sécurité')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-400 font-bold hover:bg-white/5 hover:text-white transition-all group">
+                    <i data-lucide="flask-conical" class="w-5 h-5 group-hover:text-[#E2001A]"></i>
+                    <span>FDS</span>
+                </a>
+            </nav>
+            
+            <div class="p-4 text-[9px] text-zinc-600 font-bold text-center uppercase tracking-tighter">
+                &copy; 2026 Les Mousquetaires
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col relative">
+            <header class="h-20 glass border-b border-white/10 flex items-center justify-between px-6 lg:px-12 sticky top-0 z-10">
+                <div class="flex items-center gap-4">
+                    <i data-lucide="shield-check" class="text-[#E2001A] w-6 h-6 lg:hidden"></i>
+                    <h2 class="font-rajdhani text-2xl font-black uppercase tracking-tight">Portail <span class="text-[#E2001A]">QHSE</span></h2>
+                </div>
+            </header>
+
+            <div class="flex-1 overflow-y-auto custom-scrollbar p-6 lg:p-12">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12 space-y-4">
+                        <span class="inline-block px-4 py-1 rounded-full bg-[#E2001A]/10 text-[#E2001A] text-[10px] font-black tracking-widest uppercase border border-[#E2001A]/20">Dashboard Opérationnel</span>
+                        <h3 class="text-4xl lg:text-6xl font-black font-rajdhani tracking-tighter uppercase">ACCÈS <span class="text-[#E2001A]">DOCUMENTS</span></h3>
+                    </div>
+
+                    <!-- Puzzle Grid -->
+                    <div id="puzzle-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                        <!-- Les pièces seront générées par JS -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Viewer -->
+    <div id="doc-modal" class="fixed inset-0 bg-black/90 backdrop-blur-xl z-[100] hidden items-center justify-center p-4">
+        <div class="w-full max-w-[95vw] h-[90vh] glass rounded-3xl overflow-hidden flex flex-col modal-enter">
+            <div class="p-6 border-b border-white/10 flex items-center justify-between bg-black/40">
+                <div class="flex items-center gap-4">
+                    <div class="p-2 rounded-lg bg-[#E2001A]/20 text-[#E2001A]">
+                        <i data-lucide="file-text" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h2 id="modal-title" class="font-rajdhani text-xl font-black uppercase tracking-tight">Documents</h2>
+                        <p class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Base de données Brignoles</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button id="open-new-tab" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-[#E2001A] transition-all text-xs font-bold uppercase">
+                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                        Ouvrir
+                    </button>
+                    <button onclick="closeModal()" class="w-10 h-10 rounded-full hover:bg-white/10 flex items-center justify-center transition-all">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex-1 flex flex-col lg:flex-row overflow-hidden">
+                <!-- Sidebar Documents -->
+                <div class="w-full lg:w-80 border-r border-white/10 flex flex-col bg-black/20">
+                    <div class="p-4 border-b border-white/10">
+                        <div class="relative">
+                            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 w-4 h-4"></i>
+                            <input type="text" id="search-docs" placeholder="Rechercher..." class="w-full pl-10 pr-4 py-2 bg-white/5 border border-white/10 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-[#E2001A]">
+                        </div>
+                    </div>
+                    <div id="doc-list" class="flex-1 overflow-y-auto p-4 space-y-2 custom-scrollbar">
+                        <!-- Liste générée par JS -->
+                    </div>
+                </div>
+
+                <!-- Iframe Viewer -->
+                <div class="flex-1 bg-zinc-900/50 relative">
+                    <div id="viewer-placeholder" class="absolute inset-0 flex flex-col items-center justify-center text-zinc-700 space-y-4">
+                        <i data-lucide="file-text" class="w-16 h-16 opacity-10"></i>
+                        <p class="font-rajdhani font-black uppercase tracking-widest opacity-20">Sélectionnez un document</p>
+                    </div>
+                    <iframe id="viewer-iframe" class="w-full h-full border-none hidden" src=""></iframe>
+                </div>
+            </div>
         </div>
-      </div>
+    </div>
 
-      <div class="menu">
-        <div class="nav-link active" onclick="nav('puzzle', this)">
-          <img class="nav-icon" src="liste.png" alt="Puzzle" loading="lazy" onerror="this.style.opacity='0.3'">
-          <span>Puzzle QHSE</span>
-        </div>
-
-        <div class="nav-link" onclick="openDriveModal('🔥', 'INCENDIE / POI', 'POI')">
-          <img class="nav-icon" src="usine.png" alt="Incendie" loading="lazy" onerror="this.style.opacity='0.3'">
-          <span>Incendie</span>
-        </div>
-
-        <div class="nav-link" onclick="openDriveModal('⚠️', 'RETRAIT QUALITÉ', 'RETRAIT')">
-          <img class="nav-icon" src="chariot.png" alt="Retrait" loading="lazy" onerror="this.style.opacity='0.3'">
-          <span>Retrait</span>
-        </div>
-
-        <div class="nav-link" onclick="openDriveModal('🧪', 'FICHES DE SÉCURITÉ', 'FDS')">
-          <img class="nav-icon" src="cible.png" alt="FDS" loading="lazy" onerror="this.style.opacity='0.3'">
-          <span>FDS</span>
-        </div>
-
-        <div class="nav-link" onclick="openDriveModal('⚖️', 'RÉGLEMENTATION', 'REGLEMENTATION')">
-          <img class="nav-icon" src="liste.png" alt="Règlement" loading="lazy" onerror="this.style.opacity='0.3'">
-          <span>Règlement</span>
-        </div>
-      </div>
+    <!-- Mobile Navigation -->
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 h-16 glass border-t border-white/10 flex items-center justify-around z-50">
+        <button onclick="window.location.reload()" class="flex flex-col items-center gap-1 text-[#E2001A]">
+            <i data-lucide="home" class="w-6 h-6"></i>
+            <span class="text-[8px] font-black uppercase">Accueil</span>
+        </button>
+        <button onclick="openModal('POI', 'POI')" class="flex flex-col items-center gap-1 text-zinc-500">
+            <i data-lucide="flame" class="w-6 h-6"></i>
+            <span class="text-[8px] font-black uppercase">POI</span>
+        </button>
+        <button onclick="openModal('FDS', 'FDS')" class="flex flex-col items-center gap-1 text-zinc-500">
+            <i data-lucide="flask-conical" class="w-6 h-6"></i>
+            <span class="text-[8px] font-black uppercase">FDS</span>
+        </button>
     </nav>
 
-    <!-- MAIN -->
-    <main class="main-content">
-      <header class="topbar">
-        <div class="page-title">
-          <img class="topbar-logo" src="241111_Symbole R&B_320x320_RVB.png" alt="Logo" loading="lazy" onerror="this.style.opacity='0.3'">
-          <h2 id="title-display">Puzzle QHSE</h2>
-        </div>
+    <script>
+        // --- Data ---
+        const PIECES = [
+            { id: 'PROCEDURES', label: 'Procédures', icon: 'clipboard-list', color: 'from-red-600 to-red-800' },
+            { id: 'EVALUATION', label: 'Évaluation', icon: 'target', color: 'from-emerald-500 to-emerald-700' },
+            { id: 'REFERENTIELS', label: 'Référentiels', icon: 'book-open', color: 'from-orange-500 to-orange-700' },
+            { id: 'PERSONNEL', label: 'Personnel', icon: 'users', color: 'from-zinc-600 to-zinc-800' },
+            { id: 'DECHETS', label: 'Déchets', icon: 'recycle', color: 'from-teal-600 to-teal-800' },
+            { id: 'INDICATEURS', label: 'Indicateurs', icon: 'bar-chart-3', color: 'from-blue-600 to-blue-800' },
+            { id: 'AFFICHAGE', label: 'Affichage', icon: 'monitor', color: 'from-yellow-400 to-yellow-600' },
+            { id: 'FORMATION', label: 'Formation', icon: 'graduation-cap', color: 'from-fuchsia-600 to-fuchsia-800' },
+            { id: 'AT', label: 'Suivi AT', icon: 'activity', color: 'from-lime-500 to-lime-700' },
+            { id: 'REGLEMENTATION', label: 'Règlementation', icon: 'scale', color: 'from-indigo-600 to-indigo-800' },
+            { id: 'COORDONNEES', label: 'Plans', icon: 'map-pin', color: 'from-pink-600 to-pink-800' },
+            { id: 'AUDIT', label: 'Audit', icon: 'search-code', color: 'from-cyan-500 to-cyan-700' },
+            { id: 'INTERVENTION', label: 'Intervention', icon: 'wrench', color: 'from-amber-400 to-amber-600' },
+            { id: 'REUNION', label: 'CR Réunion', icon: 'message-square', color: 'from-violet-800 to-indigo-950' },
+            { id: 'RETRAIT', label: 'Retrait', icon: 'truck', color: 'from-rose-900 to-red-950' },
+            { id: 'POI', label: 'Incendie', icon: 'flame', color: 'from-red-600 to-red-900' },
+            { id: 'INCIDENT', label: 'Incident', icon: 'alert-triangle', color: 'from-zinc-300 to-zinc-500' },
+            { id: 'FDS', label: 'Fiches Séc.', icon: 'flask-conical', color: 'from-red-700 to-red-950' },
+            { id: 'INCIDENT_DOC', label: 'Incident Doc', icon: 'file-text', color: 'from-green-600 to-green-800' },
+        ];
 
-        <div class="actions">
-          <div class="btn-icon" title="Retour à l'accueil" onclick="nav('puzzle', document.querySelectorAll('.nav-link')[0])">
-            <img src="maison.png" alt="Accueil" loading="lazy" onerror="this.style.opacity='0.3'">
-          </div>
-        </div>
-      </header>
+        const DRIVE_LINKS = [
+            "1hEzOUg9OR24DBdY2eAvBJ1Pa8aNH68GD",
+            "1rJaLWE7t4vdD1DY87kuGyhWtP5yf8E1d",
+            "1eYQ79fzfVy1izWmBIKpIxtNRJSU0bCiq",
+            "1BWzJZ8Cmk0GMKVWwA6WRuqAs7927xjxj",
+            "1HIAzCX1hPTtTc9B9T0FQvfRi7pzuLSKY"
+        ];
 
-      <div class="scroll-area">
-        <!-- PAGE PUZZLE -->
-        <div id="puzzle" class="page active">
-          <div class="puzzle-wrapper">
-            <div class="puzzle-header">
-              <span class="emoji">🧩</span>
-              <h1>ACCUEIL</h1>
-            </div>
+        const DOCUMENTS = DRIVE_LINKS.map((id, i) => ({
+            id,
+            title: `Document QHSE #${i + 1} - Brignoles`,
+            viewUrl: `https://drive.google.com/file/d/${id}/view`,
+            previewUrl: `https://drive.google.com/file/d/${id}/preview`
+        }));
 
-            <div class="puzzle-container">
-              <div class="puzzle-piece p-red" onclick="openDriveModal('📋', 'PROCÉDURES', 'PROCEDURES')">
-                <img class="p-icon" src="liste.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                PROCEDURES
-              </div>
+        let activeDoc = null;
 
-              <div class="puzzle-piece p-cyan" onclick="openDriveModal('📊', 'ÉVALUATION', 'EVALUATION')">
-                <img class="p-icon" src="cible.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                EVALUATION
-              </div>
+        // --- Logic ---
+        function init() {
+            const grid = document.getElementById('puzzle-grid');
+            grid.innerHTML = PIECES.map((p, i) => `
+                <div onclick="openModal('${p.id}', '${p.label}')" class="puzzle-piece group relative aspect-square rounded-2xl p-4 cursor-pointer flex flex-col items-center justify-center text-center gap-3 overflow-hidden border border-white/10 bg-gradient-to-br ${p.color} shadow-2xl">
+                    <div class="p-2.5 rounded-xl bg-white/10 backdrop-blur-md group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="${p.icon}" class="w-8 h-8"></i>
+                    </div>
+                    <span class="font-rajdhani font-black text-[10px] uppercase tracking-wider leading-tight">${p.label}</span>
+                    <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
 
-              <div class="puzzle-piece p-orange" onclick="openDriveModal('📚', 'RÉFÉRENTIELS', 'REFERENTIELS')">
-                <img class="p-icon" src="liste.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                REFERENTIELS
-              </div>
+        function openModal(id, label) {
+            document.getElementById('modal-title').innerText = label;
+            document.getElementById('doc-modal').classList.remove('hidden');
+            document.getElementById('doc-modal').classList.add('flex');
+            renderDocList();
+        }
 
-              <div class="puzzle-piece p-gray" onclick="openDriveModal('👥', 'LISTE PERSONNEL', 'PERSONNEL')">
-                <img class="p-icon" src="mains.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                LISTE PERSONNEL<br>AFFICHAGE
-              </div>
+        function closeModal() {
+            document.getElementById('doc-modal').classList.add('hidden');
+            document.getElementById('doc-modal').classList.remove('flex');
+            document.getElementById('viewer-iframe').classList.add('hidden');
+            document.getElementById('viewer-placeholder').classList.remove('hidden');
+            activeDoc = null;
+        }
 
-              <div class="puzzle-piece p-teal" onclick="openDriveModal('♻️', 'SUIVI DES DÉCHETS', 'DECHETS')">
-                <img class="p-icon" src="camion.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                SUIVI DES DECHETS
-              </div>
+        function renderDocList(filter = '') {
+            const list = document.getElementById('doc-list');
+            const filtered = DOCUMENTS.filter(d => d.title.toLowerCase().includes(filter.toLowerCase()));
+            
+            list.innerHTML = filtered.map(d => `
+                <button onclick="selectDoc('${d.id}')" class="w-full text-left p-3 rounded-xl transition-all border ${activeDoc === d.id ? 'bg-[#E2001A] border-[#E2001A] text-white shadow-lg' : 'bg-white/5 hover:bg-white/10 border-white/5 text-zinc-300'}">
+                    <div class="font-bold text-xs leading-tight mb-1">${d.title}</div>
+                    <div class="text-[9px] opacity-50 uppercase font-black">PDF • ID: ${d.id.substring(0,8)}</div>
+                </button>
+            `).join('');
+        }
 
-              <div class="puzzle-piece p-blue" onclick="openDriveModal('📈', 'INDICATEURS', 'INDICATEURS')">
-                <img class="p-icon" src="ville.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                INDICATEURS
-              </div>
+        function selectDoc(id) {
+            activeDoc = id;
+            const doc = DOCUMENTS.find(d => d.id === id);
+            const iframe = document.getElementById('viewer-iframe');
+            const placeholder = document.getElementById('viewer-placeholder');
+            
+            placeholder.classList.add('hidden');
+            iframe.classList.remove('hidden');
+            iframe.src = doc.previewUrl;
 
-              <div class="puzzle-piece p-yellow" onclick="openDriveModal('📺', 'AFFICHAGE', 'AFFICHAGE')">
-                <img class="p-icon" src="magasin.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                AFFICHAGE
-              </div>
+            document.getElementById('open-new-tab').onclick = () => window.open(doc.viewUrl, '_blank');
+            renderDocList(document.getElementById('search-docs').value);
+        }
 
-              <div class="puzzle-piece p-magenta" onclick="openDriveModal('🎓', 'FORMATION', 'FORMATION')">
-                <img class="p-icon" src="conseiller.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                FORMATION
-              </div>
-
-              <div class="puzzle-piece p-lime" onclick="openDriveModal('🏥', 'SUIVI DES AT', 'AT')">
-                <img class="p-icon" src="ouvrier.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                SUIVI DES AT
-              </div>
-
-              <div class="puzzle-piece p-purple" onclick="openDriveModal('⚖️', 'RÉGLEMENTATION', 'REGLEMENTATION')">
-                <img class="p-icon" src="liste.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                REGLEMENTATION
-              </div>
-
-              <div class="puzzle-piece p-pink" onclick="openDriveModal('🗺️', 'COORDONNÉES & PLAN', 'COORDONNEES')">
-                <img class="p-icon" src="localisation.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                COORDONNEES &<br>PLAN
-              </div>
-
-              <div class="puzzle-piece p-aqua" onclick="openDriveModal('🔍', 'REVUE DIRECTION & AUDIT', 'AUDIT')">
-                <img class="p-icon" src="cible.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                REVUE DIRECTION<br>& AUDIT
-              </div>
-
-              <div class="puzzle-piece p-lightyellow" onclick="openDriveModal('🛠️', 'INTERVENTION', 'INTERVENTION')">
-                <img class="p-icon" src="transpalette.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                INTERVENTION
-              </div>
-
-              <div class="puzzle-piece p-darkpurple" onclick="openDriveModal('💬', 'CR RÉUNION', 'REUNION')">
-                <img class="p-icon" src="mains.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                CR REUNION
-              </div>
-
-              <div class="puzzle-piece p-lightpurple" onclick="openDriveModal('⚖️', 'RÉGLEMENTATION', 'REGLEMENTATION')">
-                <img class="p-icon" src="liste.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                REGLEMENTATION
-              </div>
-
-              <div class="puzzle-piece p-wine" onclick="openDriveModal('⚠️', 'RETRAIT QUALITÉ', 'RETRAIT')">
-                <img class="p-icon" src="chariot.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                RETRAIT<br>QUALITE
-              </div>
-
-              <div class="puzzle-piece p-red" onclick="openDriveModal('🔥', 'INCENDIE - POI', 'POI')">
-                <img class="p-icon" src="usine.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                INCENDIE - POI
-              </div>
-
-              <div class="puzzle-piece p-lightgray" onclick="openDriveModal('⚠️', 'INCIDENT', 'INCIDENT')">
-                <img class="p-icon" src="cible.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                INCIDENT
-              </div>
-
-              <div class="puzzle-piece p-darkred" onclick="openDriveModal('🧪', 'FICHE DE SÉCURITÉ', 'FDS')">
-                <img class="p-icon" src="liste.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                FICHE DE SECURITE
-              </div>
-
-              <div class="puzzle-piece p-green" onclick="openDriveModal('📄', 'INCIDENT DOCUMENTAIRE', 'INCIDENT_DOC')">
-                <img class="p-icon" src="liste.png" alt="" loading="lazy" onerror="this.style.opacity='0.3'">
-                INCIDENT<br>DOCUMENTAIRE
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </main>
-  </div>
-
-  <!-- MODAL DRIVE VIEWER -->
-  <div id="modal" class="modal" onclick="if(event.target === this) closeModal()">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="emoji" id="modalEmoji">📋</span>
-        <h2 id="modalTitle">DOCUMENTS</h2>
-
-        <div class="modal-actions">
-          <button class="modal-btn" id="btnOpenNew" onclick="openCurrentInNewTab()" disabled>Ouvrir</button>
-          <button class="modal-btn" onclick="closeModal()">Fermer</button>
-        </div>
-      </div>
-
-      <div class="modal-body">
-        <div class="modal-left">
-          <input id="searchInput" class="search" type="text" placeholder="Rechercher un document..." oninput="renderDocList()">
-          
-          <div class="filter-pills" id="filterPills"></div>
-          
-          <div class="doc-list" id="docList"></div>
-          
-          <div class="doc-count" id="docCount"></div>
-        </div>
-
-        <div class="modal-right">
-          <div class="viewer-bar">
-            <div class="viewer-title" id="viewerTitle">Sélectionnez un document</div>
-          </div>
-          <div class="viewer-frame">
-            <div class="viewer-loading" id="viewerLoading">Chargement...</div>
-            <iframe id="viewerFrame" src=""></iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TOAST -->
-  <div class="toast" id="toast"></div>
-
-  <script>
-    /* ==========================
-       COLLE TES LIENS DRIVE ICI
-       ========================== */
-    const RAW_LINKS = `
-https://drive.google.com/open?id=1hEzOUg9OR24DBdY2eAvBJ1Pa8aNH68GD&usp=drive_copy
-https://drive.google.com/open?id=1rJaLWE7t4vdD1DY87kuGyhWtP5yf8E1d&usp=drive_copy
-https://drive.google.com/open?id=1eYQ79fzfVy1izWmBIKpIxtNRJSU0bCiq&usp=drive_copy
-https://drive.google.com/open?id=1BWzJZ8Cmk0GMKVWwA6WRuqAs7927xjxj&usp=drive_copy
-https://drive.google.com/open?id=1HIAzCX1hPTtTc9B9T0FQvfRi7pzuLSKY&usp=drive_copy
-    `.trim();
-
-    /* ==========================
-       UTILITAIRES DRIVE
-       ========================== */
-    function extractDriveId(url) {
-      if (!url) return null;
-      const m1 = url.match(/[?&]id=([^&]+)/);
-      if (m1 && m1[1]) return m1[1].trim();
-      const m2 = url.match(/\/file\/d\/([^\/]+)/);
-      if (m2 && m2[1]) return m2[1].trim();
-      return null;
-    }
-
-    function buildDriveUrls(fileId) {
-      return {
-        preview: `https://drive.google.com/file/d/${fileId}/preview`,
-        view: `https://drive.google.com/file/d/${fileId}/view?usp=drive_link`
-      };
-    }
-
-    function parseRawLinks(raw) {
-      const lines = raw.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
-      const out = [];
-      const seen = new Set();
-
-      for (const url of lines) {
-        const id = extractDriveId(url);
-        if (!id) continue;
-        if (seen.has(id)) continue;
-        seen.add(id);
-
-        const u = buildDriveUrls(id);
-        out.push({
-          id,
-          title: `Document ${out.length + 1}`,
-          category: 'Tous',
-          viewUrl: u.view,
-          previewUrl: u.preview
+        document.getElementById('search-docs').addEventListener('input', (e) => {
+            renderDocList(e.target.value);
         });
-      }
-      return out;
-    }
 
-    let DRIVE_DOCS = [];
-    let CURRENT_DOC = null;
-    let CURRENT_FILTER = 'Tous';
+        // Close on ESC
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
 
-    /* ==========================
-       CHARGEMENT
-       ========================== */
-    window.addEventListener('load', function () {
-      document.getElementById('loadingText').textContent = 'Chargement des documents...';
-      
-      setTimeout(() => {
-        DRIVE_DOCS = parseRawLinks(RAW_LINKS);
-        
-        document.getElementById('loadingText').textContent = `${DRIVE_DOCS.length} documents chargés`;
-        
-        setTimeout(() => {
-          document.getElementById('loading').classList.add('hidden');
-          document.getElementById('app').classList.add('loaded');
-        }, 500);
-      }, 800);
-    });
-
-    /* ==========================
-       NAVIGATION
-       ========================== */
-    function nav(id, el) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      const target = document.getElementById(id);
-      if (target) target.classList.add('active');
-
-      document.getElementById('title-display').textContent = 'Puzzle QHSE';
-
-      document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-      if (el && el.classList.contains('nav-link')) el.classList.add('active');
-
-      document.querySelector('.scroll-area').scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    /* ==========================
-       MODAL DRIVE VIEWER
-       ========================== */
-    function openDriveModal(emoji, title, category = 'Tous') {
-      document.getElementById('modalEmoji').textContent = emoji;
-      document.getElementById('modalTitle').textContent = title;
-
-      document.getElementById('searchInput').value = '';
-      CURRENT_DOC = null;
-      CURRENT_FILTER = category;
-      
-      document.getElementById('viewerTitle').textContent = 'Sélectionnez un document';
-      document.getElementById('viewerFrame').src = '';
-      document.getElementById('btnOpenNew').disabled = true;
-
-      renderFilterPills();
-      renderDocList();
-
-      document.getElementById('modal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-
-      if (DRIVE_DOCS.length === 0) {
-        showToast("⚠️ Aucun lien Drive détecté");
-      } else {
-        showToast(`✅ ${DRIVE_DOCS.length} documents disponibles`);
-      }
-    }
-
-    function closeModal() {
-      document.getElementById('modal').classList.remove('active');
-      document.body.style.overflow = '';
-      document.getElementById('viewerFrame').src = '';
-    }
-
-    function renderFilterPills() {
-      const categories = ['Tous', ...new Set(DRIVE_DOCS.map(d => d.category).filter(c => c !== 'Tous'))];
-      const pills = categories.map(cat => 
-        `<div class="filter-pill ${cat === CURRENT_FILTER ? 'active' : ''}" onclick="setFilter('${cat}')">${cat}</div>`
-      ).join('');
-      
-      document.getElementById('filterPills').innerHTML = pills;
-    }
-
-    function setFilter(category) {
-      CURRENT_FILTER = category;
-      renderFilterPills();
-      renderDocList();
-    }
-
-    function renderDocList() {
-      const q = (document.getElementById('searchInput').value || '').toLowerCase();
-      const list = document.getElementById('docList');
-
-      let filtered = DRIVE_DOCS;
-      
-      if (CURRENT_FILTER !== 'Tous') {
-        filtered = filtered.filter(d => d.category === CURRENT_FILTER);
-      }
-      
-      if (q) {
-        filtered = filtered.filter(d => 
-          d.title.toLowerCase().includes(q) || 
-          d.id.toLowerCase().includes(q) ||
-          d.category.toLowerCase().includes(q)
-        );
-      }
-
-      list.innerHTML = filtered.map(d => `
-        <div class="doc-row ${CURRENT_DOC && CURRENT_DOC.id === d.id ? 'selected' : ''}" onclick="selectDoc('${d.id}')">
-          <strong>${escapeHtml(d.title)}</strong>
-          <small>${d.id}</small>
-          ${d.category !== 'Tous' ? `<span class="category-tag">${d.category}</span>` : ''}
-        </div>
-      `).join('');
-
-      document.getElementById('docCount').textContent = `${filtered.length} document${filtered.length > 1 ? 's' : ''}`;
-
-      if (filtered.length === 0) {
-        list.innerHTML = `<div style="color:#aaa;padding:10px;text-align:center;">Aucun résultat</div>`;
-      }
-    }
-
-    function selectDoc(id) {
-      const doc = DRIVE_DOCS.find(d => d.id === id);
-      if (!doc) return;
-
-      CURRENT_DOC = doc;
-
-      document.getElementById('viewerTitle').textContent = doc.title;
-      document.getElementById('btnOpenNew').disabled = false;
-      
-      // Show loading
-      const loading = document.getElementById('viewerLoading');
-      loading.classList.add('show');
-      
-      const iframe = document.getElementById('viewerFrame');
-      iframe.src = doc.previewUrl;
-      
-      // Hide loading after iframe loads
-      iframe.onload = () => {
-        setTimeout(() => loading.classList.remove('show'), 500);
-      };
-
-      renderDocList(); // Update selected state
-      showToast(`📄 ${doc.title}`);
-    }
-
-    function openCurrentInNewTab() {
-      if (!CURRENT_DOC) return;
-      window.open(CURRENT_DOC.viewUrl, '_blank', 'noopener,noreferrer');
-      showToast(`🔗 Ouvert dans un nouvel onglet`);
-    }
-
-    /* ==========================
-       TOAST
-       ========================== */
-    function showToast(message) {
-      const toast = document.getElementById('toast');
-      toast.textContent = message;
-      toast.classList.add('show');
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
-    }
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
-
-    /* ==========================
-       SAFE HTML
-       ========================== */
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
-
-    console.log('%c🧩 Portail QHSE Les Mousquetaires', 'color: #E2001A; font-size: 20px; font-weight: bold;');
-    console.log('%cBrignoles - Logistique & QHSE', 'color: #666; font-size: 12px;');
-    console.log(`%c${DRIVE_DOCS.length} documents chargés`, 'color: #10b981; font-weight: bold;');
-  </script>
+        init();
+    </script>
 </body>
 </html>
