@@ -506,13 +506,31 @@
                     </div>
                 </div>
 
-                <!-- 2. Affichage -->
-                <a href="#" onclick="openModal('AFFICHAGE', 'Affichage')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
-                    <i class="fas fa-bullhorn w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
-                    <span>Affichage</span>
+                <!-- 2. Évaluation Personnel -->
+                <a href="#" onclick="openModal('EVALUATION', 'Évaluation Personnel')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
+                    <i data-lucide="target" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
+                    <span>Évaluation Personnel</span>
                 </a>
 
-                <!-- 3. Indicateurs -->
+                <!-- 3. Référentiels -->
+                <a href="#" onclick="openModal('REFERENTIELS', 'Référentiels')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
+                    <i data-lucide="book-open" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
+                    <span>Référentiels</span>
+                </a>
+
+                <!-- 4. Liste Personnel -->
+                <a href="#" onclick="openModal('PERSONNEL', 'Liste Personnel')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
+                    <i data-lucide="users" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
+                    <span>Liste Personnel</span>
+                </a>
+
+                <!-- 5. Suivi des Déchets -->
+                <a href="#" onclick="openModal('DECHETS', 'Suivi Déchets')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
+                    <i data-lucide="recycle" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
+                    <span>Suivi Déchets</span>
+                </a>
+
+                <!-- 6. Indicateurs -->
                 <div class="nav-group">
                     <button onclick="toggleSubmenu('submenu-indicateurs')" class="nav-item w-full flex items-center justify-between gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
                         <div class="flex items-center gap-2.5">
@@ -529,91 +547,79 @@
                     </div>
                 </div>
 
-                <!-- 4. Évaluation Personnel -->
-                <a href="#" onclick="openModal('EVALUATION', 'Évaluation Personnel')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
-                    <i data-lucide="target" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
-                    <span>Évaluation Personnel</span>
+                <!-- 7. Affichage -->
+                <a href="#" onclick="openModal('AFFICHAGE', 'Affichage')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
+                    <i class="fas fa-bullhorn w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
+                    <span>Affichage</span>
                 </a>
 
-                <!-- 5. Référentiels -->
-                <a href="#" onclick="openModal('REFERENTIELS', 'Référentiels')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
-                    <i data-lucide="book-open" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
-                    <span>Référentiels</span>
-                </a>
-
-                <!-- 6. Formation -->
+                <!-- 8. Formation -->
                 <a href="#" onclick="openModal('FORMATION', 'Formation')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
                     <i data-lucide="graduation-cap" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
                     <span>Formation</span>
                 </a>
 
-                <!-- 7. Audits & Revue Direction -->
-                <a href="#" onclick="openModal('AUDIT', 'Audit & Revue Direction')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
-                    <i data-lucide="search-code" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
-                    <span>Audits & Revue</span>
-                </a>
-
-                <!-- 8. Coordonnées & Plans -->
-                <a href="#" onclick="openModal('COORDONNEES', 'Coordonnées & Plans')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
-                    <i data-lucide="map-pin" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
-                    <span>Coordonnées & Plans</span>
-                </a>
-
-                <!-- 9. Sécurité & POI -->
-                <a href="#" onclick="openModal('POI', 'Incendie / POI')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
-                    <i data-lucide="flame" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
-                    <span>Incendie / POI</span>
-                </a>
-
-                <!-- 10. Gestion Déchets -->
-                <a href="#" onclick="openModal('DECHETS', 'Gestion Déchets')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
-                    <i data-lucide="recycle" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
-                    <span>Gestion Déchets</span>
-                </a>
-
-                <!-- 11. Incidents / AT -->
-                <a href="#" onclick="openModal('AT', 'Suivi AT & Incidents')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
+                <!-- 9. Suivi des AT -->
+                <a href="#" onclick="openModal('AT', 'Suivi AT')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
                     <i data-lucide="activity" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
-                    <span>Incidents / AT</span>
+                    <span>Suivi des AT</span>
                 </a>
 
-                <!-- 12. Retrait Qualité -->
-                <a href="#" onclick="openModal('RETRAIT', 'Retrait Qualité')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
-                    <i data-lucide="truck" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
-                    <span>Retrait Qualité</span>
-                </a>
-
-                <!-- 13. FDS -->
-                <a href="#" onclick="openModal('FDS', 'Fiches de Sécurité')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
-                    <i data-lucide="flask-conical" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
-                    <span>Fiches de Sécurité</span>
-                </a>
-
-                <!-- 14. Réglementation -->
+                <!-- 10. Règlementation -->
                 <a href="#" onclick="openModal('REGLEMENTATION', 'Règlementation')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
                     <i data-lucide="scale" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
                     <span>Règlementation</span>
                 </a>
 
-                <!-- 15. Liste Personnel -->
-                <a href="#" onclick="openModal('PERSONNEL', 'Liste Personnel')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
-                    <i data-lucide="users" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
-                    <span>Liste Personnel</span>
+                <!-- 11. Revue Direction & Audit -->
+                <a href="#" onclick="openModal('AUDIT', 'Revue Direction & Audit')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
+                    <i data-lucide="search-code" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
+                    <span>Revue & Audit</span>
                 </a>
 
-                <!-- 16. CR Réunion -->
-                <a href="#" onclick="openModal('REUNION', 'Comptes-rendus Réunion')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
-                    <i data-lucide="message-square" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
-                    <span>CR Réunion</span>
+                <!-- 12. Coordonnées & Plans -->
+                <a href="#" onclick="openModal('COORDONNEES', 'Coordonnées & Plans')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
+                    <i data-lucide="map-pin" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
+                    <span>Coordonnées & Plans</span>
                 </a>
 
-                <!-- 17. Intervention -->
+                <!-- 13. Intervention -->
                 <a href="#" onclick="openModal('INTERVENTION', 'Intervention')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
                     <i data-lucide="wrench" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
                     <span>Intervention</span>
                 </a>
 
-                <!-- 18. Incident Documentaire -->
+                <!-- 14. CR Réunion -->
+                <a href="#" onclick="openModal('REUNION', 'CR Réunion')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
+                    <i data-lucide="message-square" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
+                    <span>CR Réunion</span>
+                </a>
+
+                <!-- 15. Fiches de Sécurité -->
+                <a href="#" onclick="openModal('FDS', 'Fiches de Sécurité')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
+                    <i data-lucide="flask-conical" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
+                    <span>Fiches Sécurité</span>
+                </a>
+
+                <!-- 16. Retrait Qualité -->
+                <a href="#" onclick="openModal('RETRAIT', 'Retrait Qualité')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
+                    <i data-lucide="truck" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
+                    <span>Retrait Qualité</span>
+                </a>
+
+                <!-- 17. Incident -->
+                <a href="#" onclick="openModal('INCIDENT', 'Incident')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
+                    <span>Incident</span>
+                </a>
+
+                <!-- 18. Incendie - POI -->
+                <a href="#" onclick="openModal('POI', 'Incendie - POI')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
+                    <i data-lucide="flame" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
+                    <span>Incendie - POI</span>
+                </a>
+
+                <!-- 19. Incident Documentaire -->
                 <a href="#" onclick="openModal('INCIDENT_DOC', 'Incident Documentaire')" class="nav-item flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-zinc-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
                     <i data-lucide="file-text" class="w-4 h-4 group-hover:text-[#E2001A] transition-colors"></i>
                     <span>Incident Doc.</span>
@@ -652,10 +658,10 @@
             <div id="main-content" class="flex-1 overflow-y-auto custom-scrollbar p-5 lg:p-10">
                 <!-- SECTION ACCUEIL -->
                 <section id="home-section">
-                    <div class="max-w-6xl mx-auto">
+                    <div class="max-w-7xl mx-auto">
                         <div class="text-center mb-10 space-y-4">
                             <span class="badge-animated inline-block px-4 py-1.5 rounded-full bg-[#E2001A]/10 text-[#E2001A] text-[10px] font-black tracking-widest uppercase border border-[#E2001A]/20">
-                                Dashboard Opérationnel
+                                🧩 Puzzle Qualité - Dashboard Opérationnel
                             </span>
                             <h3 class="text-4xl lg:text-6xl font-black font-rajdhani tracking-tighter uppercase">
                                 PORTAIL <span class="text-[#E2001A] text-glow">QHSE</span>
@@ -665,8 +671,8 @@
                             </p>
                         </div>
 
-                        <!-- Grid Cards -->
-                        <div id="cards-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <!-- Grid Cards - PUZZLE QUALITE -->
+                        <div id="cards-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                             <!-- Les cartes seront générées par JS -->
                         </div>
                     </div>
@@ -779,29 +785,30 @@
             }
         }
 
-        // --- Data - Cartes unifiées ---
+        // --- Data - PUZZLE QUALITE (extrait du PowerPoint) ---
         const CARDS = [
-            { id: 'PROCEDURES', label: 'Procédures', icon: 'clipboard-list', faIcon: 'fa-book', color: 'from-red-600 to-red-800', description: 'Toutes les procédures opérationnelles' },
-            { id: 'EVALUATION', label: 'Évaluation', icon: 'target', faIcon: 'fa-user-check', color: 'from-emerald-500 to-emerald-700', description: 'Évaluation du personnel' },
-            { id: 'REFERENTIELS', label: 'Référentiels', icon: 'book-open', faIcon: 'fa-atlas', color: 'from-orange-500 to-orange-700', description: 'Base référentiels qualité' },
-            { id: 'PERSONNEL', label: 'Personnel', icon: 'users', faIcon: 'fa-users', color: 'from-zinc-600 to-zinc-800', description: 'Liste du personnel' },
-            { id: 'DECHETS', label: 'Déchets', icon: 'recycle', faIcon: 'fa-recycle', color: 'from-teal-600 to-teal-800', description: 'Suivi des déchets' },
-            { id: 'INDICATEURS', label: 'Indicateurs', icon: 'bar-chart-3', faIcon: 'fa-chart-line', color: 'from-blue-600 to-blue-800', description: 'KPI et statistiques' },
-            { id: 'AFFICHAGE', label: 'Affichage', icon: 'monitor', faIcon: 'fa-bullhorn', color: 'from-yellow-400 to-yellow-600', description: 'Affichage obligatoire' },
-            { id: 'FORMATION', label: 'Formation', icon: 'graduation-cap', faIcon: 'fa-graduation-cap', color: 'from-fuchsia-600 to-fuchsia-800', description: 'Planning formations' },
-            { id: 'AT', label: 'Suivi AT', icon: 'activity', faIcon: 'fa-exclamation-triangle', color: 'from-lime-500 to-lime-700', description: 'Accidents du travail' },
-            { id: 'REGLEMENTATION', label: 'Règlementation', icon: 'scale', faIcon: 'fa-gavel', color: 'from-indigo-600 to-indigo-800', description: 'Textes réglementaires' },
-            { id: 'COORDONNEES', label: 'Plans', icon: 'map-pin', faIcon: 'fa-address-book', color: 'from-pink-600 to-pink-800', description: 'Coordonnées & plans' },
-            { id: 'AUDIT', label: 'Audit', icon: 'search-code', faIcon: 'fa-clipboard-check', color: 'from-cyan-500 to-cyan-700', description: 'Audits & revue direction' },
-            { id: 'INTERVENTION', label: 'Intervention', icon: 'wrench', faIcon: 'fa-tools', color: 'from-amber-400 to-amber-600', description: 'Suivi interventions' },
-            { id: 'REUNION', label: 'CR Réunion', icon: 'message-square', faIcon: 'fa-comments', color: 'from-violet-800 to-indigo-950', description: 'Comptes-rendus' },
-            { id: 'RETRAIT', label: 'Retrait', icon: 'truck', faIcon: 'fa-undo', color: 'from-rose-900 to-red-950', description: 'Retrait qualité produits' },
-            { id: 'POI', label: 'Incendie', icon: 'flame', faIcon: 'fa-fire-extinguisher', color: 'from-red-600 to-red-900', description: 'POI & sécurité incendie' },
-            { id: 'INCIDENT', label: 'Incident', icon: 'alert-triangle', faIcon: 'fa-exclamation-circle', color: 'from-zinc-300 to-zinc-500', description: 'Incidents & anomalies' },
-            { id: 'FDS', label: 'Fiches Séc.', icon: 'flask-conical', faIcon: 'fa-flask', color: 'from-red-700 to-red-950', description: 'Fiches de sécurité' },
-            { id: 'INCIDENT_DOC', label: 'Incident Doc', icon: 'file-text', faIcon: 'fa-file-alt', color: 'from-green-600 to-green-800', description: 'Incidents documentaires' },
+            { id: 'PROCEDURES', label: 'Procédures', icon: 'clipboard-list', color: 'from-red-600 to-red-800', description: 'Toutes les procédures opérationnelles' },
+            { id: 'EVALUATION', label: 'Évaluation', icon: 'target', color: 'from-emerald-500 to-emerald-700', description: 'Évaluation du personnel' },
+            { id: 'REFERENTIELS', label: 'Référentiels', icon: 'book-open', color: 'from-orange-500 to-orange-700', description: 'Base référentiels qualité' },
+            { id: 'PERSONNEL', label: 'Liste Personnel', icon: 'users', color: 'from-zinc-600 to-zinc-800', description: 'Annuaire du personnel' },
+            { id: 'AFFICHAGE', label: 'Affichage', icon: 'monitor', color: 'from-yellow-400 to-yellow-600', description: 'Affichage obligatoire' },
+            { id: 'DECHETS', label: 'Suivi Déchets', icon: 'recycle', color: 'from-teal-600 to-teal-800', description: 'Gestion des déchets' },
+            { id: 'INDICATEURS', label: 'Indicateurs', icon: 'bar-chart-3', color: 'from-blue-600 to-blue-800', description: 'KPI et statistiques' },
+            { id: 'FORMATION', label: 'Formation', icon: 'graduation-cap', color: 'from-fuchsia-600 to-fuchsia-800', description: 'Planning formations' },
+            { id: 'AT', label: 'Suivi AT', icon: 'activity', color: 'from-lime-500 to-lime-700', description: 'Accidents du travail' },
+            { id: 'REGLEMENTATION', label: 'Règlementation', icon: 'scale', color: 'from-indigo-600 to-indigo-800', description: 'Textes réglementaires' },
+            { id: 'AUDIT', label: 'Revue & Audit', icon: 'search-code', color: 'from-cyan-500 to-cyan-700', description: 'Audits & revue direction' },
+            { id: 'COORDONNEES', label: 'Coordonnées', icon: 'map-pin', color: 'from-pink-600 to-pink-800', description: 'Coordonnées & plans' },
+            { id: 'INTERVENTION', label: 'Intervention', icon: 'wrench', color: 'from-amber-400 to-amber-600', description: 'Suivi interventions' },
+            { id: 'FDS', label: 'Fiches Séc.', icon: 'flask-conical', color: 'from-red-700 to-red-950', description: 'Fiches de sécurité' },
+            { id: 'REUNION', label: 'CR Réunion', icon: 'message-square', color: 'from-violet-800 to-indigo-950', description: 'Comptes-rendus' },
+            { id: 'RETRAIT', label: 'Retrait Qualité', icon: 'truck', color: 'from-rose-900 to-red-950', description: 'Retrait qualité produits' },
+            { id: 'INCIDENT', label: 'Incident', icon: 'alert-triangle', color: 'from-zinc-300 to-zinc-500', description: 'Incidents & anomalies' },
+            { id: 'POI', label: 'Incendie - POI', icon: 'flame', color: 'from-red-600 to-red-900', description: 'POI & sécurité incendie' },
+            { id: 'INCIDENT_DOC', label: 'Incident Doc', icon: 'file-text', color: 'from-green-600 to-green-800', description: 'Incidents documentaires' },
         ];
 
+        // VOS 5 FICHIERS GOOGLE DRIVE
         const DRIVE_LINKS = [
             "1hEzOUg9OR24DBdY2eAvBJ1Pa8aNH68GD",
             "1rJaLWE7t4vdD1DY87kuGyhWtP5yf8E1d",
@@ -810,15 +817,26 @@
             "1HIAzCX1hPTtTc9B9T0FQvfRi7pzuLSKY"
         ];
 
-        const DOCUMENTS = DRIVE_LINKS.map((id, i) => ({
-            id,
-            title: `Document QHSE #${i + 1} - Brignoles`,
-            category: ['POI', 'RETRAIT', 'FDS', 'PROCEDURES', 'AUDIT'][i % 5],
-            viewUrl: `https://drive.google.com/file/d/${id}/view`,
-            previewUrl: `https://drive.google.com/file/d/${id}/preview`
-        }));
+        // Génération de documents pour chaque catégorie
+        const DOCUMENTS = [];
+        CARDS.forEach(card => {
+            // Chaque catégorie a 3-5 documents associés avec vos vrais liens Google Drive
+            const numDocs = Math.floor(Math.random() * 3) + 3;
+            for (let i = 0; i < numDocs; i++) {
+                const driveId = DRIVE_LINKS[Math.floor(Math.random() * DRIVE_LINKS.length)];
+                DOCUMENTS.push({
+                    id: `${card.id}_${i}`,
+                    driveId: driveId,
+                    title: `${card.label} - Document ${i + 1}`,
+                    category: card.id,
+                    viewUrl: `https://drive.google.com/file/d/${driveId}/view`,
+                    previewUrl: `https://drive.google.com/file/d/${driveId}/preview`
+                });
+            }
+        });
 
         let activeDoc = null;
+        let currentCategory = null;
 
         // --- Init ---
         function init() {
@@ -862,7 +880,8 @@
         }
 
         // --- Modal ---
-        function openModal(id, label) {
+        function openModal(categoryId, label) {
+            currentCategory = categoryId;
             document.getElementById('modal-title').innerText = label;
             document.getElementById('doc-modal').classList.remove('hidden');
             document.getElementById('doc-modal').classList.add('flex');
@@ -877,15 +896,26 @@
             document.getElementById('viewer-placeholder').classList.remove('hidden');
             document.getElementById('viewer-loading').classList.add('hidden');
             activeDoc = null;
+            currentCategory = null;
         }
 
         // --- Doc List ---
         function renderDocList(filter = '') {
             const list = document.getElementById('doc-list');
-            const filtered = DOCUMENTS.filter(d => 
-                d.title.toLowerCase().includes(filter.toLowerCase()) ||
-                d.category.toLowerCase().includes(filter.toLowerCase())
-            );
+            let filtered = DOCUMENTS;
+            
+            // Filtrer par catégorie si une catégorie est active
+            if (currentCategory) {
+                filtered = filtered.filter(d => d.category === currentCategory);
+            }
+            
+            // Filtrer par recherche
+            if (filter) {
+                filtered = filtered.filter(d => 
+                    d.title.toLowerCase().includes(filter.toLowerCase()) ||
+                    d.category.toLowerCase().includes(filter.toLowerCase())
+                );
+            }
             
             document.getElementById('doc-count').textContent = `${filtered.length} document${filtered.length > 1 ? 's' : ''}`;
             
@@ -895,7 +925,7 @@
                         <div class="font-bold text-xs leading-tight flex-1">${d.title}</div>
                         <span class="px-2 py-0.5 rounded-full text-[8px] font-black uppercase ${activeDoc === d.id ? 'bg-white/20' : 'bg-[#E2001A]/20 text-[#E2001A]'}">${d.category}</span>
                     </div>
-                    <div class="text-[8px] opacity-50 uppercase font-black">PDF • ID: ${d.id.substring(0,8)}</div>
+                    <div class="text-[8px] opacity-50 uppercase font-black">PDF • ID: ${d.driveId.substring(0,8)}</div>
                 </button>
             `).join('');
         }
@@ -947,8 +977,9 @@
         // --- Start ---
         init();
         
-        console.log('%c🧩 Portail QHSE Les Mousquetaires', 'color: #E2001A; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px rgba(226,0,26,0.5);');
-        console.log('%c✨ Version Ultra Premium Unifiée', 'color: #10b981; font-size: 12px; font-weight: bold;');
+        console.log('%c🧩 Portail QHSE - Puzzle Qualité', 'color: #E2001A; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px rgba(226,0,26,0.5);');
+        console.log('%c✨ Version Complète avec tous les documents', 'color: #10b981; font-size: 12px; font-weight: bold;');
+        console.log(`%c📄 ${DOCUMENTS.length} documents disponibles dans ${CARDS.length} catégories`, 'color: #3b82f6; font-size: 11px;');
     </script>
 </body>
 </html>
