@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portail QHSE Vibrant - Brignoles</title>
+    <title>Portail QHSE Brignoles - ULTIME HD</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&family=Rajdhani:wght@500;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -12,7 +12,7 @@
             --mousq-red: #E2001A;
             --bg-dark: #050508;
             --sidebar-bg: #0a0a0f;
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
@@ -43,7 +43,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            background: radial-gradient(circle at 50% 0%, #1a1a2e 0%, #050508 100%);
+            background: #050508;
         }
 
         /* Sidebar Nav */
@@ -54,7 +54,7 @@
             align-items: center;
             gap: 14px;
             padding: 12px 18px;
-            border-radius: 15px;
+            border-radius: 12px;
             color: #666;
             font-weight: 700;
             transition: var(--transition);
@@ -63,10 +63,10 @@
             cursor: pointer;
             margin-bottom: 5px;
         }
-        .nav-item:hover { background: rgba(255,255,255,0.05); color: white; transform: translateX(5px); }
-        .nav-item.active { background: var(--mousq-red); color: white; box-shadow: 0 10px 20px rgba(226, 0, 26, 0.3); }
+        .nav-item:hover { background: rgba(255,255,255,0.05); color: white; }
+        .nav-item.active { background: var(--mousq-red); color: white; box-shadow: 0 8px 16px rgba(226, 0, 26, 0.2); }
 
-        /* Vibrant Puzzle Cards */
+        /* Puzzle Grid System */
         .puzzle-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -74,11 +74,11 @@
             padding: 20px 0;
         }
 
+        /* Full Color Puzzle Cards (Home) */
         .puzzle-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            padding: 40px 25px;
+            background: var(--card-color);
+            border-radius: 25px;
+            padding: 45px 25px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -86,64 +86,99 @@
             cursor: pointer;
             transition: var(--transition);
             position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .puzzle-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            border-color: var(--card-color);
+            transform: translateY(-8px);
+            filter: brightness(1.1);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
         }
 
-        /* Dynamic Glow Effect */
-        .puzzle-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, var(--card-color) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 0;
-        }
-        .puzzle-card:hover::before { opacity: 0.15; }
-
-        .puzzle-card i { 
-            width: 55px; 
-            height: 55px; 
-            margin-bottom: 20px; 
-            color: var(--card-color);
+        /* Icon Container (The requested feature) */
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
             transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             z-index: 1;
         }
-        .puzzle-card:hover i { transform: scale(1.2) rotate(5deg); filter: drop-shadow(0 0 15px var(--card-color)); }
-        
+        .puzzle-card:hover .icon-wrapper {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .puzzle-card i { width: 40px; height: 40px; color: white; }
         .puzzle-card span { 
             font-family: 'Rajdhani', sans-serif; 
             font-weight: 900; 
             text-transform: uppercase; 
             font-size: 1.2rem; 
             letter-spacing: 1px;
-            z-index: 1;
+            color: white;
         }
 
-        /* Vibrant Badges */
-        .card-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
+        /* List View for Documents */
+        .doc-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 20px 0;
+        }
+
+        .doc-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 18px 25px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .doc-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(10px);
+            border-color: var(--card-color);
+        }
+
+        .doc-item.is-pending { opacity: 0.4; cursor: not-allowed; }
+        .doc-item.is-pending:hover { transform: none; border-color: rgba(255,255,255,0.05); }
+
+        .doc-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--card-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .doc-icon i { width: 24px; height: 24px; color: white; }
+
+        .doc-info { flex: 1; }
+        .doc-title { font-weight: 700; font-size: 1.1rem; color: white; }
+        .doc-code { font-size: 0.8rem; color: #666; font-weight: 900; text-transform: uppercase; margin-top: 2px; }
+
+        .doc-status {
             font-size: 10px;
             font-weight: 900;
             padding: 5px 12px;
             border-radius: 100px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            z-index: 2;
-            background: var(--card-color);
-            color: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
-        .is-pending { opacity: 0.4; filter: grayscale(1); }
+        .status-online { background: #22c55e; color: white; }
+        .status-pending { background: #333; color: #777; }
 
         /* Header */
         header {
@@ -152,30 +187,29 @@
             display: flex;
             align-items: center;
             padding: 0 50px;
-            background: rgba(0,0,0,0.2);
+            background: #0a0a0f;
         }
 
         .logo-box {
             background: white;
-            padding: 12px;
-            border-radius: 20px;
-            width: 80px;
-            height: 80px;
+            padding: 10px;
+            border-radius: 15px;
+            width: 75px;
+            height: 75px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: var(--transition);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
-        .logo-box:hover { transform: scale(1.1) rotate(-5deg); }
+        .logo-box:hover { transform: scale(1.05); }
         .logo-box img { max-width: 100%; height: auto; }
 
         .live-status {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 10px 20px;
+            padding: 10px 25px;
             background: rgba(34, 197, 94, 0.1);
             border: 1px solid rgba(34, 197, 94, 0.2);
             border-radius: 100px;
@@ -193,12 +227,10 @@
                 </div>
                 <div class="text-center">
                     <h1 class="font-rajdhani font-black text-4xl uppercase leading-none tracking-tighter">Brignoles</h1>
-                    <span class="text-[13px] text-red-600 font-black tracking-[0.3em] uppercase mt-3 block">Logistique</span>
+                    <span class="text-[13px] text-red-600 font-black tracking-[0.3em] uppercase mt-3 block">Logistique & QHSE</span>
                 </div>
             </div>
-            <div class="nav-scroll">
-                <button onclick="renderHome()" class="nav-item active" data-key="HOME"><i data-lucide="home"></i><span>Accueil</span></button><div class="pt-10 pb-4 px-8"><span class="text-[11px] text-zinc-700 font-black tracking-widest uppercase">Navigation Rapide</span></div><button onclick="openSection('PROCEDURES')" class="nav-item" data-key="PROCEDURES"><i data-lucide="clipboard-list"></i><span>Procédures</span></button><button onclick="openSection('POI')" class="nav-item" data-key="POI"><i data-lucide="flame"></i><span>Incendie / POI</span></button><button onclick="openSection('RETRAIT')" class="nav-item" data-key="RETRAIT"><i data-lucide="truck"></i><span>Retrait Qualité</span></button><button onclick="openSection('FDS')" class="nav-item" data-key="FDS"><i data-lucide="flask-conical"></i><span>Fiches de Sécurité</span></button><button onclick="openSection('EVALUATION')" class="nav-item" data-key="EVALUATION"><i data-lucide="target"></i><span>Évaluation</span></button><button onclick="openSection('REFERENTIELS')" class="nav-item" data-key="REFERENTIELS"><i data-lucide="book-open"></i><span>Référentiels</span></button><button onclick="openSection('PERSONNEL')" class="nav-item" data-key="PERSONNEL"><i data-lucide="users"></i><span>Personnel</span></button><button onclick="openSection('DECHETS')" class="nav-item" data-key="DECHETS"><i data-lucide="recycle"></i><span>Déchets</span></button><button onclick="openSection('INDICATEURS')" class="nav-item" data-key="INDICATEURS"><i data-lucide="bar-chart-3"></i><span>Indicateurs</span></button><button onclick="openSection('AFFICHAGE')" class="nav-item" data-key="AFFICHAGE"><i data-lucide="monitor"></i><span>Affichage</span></button><button onclick="openSection('FORMATION')" class="nav-item" data-key="FORMATION"><i data-lucide="graduation-cap"></i><span>Formation</span></button><button onclick="openSection('AT')" class="nav-item" data-key="AT"><i data-lucide="activity"></i><span>Suivi AT</span></button><button onclick="openSection('REGLEMENTATION')" class="nav-item" data-key="REGLEMENTATION"><i data-lucide="scale"></i><span>Règlementation</span></button><button onclick="openSection('COORDONNEES')" class="nav-item" data-key="COORDONNEES"><i data-lucide="map-pin"></i><span>Plans</span></button><button onclick="openSection('AUDIT')" class="nav-item" data-key="AUDIT"><i data-lucide="search-code"></i><span>Audit</span></button><button onclick="openSection('INTERVENTION')" class="nav-item" data-key="INTERVENTION"><i data-lucide="wrench"></i><span>Intervention</span></button><button onclick="openSection('REUNION')" class="nav-item" data-key="REUNION"><i data-lucide="message-square"></i><span>CR Réunion</span></button><button onclick="openSection('INCIDENT')" class="nav-item" data-key="INCIDENT"><i data-lucide="alert-triangle"></i><span>Incident</span></button><button onclick="openSection('INCIDENT_DOC')" class="nav-item" data-key="INCIDENT_DOC"><i data-lucide="file-text"></i><span>Incident Doc</span></button>
-            </div>
+            <div class="nav-scroll" id="nav-items"></div>
             <div class="p-10 border-t border-white/5 text-[11px] text-zinc-700 font-bold text-center uppercase tracking-widest">
                 &copy; 2026 Les Mousquetaires
             </div>
@@ -572,38 +604,38 @@
         };
         
         const CATEGORY_COLORS = {
-            'PROCEDURES': '#FF3D00',
-            'POI': '#FF9100',
-            'RETRAIT': '#FFEA00',
-            'FDS': '#00E676',
-            'EVALUATION': '#00E5FF',
-            'REFERENTIELS': '#2979FF',
-            'PERSONNEL': '#651FFF',
-            'DECHETS': '#D500F9',
-            'INDICATEURS': '#F50057',
-            'AFFICHAGE': '#3D5AFE',
-            'FORMATION': '#00B0FF',
-            'AT': '#FF1744',
-            'REGLEMENTATION': '#76FF03',
-            'COORDONNEES': '#FFFF00',
-            'AUDIT': '#00B8D4',
-            'INTERVENTION': '#FFAB00',
-            'REUNION': '#64DD17',
-            'INCIDENT': '#FF5252',
-            'INCIDENT_DOC': '#FF4081'
+            'PROCEDURES': '#8B2635', 'POI': '#A67C52', 'RETRAIT': '#4A5D23',
+            'FDS': '#2E5266', 'EVALUATION': '#6E8898', 'REFERENTIELS': '#9E829C',
+            'PERSONNEL': '#545E56', 'DECHETS': '#3E505B', 'INDICATEURS': '#7D4E57',
+            'AFFICHAGE': '#435058', 'FORMATION': '#5B7553', 'AT': '#964F4C',
+            'REGLEMENTATION': '#6B705C', 'COORDONNEES': '#A47148', 'AUDIT': '#415A77',
+            'INTERVENTION': '#77878B', 'REUNION': '#588157', 'INCIDENT': '#9E2A2B',
+            'INCIDENT_DOC': '#540B0E'
         };
 
         function init() {
+            renderNav();
             renderHome();
             lucide.createIcons();
+        }
+
+        function renderNav() {
+            const nav = document.getElementById('nav-items');
+            let html = `<button onclick="renderHome()" class="nav-item active" data-key="HOME"><i data-lucide="home"></i><span>Accueil</span></button>`;
+            html += `<div class="pt-10 pb-4 px-8"><span class="text-[11px] text-zinc-700 font-black tracking-widest uppercase">Accès Rapides</span></div>`;
+            
+            Object.keys(PUZZLE_DATA).forEach(key => {
+                html += `<button onclick="openSection('${key}')" class="nav-item" data-key="${key}"><i data-lucide="${PUZZLE_DATA[key].icon}"></i><span>${PUZZLE_DATA[key].label}</span></button>`;
+            });
+            nav.innerHTML = html;
         }
 
         function renderHome() {
             const container = document.getElementById('content-area');
             container.innerHTML = `
                 <div class="mb-12">
-                    <h2 class="text-7xl font-rajdhani font-black uppercase tracking-tighter">Accueil</h2>
-                    <p class="text-zinc-500 font-bold text-xl mt-2">Portail QHSE Interactif</p>
+                    <h2 class="text-7xl font-rajdhani font-black uppercase tracking-tighter">Accès <span class="text-red-600">Documents</span></h2>
+                    <p class="text-zinc-500 font-bold text-xl mt-2 uppercase tracking-widest">Base Logistique Brignoles</p>
                 </div>
                 <div class="puzzle-grid" id="home-grid"></div>
             `;
@@ -617,8 +649,9 @@
                 card.style.setProperty('--card-color', color);
                 card.onclick = () => openSection(key);
                 card.innerHTML = `
-                    <div class="card-badge">ACCÈS</div>
-                    <i data-lucide="${section.icon}"></i>
+                    <div class="icon-wrapper">
+                        <i data-lucide="${section.icon}"></i>
+                    </div>
                     <span>${section.label}</span>
                 `;
                 grid.appendChild(card);
@@ -641,24 +674,24 @@
                         <div class="h-2 w-32 mt-2" style="background: ${color}"></div>
                     </div>
                 </div>
-                <div class="puzzle-grid" id="section-grid"></div>
+                <div class="doc-list" id="doc-list"></div>
             `;
             
-            const grid = document.getElementById('section-grid');
+            const list = document.getElementById('doc-list');
             section.items.forEach(item => {
                 if (item.type === 'section') {
-                    const card = document.createElement('div');
-                    card.className = 'puzzle-card';
-                    card.style.setProperty('--card-color', color);
-                    card.onclick = () => openSubSection(key, item.label);
-                    card.innerHTML = `
-                        <div class="card-badge">DOSSIER</div>
-                        <i data-lucide="folder"></i>
-                        <span>${item.label}</span>
+                    const el = document.createElement('div');
+                    el.className = 'doc-item';
+                    el.style.setProperty('--card-color', color);
+                    el.onclick = () => openSubSection(key, item.label);
+                    el.innerHTML = `
+                        <div class="doc-icon"><i data-lucide="folder"></i></div>
+                        <div class="doc-info"><div class="doc-title">${item.label}</div><div class="doc-code">DOSSIER</div></div>
+                        <div class="doc-status status-online">OUVRIR</div>
                     `;
-                    grid.appendChild(card);
+                    list.appendChild(el);
                 } else {
-                    renderDocCard(grid, item, color);
+                    renderDocItem(list, item, color);
                 }
             });
             lucide.createIcons();
@@ -680,26 +713,25 @@
                         <div class="h-2 w-32 mt-2" style="background: ${color}"></div>
                     </div>
                 </div>
-                <div class="puzzle-grid" id="sub-grid"></div>
+                <div class="doc-list" id="sub-list"></div>
             `;
-            const grid = document.getElementById('sub-grid');
-            sub.items.forEach(item => renderDocCard(grid, item, color));
+            const list = document.getElementById('sub-list');
+            sub.items.forEach(item => renderDocItem(list, item, color));
             lucide.createIcons();
         }
 
-        function renderDocCard(container, item, color) {
-            const card = document.createElement('div');
+        function renderDocItem(container, item, color) {
             const isDev = item.driveId === 'DEVELOPMENT';
-            card.className = `puzzle-card ${isDev ? 'is-pending' : ''}`;
-            card.style.setProperty('--card-color', color);
-            if (!isDev) card.onclick = () => window.open(`https://drive.google.com/file/d/${item.driveId}/view`, '_blank');
-            card.innerHTML = `
-                <div class="card-badge">${isDev ? 'EN COURS' : 'EN LIGNE'}</div>
-                <i data-lucide="${isDev ? 'clock' : 'file-text'}"></i>
-                <span>${item.title}</span>
-                <div class="mt-4 text-[11px] font-black tracking-widest opacity-50 uppercase">${item.code || 'DOC'}</div>
+            const el = document.createElement('div');
+            el.className = `doc-item ${isDev ? 'is-pending' : ''}`;
+            el.style.setProperty('--card-color', color);
+            if (!isDev) el.onclick = () => window.open(`https://drive.google.com/file/d/${item.driveId}/view`, '_blank');
+            el.innerHTML = `
+                <div class="doc-icon"><i data-lucide="${isDev ? 'clock' : 'file-text'}"></i></div>
+                <div class="doc-info"><div class="doc-title">${item.title}</div><div class="doc-code">${item.code || 'DOCUMENT'}</div></div>
+                <div class="doc-status ${isDev ? 'status-pending' : 'status-online'}">${isDev ? 'EN COURS' : 'EN LIGNE'}</div>
             `;
-            container.appendChild(card);
+            container.appendChild(el);
         }
 
         function updateActiveNav(key) {
