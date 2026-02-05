@@ -2,30 +2,38 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Portail QHSE Brignoles - ULTIME HD</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&family=Rajdhani:wght@500;700;900&display=swap" rel="stylesheet">
+    <!-- Préchargement des polices pour éviter le flash -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Bibliothèques -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         :root {
             --bg-dark: #050508;
-            --sidebar-bg: #0a0a0f;
+            --sidebar-bg: rgba(10, 10, 15, 0.98);
             --card-glass: rgba(255, 255, 255, 0.03);
             --card-border: rgba(255, 255, 255, 0.08);
-            --text-glow: 0 0 10px rgba(255,255,255,0.3);
+            --text-glow: 0 0 15px rgba(255,255,255,0.4);
+            --sidebar-width: 320px;
+            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        /* RESET & BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
         
         body {
             font-family: 'Outfit', sans-serif;
             background-color: var(--bg-dark);
             background-image: 
-                radial-gradient(circle at 15% 50%, rgba(226, 0, 26, 0.08), transparent 25%), 
-                radial-gradient(circle at 85% 30%, rgba(34, 197, 94, 0.08), transparent 25%);
+                radial-gradient(circle at 10% 20%, rgba(226, 0, 26, 0.05), transparent 40%), 
+                radial-gradient(circle at 90% 80%, rgba(34, 197, 94, 0.05), transparent 40%);
             color: white;
             overflow: hidden;
             height: 100vh;
@@ -34,16 +42,20 @@
         .font-rajdhani { font-family: 'Rajdhani', sans-serif; }
 
         /* --- LAYOUT --- */
-        .app-container { display: flex; height: 100vh; }
+        .app-container { display: flex; height: 100vh; position: relative; }
 
+        /* SIDEBAR */
         .sidebar {
-            width: 320px;
+            width: var(--sidebar-width);
             background: var(--sidebar-bg);
             border-right: 1px solid var(--card-border);
             display: flex;
             flex-direction: column;
-            z-index: 50;
+            z-index: 60;
             backdrop-filter: blur(20px);
+            transition: transform 0.4s var(--ease-out-expo);
+            height: 100%;
+            will-change: transform;
         }
 
         .main-content {
@@ -54,16 +66,33 @@
             position: relative;
         }
 
-        /* --- SIDEBAR NAV --- */
-        .nav-scroll { flex: 1; overflow-y: auto; padding: 20px; }
+        /* --- HEADER --- */
+        header {
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            background: linear-gradient(to bottom, rgba(5,5,8,0.95), transparent);
+            z-index: 50;
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            pointer-events: none;
+        }
+        header > * { pointer-events: auto; }
+
+        .mobile-menu-btn { display: none; }
+
+        /* --- NAVIGATION --- */
+        .nav-scroll { flex: 1; overflow-y: auto; padding: 25px; -webkit-overflow-scrolling: touch; }
         .nav-item {
             width: 100%;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
             padding: 14px 20px;
             border-radius: 16px;
-            color: #888;
+            color: #999;
             font-weight: 700;
             transition: all 0.3s ease;
             border: 1px solid transparent;
@@ -73,45 +102,33 @@
             font-family: 'Rajdhani', sans-serif;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-size: 0.95rem;
         }
         .nav-item:hover { 
-            background: rgba(255,255,255,0.03); 
+            background: rgba(255,255,255,0.04); 
             color: white; 
-            border-color: rgba(255,255,255,0.05);
+            transform: translateX(5px);
         }
         .nav-item.active { 
-            background: linear-gradient(90deg, rgba(226, 0, 26, 0.1), transparent);
+            background: linear-gradient(90deg, rgba(226, 0, 26, 0.15), transparent);
             border-left: 3px solid #E2001A;
             color: white; 
             text-shadow: var(--text-glow);
         }
-        .nav-item i { width: 20px; height: 20px; }
 
-        /* --- HEADER --- */
-        header {
-            height: 80px;
-            display: flex;
-            align-items: center;
-            padding: 0 40px;
-            background: linear-gradient(to bottom, rgba(5,5,8,0.9), transparent);
-            z-index: 20;
-            position: absolute;
-            top: 0; left: 0; right: 0;
-        }
-
-        /* --- PUZZLE GRID SYSTEM (HD) --- */
-        .content-padding { padding: 40px 60px; padding-top: 100px; padding-bottom: 100px; }
+        /* --- PUZZLE GRID --- */
+        .content-padding { padding: 40px 60px; padding-top: 110px; padding-bottom: 60px; }
         
         .puzzle-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 30px;
-            padding-top: 20px;
+            padding-top: 10px;
         }
 
         .puzzle-card {
             position: relative;
-            height: 260px;
+            height: 250px;
             background: var(--card-glass);
             border: 1px solid var(--card-border);
             border-radius: 24px;
@@ -122,10 +139,12 @@
             justify-content: center;
             text-align: center;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.3s var(--ease-out-expo), background 0.3s ease;
             overflow: hidden;
-            animation: cardEntry 0.6s ease-out backwards;
-            backdrop-filter: blur(10px);
+            animation: cardEntry 0.6s var(--ease-out-expo) backwards;
+            /* Optimisation GPU */
+            transform: translate3d(0,0,0);
+            backface-visibility: hidden;
         }
 
         .puzzle-card::before {
@@ -133,69 +152,60 @@
             position: absolute;
             inset: 0;
             background: var(--card-gradient);
-            opacity: 0.10;
+            opacity: 0.1;
             z-index: 0;
             transition: opacity 0.4s ease;
-            filter: blur(30px);
         }
 
         .puzzle-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.2);
+            transform: translateY(-8px) scale(1.01);
+            background: rgba(255,255,255,0.07);
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             z-index: 10;
-            background: rgba(255,255,255,0.08);
         }
-        
-        .puzzle-card:hover::before { opacity: 0.3; }
+        .puzzle-card:hover::before { opacity: 0.25; }
 
-        /* Icone / Image Container */
+        /* ICON BOX */
         .card-icon-box {
-            width: 100px;
-            height: 100px;
-            background: rgba(0,0,0,0.2);
+            width: 95px;
+            height: 95px;
+            background: rgba(0,0,0,0.3);
             border-radius: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             z-index: 2;
-            transition: transform 0.4s ease, border 0.4s ease;
-            overflow: hidden;
-            padding: 10px;
+            transition: transform 0.4s var(--ease-out-expo);
+            padding: 12px;
         }
         
         .puzzle-card:hover .card-icon-box {
             transform: scale(1.1) rotate(3deg);
             background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.4);
         }
 
-        .card-icon-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
-        }
-        
-        .card-icon-box i { width: 45px; height: 45px; color: white; opacity: 0.9; }
+        .card-icon-box img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
+        .card-icon-box i { width: 42px; height: 42px; color: white; opacity: 0.9; }
 
-        /* Textes */
+        /* TEXTE */
         .card-title {
             font-family: 'Rajdhani', sans-serif;
             font-weight: 800;
-            font-size: 1.3rem;
+            font-size: 1.35rem;
             text-transform: uppercase;
             color: white;
             z-index: 2;
-            letter-spacing: 0.5px;
             line-height: 1.1;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         
         .card-subtitle {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             color: rgba(255,255,255,0.6);
             font-weight: 700;
             text-transform: uppercase;
@@ -204,7 +214,7 @@
             z-index: 2;
         }
 
-        /* Badges */
+        /* STATUS */
         .status-badge {
             position: absolute;
             top: 20px;
@@ -218,82 +228,145 @@
         .status-badge.folder { background: #fff; opacity: 0.3; }
         .status-badge.pending { background: #eab308; box-shadow: 0 0 10px #eab308; }
 
-        /* Animations */
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+
+        /* BUTTON BACK */
+        .btn-back {
+            width: 50px; height: 50px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        .btn-back:hover { background: white; transform: translateX(-5px); color: black; }
+        .btn-back:hover i { color: black; }
+
+        /* --- MOBILE OPTIMIZATIONS (Max 1024px) --- */
+        @media (max-width: 1024px) {
+            .sidebar {
+                position: fixed;
+                left: 0; top: 0; bottom: 0;
+                transform: translateX(-100%);
+                box-shadow: 0 0 50px rgba(0,0,0,0.9);
+            }
+            .sidebar.open { transform: translateX(0); }
+            
+            .mobile-menu-btn {
+                display: flex; align-items: center; justify-content: center;
+                width: 45px; height: 45px;
+                background: rgba(255,255,255,0.1);
+                border-radius: 12px;
+                border: 1px solid rgba(255,255,255,0.1);
+                color: white; cursor: pointer;
+                backdrop-filter: blur(10px);
+            }
+
+            .content-padding { padding: 20px; padding-top: 100px; padding-bottom: 40px; }
+            header { padding: 0 20px; height: 80px; }
+            
+            /* Grille Mobile : 2 Colonnes */
+            .puzzle-grid {
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 15px;
+            }
+            .puzzle-card { height: 190px; padding: 15px; border-radius: 18px; }
+            .card-icon-box { width: 65px; height: 65px; margin-bottom: 12px; border-radius: 16px; }
+            .card-title { font-size: 0.9rem; }
+            .card-subtitle { font-size: 0.55rem; }
+            
+            h2.text-6xl { font-size: 2.2rem; line-height: 1; }
+            h2.text-5xl { font-size: 1.8rem; line-height: 1; }
+        }
+
+        @media (max-width: 400px) {
+            .puzzle-grid { grid-template-columns: 1fr; } 
+            .puzzle-card { height: 80px; flex-direction: row; text-align: left; justify-content: flex-start; gap: 15px; padding: 10px 20px; }
+            .card-icon-box { margin-bottom: 0; width: 50px; height: 50px; border-radius: 12px; }
+            .card-title { font-size: 1rem; }
+            .card-subtitle { display: none; }
+            .status-badge { top: 50%; transform: translateY(-50%); right: 20px; }
+        }
+
+        .overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 55;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        .overlay.active { opacity: 1; pointer-events: auto; }
+
         @keyframes cardEntry {
             0% { opacity: 0; transform: translateY(30px) scale(0.95); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
-
-        .btn-back {
-            width: 50px;
-            height: 50px;
-            border-radius: 16px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .btn-back:hover {
-            background: white;
-            transform: translateX(-5px);
-            box-shadow: 0 0 20px rgba(255,255,255,0.3);
-        }
-        .btn-back:hover i { color: black; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .animate-fade-in { animation: fadeIn 0.6s ease-out; }
     </style>
 </head>
 <body>
 
     <div class="app-container">
+        <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
         <!-- SIDEBAR -->
-        <aside class="sidebar">
-            <div class="p-10 border-b border-white/5 flex flex-col items-center gap-6">
-                <!-- LOGO PRINCIPAL -->
-                <div class="w-24 h-24 bg-white/10 rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(255,255,255,0.1)] cursor-pointer hover:scale-105 transition-transform duration-500 backdrop-blur-md border border-white/10" onclick="renderHome()">
+        <aside class="sidebar" id="sidebar">
+            <div class="p-8 border-b border-white/5 flex flex-col items-center gap-5 relative">
+                <button onclick="toggleSidebar()" class="absolute top-4 right-4 lg:hidden text-white/50 hover:text-white transition-colors">
+                    <i data-lucide="x"></i>
+                </button>
+
+                <!-- LOGO -->
+                <div class="w-24 h-24 bg-white/10 rounded-2xl flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.1)] cursor-pointer hover:scale-105 transition-transform duration-500 backdrop-blur-md border border-white/10" onclick="renderHome()">
                     <img src="241111_Symbole R&B_320x320_RVB.png" class="w-full h-full object-contain p-2" alt="Logo">
                 </div>
                 <div class="text-center">
-                    <h1 class="font-rajdhani font-black text-3xl uppercase leading-none tracking-tighter">Brignoles</h1>
-                    <span class="text-[11px] text-red-600 font-black tracking-[0.4em] uppercase mt-2 block">Logistique & QHSE</span>
+                    <h1 class="font-rajdhani font-black text-3xl uppercase leading-none tracking-tighter text-white">Brignoles</h1>
+                    <span class="text-[10px] text-red-600 font-black tracking-[0.4em] uppercase mt-2 block shadow-red-glow">Logistique & QHSE</span>
                 </div>
             </div>
 
-            <!-- MENU -->
             <div class="nav-scroll" id="nav-items"></div>
 
-            <!-- FOOTER -->
-            <div class="p-6 text-[10px] text-zinc-600 font-bold text-center uppercase tracking-widest border-t border-white/5">
+            <div class="p-5 text-[9px] text-zinc-600 font-bold text-center uppercase tracking-widest border-t border-white/5">
                 &copy; 2026 Les Mousquetaires
             </div>
         </aside>
 
-        <!-- CONTENU -->
+        <!-- MAIN CONTENT -->
         <main class="main-content">
             <header>
-                <div class="ml-auto">
-                    <div class="flex items-center gap-3 px-4 py-2 bg-green-500/10 border border-green-500/20 rounded-full">
-                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                        <span class="text-[10px] font-black text-green-500 tracking-widest uppercase">Système En Ligne</span>
-                    </div>
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <div class="flex items-center gap-3 px-4 py-2 bg-green-500/10 border border-green-500/20 rounded-full ml-auto backdrop-blur-sm shadow-[0_0_15px_rgba(34,197,94,0.15)]">
+                    <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e]"></div>
+                    <span class="text-[10px] font-black text-green-500 tracking-widest uppercase hidden sm:inline">Système En Ligne</span>
+                    <span class="text-[10px] font-black text-green-500 tracking-widest uppercase sm:hidden">ON</span>
                 </div>
             </header>
 
             <div class="flex-1 overflow-y-auto content-padding">
-                <div class="max-w-[1600px] mx-auto" id="content-area"></div>
+                <div class="max-w-[1800px] mx-auto" id="content-area"></div>
             </div>
         </main>
     </div>
 
-    <!-- SCRIPT LOGIQUE -->
+    <!-- LOGIC -->
     <script>
-        // --- 1. COULEURS ---
+        // --- 1. UI LOGIC ---
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+        // --- 2. CONFIGURATION ---
         const THEME_GRADIENTS = {
             'PROCEDURES': 'linear-gradient(135deg, #E2001A 0%, #8B2635 100%)',
             'POI': 'linear-gradient(135deg, #FF7E5F 0%, #FEB47B 100%)',
@@ -313,11 +386,11 @@
             'INTERVENTION': 'linear-gradient(135deg, #c21500 0%, #ffc500 100%)',
             'REUNION': 'linear-gradient(135deg, #56ab2f 0%, #a8e063 100%)',
             'INCIDENT': 'linear-gradient(135deg, #870000 0%, #190A05 100%)',
-            'COMMUNICATION': 'linear-gradient(135deg, #000000 0%, #434343 100%)',
+            'COMMUNICATION': 'linear-gradient(135deg, #2c3e50 0%, #000000 100%)',
             'DEFAULT': 'linear-gradient(135deg, #232526 0%, #414345 100%)'
         };
 
-        // --- 2. DONNÉES COMPLÈTES AVEC VOS IMAGES ET FICHIERS ---
+        // --- 3. DATA CONTENT ---
         const PUZZLE_DATA = {
             PROCEDURES: {
                 label: 'Procédures', icon: 'clipboard-list', image: 'liste.png',
@@ -337,12 +410,6 @@
                         { type: 'doc', title: 'Procédure Livraison PDV', code: 'P TRA 01', driveId: '1xEJY4vFuZBkJRkCUAA3onmG5Wy3Q6VPi' },
                         { type: 'doc', title: 'Lavage Semis', code: 'BGN E TEC 01', driveId: '16UTFawlTvOFbSqz7BAfRQ0LzF4UlXB0c' },
                         { type: 'doc', title: 'Contrôle Ensemble Routier', code: 'E TRA 01', driveId: '1mO-18YX7pedS4L9pUsfnNQIep8ffL3X4' }
-                    ]},
-                    { type: 'section', label: 'Qualité Hygiène', items: [
-                        { type: 'doc', title: 'Gestion Documentaire', code: 'BGN P QUA 01', driveId: '1-wZV73B3IoPV8dYrfMOQF4h2PR8O7akM' },
-                        { type: 'doc', title: 'Contrôle Préparation', code: 'I QUA 03', driveId: '1pBXlqDrTjB-SX3GcUJM1RsW-1IzKbm1v' },
-                        { type: 'doc', title: 'Métrologie', code: 'BGN P HYG 02', driveId: '1KZZy6d8nT6Df7N_7W4KuqjI05qQscmVx' },
-                        { type: 'doc', title: 'Plan Nettoyage', code: 'BGN P TEC 05', driveId: '1HtTuJGJ9t8cCxnEkzKmaaKVxOuxAWZF0' }
                     ]}
                 ]
             },
@@ -357,10 +424,7 @@
                 label: 'Retrait Qualité', icon: 'truck', image: 'camion.png',
                 items: [
                     { type: 'doc', title: 'Base de données Retrait Qualité', code: 'Dossier', driveId: '1-xdmXpSIzyQquASuRsP5LM1lhQpBHU8W' },
-                    { type: 'doc', title: 'Suivi Retrait avec Désactivation EAN13', code: 'BGN E QUA 01', driveId: '1GgnxHuyY9q94COAKOZ1IAiiyJfVk3g2I' },
-                    { type: 'doc', title: 'Suivi Retrait sans Désactivation EAN13', code: 'BGN E QUA 01', driveId: '1nAhhrGdE2xhQICh2jEyuGQtoBNx48u_D' },
-                    { type: 'doc', title: 'Procédure Retrait-Rappel', code: 'BGN P QUA 02.02', driveId: '1-DEbzeqNsGZblp1oO5YlHMabx9F4XgNP' },
-                    { type: 'doc', title: 'Tableau Synthétique Gestion Retrait', code: 'N-P QUA 01', driveId: '1tnK9dJ7BZumTTYjfvry1kyDVnKw58hqZ' }
+                    { type: 'doc', title: 'Procédure Retrait-Rappel', code: 'BGN P QUA 02.02', driveId: '1-DEbzeqNsGZblp1oO5YlHMabx9F4XgNP' }
                 ]
             },
             FDS: {
@@ -375,19 +439,7 @@
                 items: [
                     { type: 'section', label: 'Préparateurs', items: [
                         { type: 'doc', title: 'Évaluation Mensuelle Préparateurs', code: 'BGN P QUA 05', driveId: '1gkYO_SY3euReo6Rl5eU0YkwUbMZPYt7S' },
-                        { type: 'doc', title: 'Fiche Interview Préparateur', code: 'Audit', driveId: '1CgBo-Tvo1zEa9vKKcC0fHrZEIyRVGUSk' },
-                        { type: 'doc', title: 'Suivi Évaluations', code: 'BGN E QUA 09', driveId: '11YAHIhv9vUrpOSDBO9KsttHmUNixD8-3' }
-                    ]},
-                    { type: 'section', label: 'Réceptionnaires', items: [
-                        { type: 'doc', title: 'Procédure Évaluation', code: 'P QUA 13', driveId: '1JEA6KK1Qtvnwb-WzEnEYZ-7sNTFBUZIv' },
-                        { type: 'doc', title: 'Fiche Interview Réceptionnaire', code: 'Audit', driveId: '1InvoscBt5_QsvnuyjBc4AmJ8Ta_wsx_i' }
-                    ]},
-                    { type: 'section', label: 'Chargeurs', items: [
-                        { type: 'doc', title: 'Fiche Interview Chargeur', code: 'Audit', driveId: '14voW5sy-Af7FZNkinKXXW_H3mKLJXZcY' },
-                        { type: 'doc', title: 'Évaluation à venir', code: 'En cours', driveId: '1TKQq9Ebgy-YCarJz1eAT-zyzsLfwow0A' }
-                    ]},
-                    { type: 'section', label: 'Caristes', items: [
-                        { type: 'doc', title: 'Fiche Interview Cariste', code: 'Audit', driveId: '1Euq8GByW-mJpRYbnr5DHkQT4kVoQ0d_c' }
+                        { type: 'doc', title: 'Fiche Interview Préparateur', code: 'Audit', driveId: '1CgBo-Tvo1zEa9vKKcC0fHrZEIyRVGUSk' }
                     ]}
                 ]
             },
@@ -395,28 +447,10 @@
                 label: 'Référentiels', icon: 'book-open', image: 'conseiller.png',
                 items: [
                     { type: 'section', label: 'Hygiène & Propreté', items: [
-                        { type: 'doc', title: 'Référentiel HP', code: 'ITM LAI', driveId: '1Gxy7j6nhdOJ0otdCnoDW1ZWSEGWSg_1G' },
-                        { type: 'doc', title: 'Grille Audit HP', code: 'QHSE', driveId: '1TYRZVeB11gQfcS1L7XMt9pAkrimEeLif' },
-                        { type: 'doc', title: 'Fiches Manuel HP', code: 'Ensemble', driveId: '1o7iZs1Ga9D9LD7MAk4HsaZmFUzdERTyQ' }
+                        { type: 'doc', title: 'Référentiel HP', code: 'ITM LAI', driveId: '1Gxy7j6nhdOJ0otdCnoDW1ZWSEGWSg_1G' }
                     ]},
                     { type: 'section', label: 'Certification', items: [
-                        { type: 'doc', title: 'Référentiel EURACRP', code: 'ITM LAI', driveId: '1bZv-Pr4rEwYnfuprdD0L5jJEEww8DqWI' },
-                        { type: 'doc', title: 'Fiches Manuel Certification', code: 'Ensemble', driveId: '1dcL1ME4YJPVyFD__9FJYSsfSBT8Hcnyq' },
-                        { type: 'doc', title: 'Grille Audit Certification', code: 'QHSE', driveId: '11y19lgubBHnFQE2HzT0t1uJulkgf1Ipp' }
-                    ]},
-                    { type: 'section', label: 'Sécurité', items: [
-                        { type: 'doc', title: 'Document Unique', code: 'Dossier', driveId: '1gp-Lfx9d2WPfXr7uUEFRUg4pY3fldJmZ' },
-                        { type: 'doc', title: 'Référentiel Sécurité', code: 'ITM LAI', driveId: '1eY2rxd5VpI_B3OIoa-E__T4t8GZRu_oc' },
-                        { type: 'doc', title: 'Grille Audit Sécurité', code: 'Tour base', driveId: '1BIc2GTJckELIUf4MG6biOeV2JAfEv-Oz' }
-                    ]},
-                    { type: 'section', label: 'HACCP', items: [
-                        { type: 'doc', title: 'Manuel HACCP', code: 'Complet', driveId: '1hkOA2SVu3iSJpDM2J-FJ3qCfAYgCA6Pn' },
-                        { type: 'doc', title: 'Bonnes Pratiques', code: 'Liste', driveId: '1Y2KkvuBlzDWoU0fknM8mk8XzVx2vRhbO' },
-                        { type: 'doc', title: 'PMS - Plan Maîtrise Sanitaire', code: 'Document', driveId: '1DwAZHLasCAfcnRbVBByFtuTV7-MNAFP2' }
-                    ]},
-                    { type: 'section', label: 'Environnement', items: [
-                        { type: 'doc', title: 'Référentiel Environnement', code: 'ITM LAI', driveId: '1ZCdpzPW1Tj-coBjflj604x8NCcdyk4qw' },
-                        { type: 'doc', title: 'Grille Audit Environnement', code: 'Mai 2021', driveId: '16xgiyH6dP_kB0w9sZuiYyEGj7qqK3_Gr' }
+                        { type: 'doc', title: 'Référentiel EURACRP', code: 'ITM LAI', driveId: '1bZv-Pr4rEwYnfuprdD0L5jJEEww8DqWI' }
                     ]}
                 ]
             },
@@ -424,9 +458,7 @@
                 label: 'Personnel', icon: 'users', image: 'ouvrier.png',
                 items: [
                     { type: 'doc', title: 'Liste Personnel SST & EPI', code: 'BGN D RH 02', driveId: '1VZ6kgb8wBiDEiZ3hFP1oh-b0FQtyor2v' },
-                    { type: 'doc', title: 'Membres CSSCT', code: 'D RHM 06', driveId: '1CJDCb_TLoWNohVFkG8rCBemznwPkPgNH' },
-                    { type: 'doc', title: 'Délégués Personnel', code: 'Liste', driveId: '1qGgVkdSDiuF8MBTmq8QQeJ9cfhOfBa6J' },
-                    { type: 'doc', title: 'Permanence Samedi', code: 'Planning 2025', driveId: '1uPtY9kiW1haAAXtP_djqNK830A9A_lhe' }
+                    { type: 'doc', title: 'Membres CSSCT', code: 'D RHM 06', driveId: '1CJDCb_TLoWNohVFkG8rCBemznwPkPgNH' }
                 ]
             },
             DECHETS: {
@@ -442,30 +474,11 @@
                 label: 'Indicateurs', icon: 'bar-chart-3', image: 'carte.png',
                 items: [
                     { type: 'section', label: 'Certification', items: [
-                        { type: 'doc', title: 'TDB Général Certification', code: 'Tableau', driveId: '1JieZdZEmeaLWPLy4EhsXRpGL4SuPJndu' },
-                        { type: 'doc', title: 'Taux Fiabilité Préparation', code: 'Indicateur', driveId: '1ImBzfPrs_3VHII_vFpYCjk_yVW89kQJJ' },
-                        { type: 'doc', title: 'Taux Manquant', code: 'Indicateur', driveId: '1-ZGAu1k_oqsdZ8FZMPhzPq4bxtvDdZ2Y' },
-                        { type: 'doc', title: 'Taux RAQ', code: 'Indicateur', driveId: '1ZFOn9bMsN7fFsp4QcNqSDZrEoT2kJXdM' },
-                        { type: 'doc', title: 'Taux BNC', code: 'Indicateur', driveId: '16NaBXGOzo8INAWzApSbAhR8TYOrf73_1' }
-                    ]},
-                    { type: 'section', label: 'Hygiène & Propreté', items: [
-                        { type: 'doc', title: 'T°C Réception', code: 'TDB', driveId: '1CXtySC2ArKDUtFo5gpNdnsW76HyoN-bF' },
-                        { type: 'doc', title: 'T°C Entrepôt', code: 'TDB', driveId: '1yyw7zEjtx5x2yBYxRD2NDaEIkNcKN59L' },
-                        { type: 'doc', title: 'T°C Livraison Frais', code: 'TDB', driveId: '1oX2hqkm40gbhHYP-w0NvFWarGPukHeIx' },
-                        { type: 'doc', title: 'T°C Livraison Gel', code: 'TDB', driveId: '1Isll1lQSqt4uVLEL9RI8cTeFFDVMUSbI' }
+                        { type: 'doc', title: 'TDB Général Certification', code: 'Tableau', driveId: '1JieZdZEmeaLWPLy4EhsXRpGL4SuPJndu' }
                     ]},
                     { type: 'section', label: 'Exploitation', items: [
                         { type: 'doc', title: 'Productivité', code: 'TDB', driveId: '1OdHhYLwjxeTG1utu46jygCjsoJLfeXV4' },
-                        { type: 'doc', title: 'Volumes', code: 'TDB', driveId: '1_kLJ6rXNj6_hgB5650u2IX1TaRx8mf5j' },
-                        { type: 'doc', title: 'OQP', code: 'TDB', driveId: '1LpahKpGM0jLFFw7qlzFUGRjPaAiQtvlA' }
-                    ]},
-                    { type: 'section', label: 'SPDV', items: [
-                        { type: 'doc', title: 'Top Ten PDV', code: 'Valorisation', driveId: '19e5WXkPfhN3izZwNKE0gChVKv2QmJHAa' },
-                        { type: 'doc', title: 'Réclamations PDV', code: 'Suivi', driveId: '1vWS818rxxgTYszOdvkBVO_NOitBXGpz7' }
-                    ]},
-                    { type: 'section', label: 'Transport', items: [
-                        { type: 'doc', title: 'Retards Livraison', code: 'Suivi', driveId: '17eBm4VzcsrnFacd8SR3AvwI4GJv9Xywx' },
-                        { type: 'doc', title: 'Dysfonctionnements Chauffeurs', code: 'Suivi', driveId: '11FTV92nsS_ElLm7T0z5UTJEFoj3fee_l' }
+                        { type: 'doc', title: 'Volumes', code: 'TDB', driveId: '1_kLJ6rXNj6_hgB5650u2IX1TaRx8mf5j' }
                     ]}
                 ]
             },
@@ -473,9 +486,6 @@
                 label: 'Affichage', icon: 'monitor', image: 'magasin.png',
                 items: [
                     { type: 'doc', title: 'Lettre Engagement Direction QHSE', code: 'Affichage', driveId: '11ig6GN56VgdxbzdD1EJWIcWzupspPrNH' },
-                    { type: 'doc', title: 'Lettre Engagement Sécurité', code: 'BGN D SEC 05', driveId: '14pFhsDjyQ7flXSUeU2YKe7UrR5DpyoB1' },
-                    { type: 'doc', title: 'Lettre Engagement Qualité', code: 'BGN D HYG 02', driveId: '1uPoc0uiC5SLvDV9mqBS0RKVIg9IuXcBm' },
-                    { type: 'doc', title: '10 Règles d\'Or Manager', code: 'Affichage', driveId: '1xLoJxpDHo9TYwPWjfpJRBMFWZtMEb0eH' },
                     { type: 'doc', title: 'Zoom QHSE', code: 'Communication', driveId: '1UeBP8BaIs_wdOdZt7u7S0FPM9cb7AjCY' }
                 ]
             },
@@ -483,34 +493,10 @@
                 label: 'Formation', icon: 'graduation-cap', image: 'mains.png',
                 items: [
                     { type: 'section', label: 'Intégration', items: [
-                        { type: 'doc', title: 'Programme Intégration', code: 'BGN P RH 02', driveId: '1b-gcwIhIPKqbAAA2RYJP7QJMj291mizW' },
-                        { type: 'doc', title: 'Fiche Suivi Intégration', code: 'E RHM 04', driveId: '1DVxPEe2VeO-0nCUj9kBoHe1k_KnjzSsU' },
-                        { type: 'doc', title: 'Consignes Hygiène à signer', code: 'BGN E RH 01', driveId: '1b6eE87Eb1keTP-7wPyCKGSBlfpi8qqC7' },
-                        { type: 'doc', title: 'Consignes Sécurité à signer', code: 'BGN E RH 02', driveId: '1DA7F3EAPf4Cn7H5U9hRoqCcQdi3AHA8m' }
+                        { type: 'doc', title: 'Programme Intégration', code: 'BGN P RH 02', driveId: '1b-gcwIhIPKqbAAA2RYJP7QJMj291mizW' }
                     ]},
                     { type: 'section', label: 'Autorisation Conduite', items: [
-                        { type: 'doc', title: 'Formation AC Cat 1', code: 'Module 3', driveId: '1g9AHfajuW7dLlDSA2Ev6MgXZSnoMOy-E' },
-                        { type: 'doc', title: 'Formation AC Cat 3', code: 'Module', driveId: '1iIpfJBADggLV2JFJGtTmSEizDRPHRV7U' },
-                        { type: 'doc', title: 'Formation AC Cat 5', code: 'Module', driveId: '113krzrAK1rYCTLLjNyDV798Mz8xnJ5PL' }
-                    ]},
-                    { type: 'section', label: 'Modules Formation', items: [
-                        { type: 'doc', title: 'Formation Hygiène & Propreté', code: 'Module 4', driveId: '1iE69uJrxf3VOr4boRoppVfirTH_DwjoM' },
-                        { type: 'doc', title: 'Formation HP Chauffeurs', code: 'Spécifique', driveId: '1WFkyFUqUe3IEYqN6bHVLgaeZLl0tUfJm' }
-                    ]},
-                    { type: 'section', label: 'Guides Bonnes Pratiques', items: [
-                        { type: 'doc', title: 'GBP Cariste Frais', code: 'N-BP ENT 01', driveId: '17OqFc_Ml1WMsapsZXwBzvHBJroZgm_D6' },
-                        { type: 'doc', title: 'GBP Cariste Sec', code: 'N-BP ENT 02', driveId: '1R8XYoXYpnFPdTZkOZszPcH4Jc1aJM5FG' },
-                        { type: 'doc', title: 'GBP Chargement Frais', code: 'N-BP CHA 01', driveId: '1-EQp-fLb4FV0LVz_Z9XRq7ZeyWeIRmGY' },
-                        { type: 'doc', title: 'GBP Chargement Sec', code: 'N-BP CHA 02', driveId: '1j7nNtOjndSXyY3QkZAgDBc933t_3HYkk' },
-                        { type: 'doc', title: 'GBP Filmage Palette', code: 'N-BP PRE 02', driveId: '1O-1wWBVxNXtJU7YrX-n8MVrHXHkI-2Zt' },
-                        { type: 'doc', title: 'GBP Montage Palette', code: 'N-BP PRE 05', driveId: '1fMe_Pq47v26CFabqQHqP99uIqAlfbY21' }
-                    ]},
-                    { type: 'section', label: 'Quiz & Tests', items: [
-                        { type: 'doc', title: 'Quiz Certification', code: 'E RHM 18', driveId: '1NwVHmCsbt6f9FZXvWUM-_ftoiTrixBPE' },
-                        { type: 'doc', title: 'Test Hygiène & Propreté', code: 'E RHM 21', driveId: '1FAhCzie5BlhU1ytOiPQlfx9bhG2x_sBO' },
-                        { type: 'doc', title: 'Test AC Cat 1', code: 'E RHM 22', driveId: '1cvyvXj9Maw7KeKAcW6qClUPFz8t9yxcJ' },
-                        { type: 'doc', title: 'Test AC Cat 3 & 5', code: 'E RHM 24', driveId: '10joywOgbkkqZX08DlNYUItl1-Bohn6Zl' },
-                        { type: 'doc', title: 'Test Sécurité', code: 'E RHM 27', driveId: '1uuWBHNplC-HXb0_KJNReyDhFtuL-8zjz' }
+                        { type: 'doc', title: 'Formation AC Cat 1', code: 'Module 3', driveId: '1g9AHfajuW7dLlDSA2Ev6MgXZSnoMOy-E' }
                     ]}
                 ]
             },
@@ -518,27 +504,17 @@
                 label: 'Suivi AT', icon: 'activity', image: 'maison.png',
                 items: [
                     { type: 'doc', title: 'Procédure Gestion AT', code: 'BGN P RH 03', driveId: '1LklxINTdKkfBmWKh2YVV0pexCCVPXc7k' },
-                    { type: 'doc', title: 'Fiche Analyse AT', code: 'BGN E RH 12', driveId: '1k3pH4XnhfXfhf3nQyqCPFKye8kC67sk0' },
-                    { type: 'doc', title: 'Registre AT', code: 'Saisie', driveId: '1wAcHYoOaxrbP8m9ZDADUQboTZ8QObNPp' },
-                    { type: 'doc', title: 'Reconstitution AT', code: 'Formulaire', driveId: '1b05NNd9XhYm6N4DYvojSpkyRwtkxKcMY' },
-                    { type: 'doc', title: 'Évacuation Non Urgente', code: 'BGN E RH 18', driveId: '1f68zeHtdzujTxfIEYoWybSm3iaKLas0K' }
+                    { type: 'doc', title: 'Registre AT', code: 'Saisie', driveId: '1wAcHYoOaxrbP8m9ZDADUQboTZ8QObNPp' }
                 ]
             },
             REGLEMENTATION: {
                 label: 'Règlementation', icon: 'scale', image: 'liste.png',
                 items: [
                     { type: 'section', label: 'Protocole Sécurité', items: [
-                        { type: 'doc', title: 'Protocole Sécurité Base', code: 'BGN P SEC 01', driveId: '1Q7xYCSfUV4NvedKwJN8nm8ulYMh8bmVd' },
-                        { type: 'doc', title: 'Protocole Chargement/Déchargement', code: 'BGN E SEC 01', driveId: '1xMBo_5AnU2cCmd8d1VNPCHZdNh4oCc-_' },
-                        { type: 'doc', title: 'Plans Site POI', code: 'BGN D SEC 04', driveId: '1vJLCL3EXLnBe4z2RSjDXn5-wYq4C_4Fo' }
+                        { type: 'doc', title: 'Protocole Sécurité Base', code: 'BGN P SEC 01', driveId: '1Q7xYCSfUV4NvedKwJN8nm8ulYMh8bmVd' }
                     ]},
                     { type: 'section', label: 'Règlement Intérieur', items: [
-                        { type: 'doc', title: 'Règlement Intérieur', code: 'Affichage', driveId: '17CcSYPEBMm-m3tW28k9CDrAVQRTp09sc' },
-                        { type: 'doc', title: 'Adjonction RI - Alcool/Stupéfiant', code: 'Art 29', driveId: '1epP_3CtI_F5cntO4njBptgtuQuLJmmxN' },
-                        { type: 'doc', title: 'Adjonction RI - Harcèlement', code: 'Document', driveId: '1D_whr_9Bq1yhXHEu-gyZDNJN_gkIErlQ' }
-                    ]},
-                    { type: 'section', label: 'ICPE', items: [
-                        { type: 'doc', title: 'Arrêté Autorisation Exploiter', code: '2 Mai 2019', driveId: '1dCHBKnnqbdfUYNSLbVYRXm4Rzti7qFNm' }
+                        { type: 'doc', title: 'Règlement Intérieur', code: 'Affichage', driveId: '17CcSYPEBMm-m3tW28k9CDrAVQRTp09sc' }
                     ]}
                 ]
             },
@@ -546,25 +522,10 @@
                 label: 'Plans & Contacts', icon: 'map-pin', image: 'localisation.png',
                 items: [
                     { type: 'section', label: 'Coordonnées PDV', items: [
-                        { type: 'doc', title: 'Coordonnées PDV Brignoles', code: 'BGN D PDV 01', driveId: '1vXpse2pqzlLD6_sSkOzoKTz2aAPQIgJN' },
-                        { type: 'doc', title: 'Mode Livraison PDV', code: 'D PDV 02', driveId: '1s_-DbEFFOelghhZkkcG--r1N-mjBy5S_' },
-                        { type: 'doc', title: 'Transport (TRACO/ERT)', code: 'Liste', driveId: '1yu5_-36Cb-4lxf78TeHcQjgp-O5uubOG' },
-                        { type: 'doc', title: 'N° Utiles SPDV', code: 'Annuaire', driveId: '1DSiLnOTXcMLqIW-lBxl3Mi7PdKI9-CQW' }
-                    ]},
-                    { type: 'section', label: 'Coordonnées Groupement', items: [
-                        { type: 'doc', title: 'Interne Base Téléphones', code: 'Liste', driveId: '1FmQkR9Ua5JP61ALn9OXKDiI5cMMp5Lza' },
-                        { type: 'doc', title: 'Bases National', code: 'Coordonnées', driveId: '1ANd3i-kzjoUCAmg4UH8mNOf6JtumrUDb' },
-                        { type: 'doc', title: 'Siège Tréville', code: 'Annuaire ITM LAI', driveId: '1NWZ7yNRH9Gm7Zwk95s46GbleDgbrDLrd' },
-                        { type: 'doc', title: 'QHSE National', code: 'Annuaire', driveId: '1EGQ-QWmvFCoo4NRQtV6ofJxtQzIiOIbD' }
-                    ]},
-                    { type: 'section', label: 'Coordonnées Externe', items: [
-                        { type: 'doc', title: 'Urgence 24h/24h', code: 'Dépannage', driveId: '179_iO7S3isXV6EUkvlaUZgqv2A5J_skd' },
-                        { type: 'doc', title: 'Banque Alimentaire', code: 'Coordonnées', driveId: '1R3mFY4xScinGvShCucVeR-df9elGQThK' },
-                        { type: 'doc', title: 'Auditeurs AQUA', code: 'Carte', driveId: '19Xpq8S7WgOxUo1fpczS4D_fgiMdK14UZ' }
+                        { type: 'doc', title: 'Coordonnées PDV Brignoles', code: 'BGN D PDV 01', driveId: '1vXpse2pqzlLD6_sSkOzoKTz2aAPQIgJN' }
                     ]},
                     { type: 'section', label: 'Plans & Organigramme', items: [
                         { type: 'doc', title: 'Organigramme Brignoles', code: 'Structure', driveId: '1k3mjjaLtfQ109kdSliA_jj-AwRaN8wlU' },
-                        { type: 'doc', title: 'Plan Circulation Interne Frais', code: 'Document', driveId: '1pecoO9Dj-8efLLOGRseXChhT7KmvYFAa' },
                         { type: 'doc', title: 'Plans Site POI & Protocole', code: 'BGN D SEC 04', driveId: '1YW-o3xLrF0vx5bGHmlNe2oyvrNt2iW0u' }
                     ]}
                 ]
@@ -573,18 +534,7 @@
                 label: 'Audit', icon: 'search-code', image: 'conseiller.png',
                 items: [
                     { type: 'section', label: 'Certification', items: [
-                        { type: 'doc', title: 'Résultats Audit Certification', code: 'Dossier', driveId: '1WnfPUB2MEkbjo4IdX4a3BhY7phtKWHS0' },
-                        { type: 'doc', title: 'RD Certification Brignoles', code: 'Plans action', driveId: '13UwCmbSQr1eoGDzibeipaT0sI9V8ex_g' },
-                        { type: 'doc', title: 'RD Certification Région', code: 'Plans action', driveId: '1dMN8QUUnvmKzNaV3gQN3UPG1ZRz1G8jG' }
-                    ]},
-                    { type: 'section', label: 'Hygiène & Propreté', items: [
-                        { type: 'doc', title: 'Résultats Audit AQUA', code: 'Dossier', driveId: '1OBoi2H98UAGCWZT5klgaxCdqGwZsLW7b' },
-                        { type: 'doc', title: 'Résultats Audit Interne HP', code: 'Dossier', driveId: '10PBf8S9ow4PE9YOC-OxCWqvHHKK2elpH' },
-                        { type: 'doc', title: 'RD HP Brignoles', code: 'Plans action', driveId: '1eDGCORZ9d5h7KOp5bEwLi-wwCVyUnBBy' }
-                    ]},
-                    { type: 'section', label: 'Sécurité', items: [
-                        { type: 'doc', title: 'Résultats Audit Sécurité', code: 'Dossier', driveId: '1UQBbW9SArCiTyb6fC-p07fK1gZIAZjql' },
-                        { type: 'doc', title: 'RD Sécurité Brignoles', code: 'Plans action', driveId: '1mvV_WfaqK6gw4E9nAGQLoW0EtNAQGUEl' }
+                        { type: 'doc', title: 'Résultats Audit Certification', code: 'Dossier', driveId: '1WnfPUB2MEkbjo4IdX4a3BhY7phtKWHS0' }
                     ]}
                 ]
             },
@@ -592,8 +542,6 @@
                 label: 'Intervention', icon: 'wrench', image: 'transpalette.png',
                 items: [
                     { type: 'doc', title: 'Demandes Intervention Matériel', code: 'Registre', driveId: '1eJCmMlnG1DG9suNc0ycptexZNlKdegkV' },
-                    { type: 'doc', title: 'Demandes Informatique', code: 'Application', driveId: '1BFzFasxbfsTLuO0oY4Vp8QDXTjyFbk0t' },
-                    { type: 'doc', title: 'Besoins Personnels', code: 'Registre 2025', driveId: '1XILYtTs_IbybabN-2FgEuAhK2fkeRhyj' },
                     { type: 'doc', title: 'Planning Lavage Semis', code: 'BGN E TEC 01', driveId: '1-tn_g6q6D5-sBCFLgoCuJzYyj336a-IG' }
                 ]
             },
@@ -601,9 +549,7 @@
                 label: 'CR Réunion', icon: 'message-square', image: 'ville.png',
                 items: [
                     { type: 'doc', title: 'Point du Matin (PDM)', code: 'Dossier', driveId: '1FKqsw__ssCjXZzOjWOd5ZWA8gOzNSAT1' },
-                    { type: 'doc', title: 'Réunion Exploitation', code: 'CR', driveId: '1MDNMfuCUoWLQ5aQDFNjMnLX_lXuInTcb' },
-                    { type: 'doc', title: 'Minute Papillon Exploitation', code: 'Registre', driveId: '1LR-MaM7qcrfegbtveMa0LwhM0-LuLW1r' },
-                    { type: 'doc', title: 'Minute Papillon SPDV', code: 'Registre', driveId: '1hZGfX5pJRR7E0115bK2aRB4Si2t0f6f4' }
+                    { type: 'doc', title: 'Réunion Exploitation', code: 'CR', driveId: '1MDNMfuCUoWLQ5aQDFNjMnLX_lXuInTcb' }
                 ]
             },
             INCIDENT: {
@@ -654,28 +600,36 @@
             }
         };
 
-        // --- 3. INIT ---
+        // --- 4. ENGINE ---
         function init() {
             renderSidebarNav();
             renderHome();
             lucide.createIcons();
         }
 
-        // --- 4. RENDER FUNCTIONS ---
-        
         function renderSidebarNav() {
             const nav = document.getElementById('nav-items');
-            let html = `<button onclick="renderHome()" class="nav-item active" data-nav="HOME">
+            let html = `<button onclick="renderHomeWithClose()" class="nav-item active" data-nav="HOME">
                 <i data-lucide="layout-grid"></i><span>Accueil</span>
             </button>`;
             
             Object.keys(PUZZLE_DATA).forEach(key => {
                 const section = PUZZLE_DATA[key];
-                html += `<button onclick="renderCategory('${key}')" class="nav-item" data-nav="${key}">
+                html += `<button onclick="renderCategoryWithClose('${key}')" class="nav-item" data-nav="${key}">
                     <i data-lucide="${section.icon}"></i><span>${section.label}</span>
                 </button>`;
             });
             nav.innerHTML = html;
+        }
+
+        function renderHomeWithClose() { renderHome(); closeSidebarMobile(); }
+        function renderCategoryWithClose(key) { renderCategory(key); closeSidebarMobile(); }
+        
+        function closeSidebarMobile() {
+            if(window.innerWidth <= 1024) {
+                document.getElementById('sidebar').classList.remove('open');
+                document.getElementById('overlay').classList.remove('active');
+            }
         }
 
         function renderHome() {
@@ -683,11 +637,11 @@
             const container = document.getElementById('content-area');
             
             let html = `
-                <div class="mb-10 animate-fade-in">
-                    <h2 class="text-6xl font-rajdhani font-black uppercase tracking-tighter text-white">
+                <div class="mb-8 lg:mb-12 animate-fade-in text-center lg:text-left">
+                    <h2 class="text-4xl lg:text-7xl font-rajdhani font-black uppercase tracking-tighter text-white drop-shadow-lg">
                         Portail <span class="text-red-600">QHSE</span>
                     </h2>
-                    <p class="text-zinc-500 font-bold text-lg mt-2 uppercase tracking-[0.3em]">Brignoles • Base Logistique</p>
+                    <p class="text-zinc-500 font-bold text-xs lg:text-lg mt-2 uppercase tracking-[0.3em] opacity-80">Brignoles • Base Logistique</p>
                 </div>
                 <div class="puzzle-grid">
             `;
@@ -707,7 +661,7 @@
                     onclick: `renderCategory('${key}')`,
                     status: 'folder'
                 });
-                delay += 50;
+                delay += 30;
             });
 
             html += `</div>`;
@@ -749,13 +703,13 @@
             const container = document.getElementById('content-area');
             
             let html = `
-                <div class="flex items-center gap-6 mb-10">
-                    <button onclick="${backAction}" class="btn-back">
+                <div class="flex items-center gap-4 lg:gap-8 mb-8 lg:mb-12 animate-fade-in">
+                    <button onclick="${backAction}" class="btn-back shrink-0">
                         <i data-lucide="arrow-left" class="w-6 h-6 text-white"></i>
                     </button>
                     <div>
-                        <h2 class="text-5xl font-rajdhani font-black uppercase tracking-tight text-white leading-none">${title}</h2>
-                        <div class="h-1.5 w-24 mt-3 rounded-full" style="background: ${color}"></div>
+                        <h2 class="text-3xl lg:text-6xl font-rajdhani font-black uppercase tracking-tight text-white leading-none drop-shadow-md">${title}</h2>
+                        <div class="h-1 lg:h-1.5 w-16 lg:w-24 mt-2 rounded-full" style="background: ${color}"></div>
                     </div>
                 </div>
                 <div class="puzzle-grid">
@@ -765,7 +719,6 @@
             if (items && items.length > 0) {
                 items.forEach(item => {
                     if (item.type === 'section') {
-                        // DOSSIER
                         html += createCardHTML({
                             title: item.label,
                             subtitle: 'SOUS-DOSSIER',
@@ -776,19 +729,18 @@
                             status: 'folder'
                         });
                     } else {
-                        // DOCUMENT
+                        // Empêche les liens vides de casser le site
+                        if(!item.driveId) return;
+
                         const isPending = item.code === 'En cours';
-                        // Icon logic
                         let iconType = 'file-text';
-                        if(item.code === 'AI' || item.code === 'PSD') iconType = 'palette';
-                        if(item.code === 'PPTX') iconType = 'monitor';
-                        if(item.code === 'JPG' || item.code === 'PNG') iconType = 'image';
-                        if(item.code === 'PDF') iconType = 'file';
-                        if(item.code === 'DOCX' || item.code === 'DOTX') iconType = 'file-signature';
+                        const ext = item.code.toUpperCase();
                         
-                        // Si c'est un lien Google Drive (contient 'http'), window.open classique
-                        // Si c'est un fichier local (ex: 'logo.ai'), window.open va tenter de le télécharger ou l'ouvrir
-                        const target = item.driveId;
+                        if(['AI', 'PSD'].includes(ext)) iconType = 'palette';
+                        if(ext === 'PPTX') iconType = 'monitor';
+                        if(['JPG', 'PNG'].includes(ext)) iconType = 'image';
+                        if(ext === 'PDF') iconType = 'file';
+                        if(['DOCX', 'DOTX'].includes(ext)) iconType = 'file-signature';
                         
                         html += createCardHTML({
                             title: item.title,
@@ -796,14 +748,14 @@
                             icon: isPending ? 'clock' : iconType,
                             gradient: isPending ? THEME_GRADIENTS.DEFAULT : color,
                             delay: delay,
-                            onclick: isPending ? '' : `window.open('${target}', '_blank')`,
+                            onclick: isPending ? '' : `window.open('${item.driveId}', '_blank')`,
                             status: isPending ? 'pending' : 'online'
                         });
                     }
-                    delay += 50;
+                    delay += 30;
                 });
             } else {
-                html += `<div class="col-span-full text-center text-zinc-600 py-10 font-bold uppercase tracking-widest">Aucun élément disponible</div>`;
+                html += `<div class="col-span-full text-center text-zinc-500 py-20 font-bold uppercase tracking-widest text-sm opacity-50">Aucun élément disponible</div>`;
             }
 
             html += `</div>`;
@@ -816,7 +768,7 @@
             if(status === 'online') statusHtml = `<div class="status-badge online" title="En ligne"></div>`;
             if(status === 'pending') statusHtml = `<div class="status-badge pending" title="En cours"></div>`;
             
-            // Si une image est fournie, on l'utilise
+            // Logique de fallback d'image robuste
             const content = image 
                 ? `<img src="${image}" alt="${title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'"> <i data-lucide="${icon}" style="display:none"></i>`
                 : `<i data-lucide="${icon}"></i>`;
@@ -829,7 +781,7 @@
                     <div class="card-icon-box">
                         ${content}
                     </div>
-                    <div class="card-title">${title}</div>
+                    <div class="card-title line-clamp-2">${title}</div>
                     <div class="card-subtitle">${subtitle}</div>
                 </div>
             `;
